@@ -1,0 +1,1239 @@
+\documentclass[]{beamer} % handout: for removing the \pause
+\usepackage[french,british]{babel}
+\usetheme[compress]{Singapore} % Compress: horizontal bullets of subsections
+\setbeamertemplate{navigation symbols}{}  % Get rid of navigation symbols
+
+\usefonttheme{serif}
+\usepackage[T1]{fontenc}
+\usepackage{graphics}
+\usepackage{verbatim}
+\usepackage{minitoc}
+\usepackage[pages=some]{background}
+\backgroundsetup{
+    pages=some,
+    placement=top,
+    angle=45,
+    scale=1,
+    contents=\raisebox{-1.5cm}{ADVANCED},
+    opacity=0.5
+}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.7}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = darkblue,
+     linkcolor    = darkblue,
+     filecolor    = darkblue,
+     urlcolor     = darkblue 
+}     
+
+
+% PATHS
+\IfFileExists{/Users/pmxal9/Dropbox/Logos/RxPz.jpg}{
+	\def\pathbase{/Users/pmxal9/} 	% Lab computer
+}{	
+	\def\pathbase{/Users/pmaal/} 	% Personal computer
+}
+\edef\drop{\pathbase Dropbox/}		% Dropbox: shared between computers
+\edef\compPhdGeneral{\drop Nottingham/repos/phd/Seminars/ComputationalPhD/}
+\edef\compPhd{\drop Nottingham/repos/phd/Seminars/+MatlabComputationalPhD/}
+
+% LOGOS
+\edef\logoRux{\drop Logos/RxPz.jpg}
+\edef\logoIHR{\drop Logos/ihr.png}
+\edef\logoPerso{\drop Logos/Logo.jpg}
+\edef\logoNotts{\drop Logos/notts.png}
+
+% TITLEPAGE
+\title[Matlab for your Computational PhD]{\small{}\\
+	\small{\textsc{Matlab for your Computational PhD}\\[5mm]}
+}
+\author[Levity]{
+	\raisebox{0.4cm}{}
+	\includegraphics[height=1.1cm]{\logoRux}\\[12mm]
+	\includegraphics[height=1.0cm]{\logoIHR}\hspace{0.8cm}
+	\includegraphics[height=1.2cm]{\logoPerso}  \hspace{0.7cm}
+	\includegraphics[height=1.05cm]{\logoNotts}\\[5mm]
+	\textcolor{gray}{\small{pmxal9@nottingham.ac.uk}} \vspace{-10mm} 
+}
+\date{\small{\textcolor{gray}{12 Oct 2016}}}
+
+% TOC
+\setcounter{tocdepth}{1} 
+
+%%%%%%% 
+% DOCUMENT
+\begin{document}
+
+
+% First frame
+\setbeamertemplate{footline}{} %no foot line on this page
+\frame[noframenumbering]{\titlepage}
+
+% Footlines: current page only
+\setbeamertemplate{footline}{\hfill\raisebox{2mm}[0pt][0pt]{\insertframenumber}\hspace*{2mm}} 
+\beamertemplatenavigationsymbolsempty
+
+% TOC
+\frame{\tableofcontents}
+
+% Reset Headline style
+\setbeamertemplate{headline}
+ {%
+  \begin{beamercolorbox}{section in head/foot}
+  \insertsectionnavigationhorizontal{\textwidth}{}{}
+  \end{beamercolorbox}%
+}
+
+
+%%%%%%%%%%%
+\section[I]{Introduction}
+%%%%%%%%%%%
+
+\subsection{Introduction}
+\begin{frame}{This talk}
+What this talk is about:
+\begin{itemize}
+\item Introducing the Matlab environment,
+\item Giving tips for a better use of Matlab,
+\item Giving pointers you can dig at home,
+\item Recommending Software Engineering practices.\\[5mm]
+\end{itemize}
+\pause
+What this talk is not about:
+\begin{itemize}
+\item Numerical schemes,
+\item Modelling,
+\item Big Data,
+\item Happiness and how is happens.
+\end{itemize}
+\end{frame}
+
+\newcommand\csize[1]{\small{#1}}
+
+\subsection{Keep in mind}
+\begin{frame}{To Keep in Mind During a PhD (self-help++)} 
+\csize{\url{https://graduable.com/2012/10/04/21-things-every-phd-student-should-know/}}\\
+Take care of yourself, vision of Academia likely far from reality, learn to read, it's okay to change ... anything (project, supervisors), 
+depression, get to know the other postgrads, \dots\\[3mm]
+\csize{\url{https://www.theguardian.com/higher-education-network/blog/2014/may/02/five-things-successful-phd-students-refuse-to-do}}\\
+Feel like a failure, feel out of control...\\[3mm]
+\csize{\url{http://www.nextscientist.com/graduate-school-advice-series-starting-phd/}}\\
+Aim to publish peer-reviewed article, hard to stay motivated, networking is important\dots\\[3mm]
+%\url{https://www.timeshighereducation.com/carousels/essential-phd-tips-10-articles-all-doctoral-students-should-read}\\
+Be curious: Look for/after yourself :)
+\end{frame}
+
+
+\subsection{What is a  PhD?}
+\begin{frame}{What is a  PhD?}
+\begin{itemize}
+\item Getting skills to perform research tasks,
+\item Become the expert on one topic,
+\item Start your career (make a network and publish),
+\item Move your research field forward (in practice, that's often long after the PhD, but act as if).
+\end{itemize}
+So why do good Software Engineering practices matter?\\
+\pause
+\begin{itemize}
+\item Scientists spend > 30\% of their time on coding {\tiny{[1]}},
+\item More than 90\% are self-taught {\tiny{[1]}},
+\item Substantial quality problems,
+\item Increase of scientific errors due to incorrect Software {\tiny{[2]}},
+\item Opens up job/career opportunities, particularly in industry.
+\end{itemize}
+\tiny{[1] P. Prabhu et al, Proc. 24th ACM/IEEE Conference on HPC, Networking, Storage and Analysis (2011)}\\
+\tiny{[2] Z. Merali, Error: Why scientific programming does not compute. Nature 467: 775777 (2010).}
+\end{frame}
+
+
+\begin{frame}{What is a  PhD Thesis?}
+Umberto Eco takes us back to the original purpose of theses and dissertations as defining events that conclude a program of study. 
+They are not a test or an exam, nor should they be. [...] %They are not meant to prove that the student did his or her homework. 
+Rather, they prove that students can \textbf{make something out of their education}.
+This is particularly important today, when we are more accustomed to thinking in compliance with the software of 
+our laptop or doing research according to the logic of a tablet than to thinking and researching in a personal and independent way.\\[2mm]
+
+The humanities are intrinsically creative and innovative. 
+They are about originality and invention, not discovery. 
+This is precisely Eco's testimony; even more than a technical manual,
+this book is an \textbf{invitation to ingenuity, a tribute to imagination}.\\[2mm]
+
+Preface of `\textit{How to Write a Thesis}' 
+\end{frame}
+
+
+\begin{frame}{Supervision}
+Or its absence\dots \\
+\url{http://academiaiskillingmyfriends.tumblr.com/}\\[5mm]
+\pause
+Most supervisors consider your programming/SE skills are your problem. This is bound to change, but takes time... For now,
+\pause
+\begin{center}\textcolor{blue}{It's your responsibility.}\end{center}
+\pause 
+Partner up and go. \\[3mm]
+\pause 
+Another pitfall is to spend too much time on it. Research remains your goal.
+\end{frame}
+
+
+\begin{frame}{Best Practices for Scientific Computing}
+%Best Practices for Scientific Computing, PLoS Biology 2014. 
+%Scientists typically develop their own software for these purposes because doing so requires substantial domain-specific knowledge. 
+%As a result, recent studies have found that scientists typically spend 30\% or more of their time developing software. 
+%However, 90\% or more of them are primarily self-taught, and therefore 
+Scientists [...]  \textbf{lack exposure to basic 
+software development practices} such as writing maintainable code, 
+using version control and issue trackers, code reviews, unit testing, and task automation.\\[3mm]
+
+A large body of research has shown that \textbf{code reviews are the most cost-effective way of finding bugs in code}. 
+They are also a good way to spread knowledge and good practices around a team. In projects with shifting membership, 
+such as most academic labs, code reviews help ensure that critical knowledge isn't lost when a student or postdoc leaves the lab.\\[3mm]
+\noindent {\tiny{\url{http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745}}}
+\end{frame}
+
+
+\begin{frame}{Code Review}\centering
+\def\file{xkcd/code_quality}
+\includegraphics[width=11cm]{\compPhd \file}
+\end{frame}
+
+
+\begin{frame}{General Tips on your Research (1/3)}
+\begin{itemize}
+\item Share your ideas, 
+\item Let go of what does not work, 
+\item Ask for advice after having given some thoughts
+\end{itemize}
+\def\file{intro/smartpeople}
+\begin{center}\includegraphics[width=8cm]{\compPhd \file}\end{center}
+{\tiny{\url{http://www.hbs.edu/faculty/Publication\%20Files/Advice\%20Seeking_59ad2c42-54d6-4b32-8517-a99eeae0a45c.pdf}}}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{General Tips on your Computer (2/3)}
+\begin{block}{Use Version Control}
+Bitbucket, Git\dots (bitbucket has private folders)
+\end{block}
+\begin{block}{Bibliography Manager}
+Choose one, starting today: Zotero, Mendeley\dots
+\end{block}
+\begin{block}{Notations}
+No space in folders \& file names
+\end{block}
+\begin{block}{Folder Organisation}
+Think carefully of a system \&  stick to it (until next version)\\
+\small{\url{http://www.howtogeek.com/howto/15677/zen-and-the-art-of-file-and-folder-organization/}}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{General Tips on your Computer (3/3)}
+\begin{block}{Back-up}
+Your computer will crash and you'll lose your data
+\end{block}
+\begin{block}{LaTeX is a programming language}
+Modularity with \verb+\input+, make useful commands with \verb+\newcommand+, make variables with 
+\verb+\def+ or \verb+\edef+ for your computer paths\dots
+\end{block}
+\begin{block}{Command-line Editor} 
+Learn to use the servers (Vim, Emacs\dots)
+\end{block}
+\begin{block}{Unix}
+Learn Unix basics: \verb+cat, grep, sed, find, ssh, scp, man, head, cd,+\\
+\verb+ls, rm, wc, xargs+.\\
+\small{\url{http://swcarpentry.github.io/shell-novice/})}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{General Tips on your Computer (4/3)}
+\begin{block}{Back-up}
+Buy a hard-drive, online (Dropbox,  Bitbucket) or whatever.\\
+Like, seriously...
+\end{block}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\section[M]{Matlab}
+%%%%%%%%%%%%%%%%%%%%
+%\frame{\tableofcontents[currentsection]} %,sectionstyle=show/hide,subsectionstyle=show/show/hide]}
+
+
+\begin{frame}{Choosing Your Language}\centering
+\fcolorbox{black}{white}{
+\begin{minipage}{9cm}
+\includegraphics[width=9cm]{\compPhd mariomulansky/nomatlab1.png}\\
+\pause
+\includegraphics[width=9cm]{\compPhd mariomulansky/nomatlab2.png}
+\end{minipage}
+}\\[3mm]
+\hfill Mario Mulansky, ex-NETT,  currently working for Apple
+\end{frame}
+
+
+\newcommand*\cg{\tikz[baseline=(char.base)]{\raisebox{0.12cm}{\node[circle,fill=green,draw,inner sep=2pt,opacity=0.5,text opacity=1] (char) {};}}}
+\newcommand*\ccr{\tikz[baseline=(char.base)]{\raisebox{0.12cm}{\node[circle,fill=red,draw,inner sep=2pt,opacity=0.5,text opacity=1] (char) {};}}}
+
+
+\begin{frame}{Matlab}
+Don't use Matlab... but if you have to, know your tool! \\
+Matlab...
+\begin{itemize}[<+(1)->]
+\item[\cg] is a nice working environment,
+\item[\cg] has a lot of useful toolboxes (and we have many: run `ver')
+\item[\cg] is great for fast prototyping,
+\item[\cg] has OOP capabilities since 2008,
+\item[\cg] has some computational strengths,
+\item[\cg] is used in many Science fields and in industry,
+\item[\ccr] is expensive (alternative: Octave),
+\item[\ccr] has memory leaks,
+\item[\ccr] is weak for text processing,
+\item[\ccr] is easily slow,
+\item[\ccr] ... 
+\end{itemize}
+\end{frame}
+
+
+\subsection{How to use Matlab}
+\begin{frame}{How to use Matlab}\centering
+\begin{itemize}[<+(0)->]
+\item Command-line in Matlab environment\\
+\includegraphics[width=4cm]{\compPhd howToUseMatlab/commandwindow.png}
+\item Running scripts in Matlab command window\\
+\includegraphics[width=9.2cm]{\compPhd howToUseMatlab/script2.png}
+\item Command-line in a shell (fastest)\\
+\$ matlab -nodisplay -nosplash < path/to/myscript.m
+%/Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/+MatlabComputationalPhD/howToUseMatlab/myscript.m 
+\item Write GUIs
+\end{itemize}
+\end{frame}
+
+
+\subsection{Adapt your Matlab Environment}
+\begin{frame}{Adapt your Matlab Environment}\centering
+\begin{block}{Home > Layout}
+\pause
+\begin{itemize}
+\item Add column,
+\item Move layout here and there,
+\item Add/Remove Workspace, Command History,
+\item ...
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\subsection{Functions VS Scripts}
+\begin{frame}[fragile]%
+\centering
+\frametitle{Functions VS Scripts}
+\begin{block}{\textbf{Functions} should do one thing only}
+and do it well. Their name should give this information, a help describe their use and incorporate a minimal working example.
+\end{block}
+\begin{exampleblock}{Example}
+\vspace{-4mm}
+\begin{verbatim}cellText = importdata('myfile.txt'); 
+firstValue = str2double(cellText{1});
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]%
+\centering
+\frametitle{Functions VS Scripts}
+\begin{block}{\textbf{Scripts} should be your workflow }
+and clearly show what you do along the way.
+\end{block}
+\begin{exampleblock}{Example}
+\vspace{-4mm}
+\begin{verbatim}a = randn(100); 
+eigA = eig(a); 
+figure; plot(eigA, '.');
+saveas(gcf, 'path/to/eigA.pdf');
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Base and Function Workspaces}
+\begin{frame}{Workspaces}%\centering
+All the variables that are accessible within a function are
+\begin{itemize}
+\item either given as inputs to the function, or
+\item loaded or computed within the function.\\[3mm]
+\end{itemize}
+\begin{exampleblock}{Example}%
+{Within the function song2txt, }%
+just after the first line of code is executed, only the variables wavfile, txtfile, wav and fs 
+exist! \\[2mm]
+\begin{center}\includegraphics[width=9.2cm]{\compPhd workspaces/song2txt.png}\end{center}
+%\url{https://uk.mathworks.com/help/matlab/matlab\_prog/base-and-function-workspaces.html}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]%
+\frametitle{Workspaces}
+The \textbf{Base workspace} stores variables that you create at the command line. 
+This includes any variables that scripts create, assuming that you run the script from the command line or from the Editor.\\[3mm]
+
+Functions do not use the base workspace. Every function has its own \textbf{Function workspace}. 
+Each function workspace is separate from the base workspace and all other workspaces to protect the integrity of the data.
+\pause
+\begin{exampleblock}{Example}%
+\begin{center}\includegraphics[width=9.6cm]{\compPhd workspaces/scriptfunciton.png}\end{center}
+What is the value of `a' after we run 
+\verb+a = 0; myworkscript; myworkfunction();+? 
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Sharing Data across Workspaces}
+\begin{frame}{Sharing Data across Workspaces}
+In most cases, variables created within a function are local variables known only within that function. 
+But, since sharing is caring\dots\\
+\begin{itemize}
+\item Passing arguments (best practice),
+\item Nested functions (not very popular),
+\item Evaluating in another workspace (bad practice),
+\item Saving data in a file and loading it later (slow),
+\item Persistent variables (very useful),
+\item Global variables (bad practice). \\[5mm]
+\end{itemize}
+\small{\url{https://uk.mathworks.com/help/matlab/matlab_prog/share-data-between-workspaces.html}}
+\end{frame}
+
+
+\foreach \file in {nestedfunctions, evalinassignin, persistentvariables, globalvariables} {
+	\begin{frame}{Sharing Data across Workspaces}
+	\begin{center}\includegraphics[width=9.6cm]{\compPhd workspaces/\file}\end{center}
+	\end{frame}
+}
+
+
+\begin{frame}{Sharing Data across Workspaces}
+A common way of passing many arguments with only a few inputs is to use structures.
+\def\file{myworkfunction2}
+\begin{exampleblock}{Example: \file}%
+\begin{center}\includegraphics[width=9.6cm]{\compPhd workspaces/\file}\end{center}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Sharing Data across Workspaces}
+Let's compare with two other possibilities\\
+\hspace{-05mm}%
+\foreach \file in {myworkfunction1, myworkfunction3}{%
+	\begin{minipage}{5.8cm}
+	\begin{exampleblock}{Example: \file}%
+	\begin{center}\includegraphics[width=5.8cm]{\compPhd workspaces/\file}\end{center}
+	\end{exampleblock}%
+	\end{minipage}%
+}%
+\end{frame}
+
+
+\subsection{Stack}
+\begin{frame}[fragile]
+\frametitle{Stack}\centering
+\begin{block}{Stack}%
+When calling functions within functions, Matlab keeps track of the order in which functions call other functions in the \textbf{stack}.
+In debug mode, \verb+cDb = dbstack();+ outputs a structure array. 
+You can also navigate it using the `Function Call Stack'.
+\end{block}
+\def\file{functioncallstack}
+\begin{exampleblock}{Example}%
+	\begin{center}\includegraphics[width=10.0cm]{\compPhd workspaces/\file}\end{center}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Debugging}
+\begin{frame}[fragile]
+\frametitle{Debugging}
+Debugging takes time: help yourself by reducing it. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Debugging}
+\def\file{googletime}
+\begin{center}\includegraphics[width=10.0cm]{\compPhd debugging/\file}\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Debugging}
+Enter Debugging mode by setting Breakpoints within your code, so that you can access and check all values at this point. 
+\def\file{debugclick}
+\begin{center}\includegraphics[width=10.0cm]{\compPhd debugging/\file}\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Debugging}
+In debug mode, you can see the function variables within the `Worspace' tab, and read variables values by hovering over them.\\%
+\def\file{debug2}%
+\begin{center}\hspace{0mm}\includegraphics[width=9.0cm]{\compPhd debugging/\file}\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Debugging}
+\begin{block}{Debugging tip}
+Use \verb+dbstop if error+ during development to enter debug mode instead of crashing. 
+Don't use in general because most of the time you know what the error is by reading the error message. \\[3mm]
+Disable with \verb+dbclear if error+.
+\end{block}
+\end{frame}
+
+
+\subsection{Data Types}
+\begin{frame}{Numeric Types  }\centering
+\begin{block}{Numeric Types}
+Double, single, int8, int16, int32, int64,  uint8, \dots\\[2mm]
+%adou = double(1); asin = single(1); aint8 = int8(1); aint16 = int16(1); auint16 = uint16(1);
+\includegraphics[width=6.0cm]{\compPhd dataTypes/data.png}
+\end{block}
+Big Data? Bottlenecks? Depending on your needs, some numeric types could  be better suited than others.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Main Data Classes}
+\begin{tabular}{l|l}
+Array & \verb+a = [1, -2.5]; b = randn(3); c = 'hi';+\\
+Cell & \verb+a = {1, [1 2], {1 2 3}, 'hi'};+\\
+Structure & \verb+a.f1 = 1; a.f2 = '2'; a.f3 = {4};+\\
+Struct. array & \verb+a(2).f1 = 0;+\\
+Table  &  \verb+a = array2table([1 2],'Var',{'x' 'y'})+\\
+Categorical & \verb+a = categorical([3 3 4 4])+\\ 
+function\_handle & \verb+a = @(x)2*x+ \\ 
+(OOP) & \verb+a = albanissocurly;+ \\
+(Graphical) & \verb+a = figure;+\\[3mm]
+ \end{tabular}
+Functions \verb+class+, \verb+size+ and \verb+isa+ useful for automation.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Structure Array VS Tables}\centering
+Structure arrays are more common among Matlab users than Tables, but the latter present a certain number of advantages:\\[4mm]
+\begin{tabular}{c | c|c}
+& Stuct. Array & Table\\ \hline
+\begin{minipage}{3.8cm} 
+Extracting column of numbers/strings~takes 
+\end{minipage}
+&
+\begin{minipage}{2.8cm}  \vspace{1mm}two semantics: \\
+\verb+a1 = [a.dou]; +\\
+\verb+a2 = {a.str};+\vspace{1mm}\end{minipage}
+& 
+\begin{minipage}{2.8cm} \vspace{1mm}one semantic:\\
+\verb+a1 = a.dou; +\\
+\verb+a2 = a.str;+\vspace{1mm}\end{minipage}\\ \hline
+\begin{minipage}{3.8cm} 
+Switch to categories to reduce redundancy is\end{minipage}
+&
+\begin{minipage}{2.8cm} \vspace{1mm}not easy\end{minipage}
+& \begin{minipage}{2.8cm} \vspace{1mm}easy: \\
+\verb+a.str = +\\
+\verb+ categorical(a.str)+\vspace{1mm}
+\end{minipage}\\ \hline
+\begin{minipage}{3.5cm} 
+Having a summary of the information is\end{minipage}
+&
+\begin{minipage}{2.8cm} not easy\end{minipage}
+& \begin{minipage}{2.8cm} \vspace{1mm}easy: \\
+\verb+summary(a)+\\
+\end{minipage}
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Structure Array VS Tables}\centering
+\begin{exampleblock}{Example: >> summary(T)}\vspace{-4mm}
+\begin{verbatim}
+Description:  Simulated Patient Data
+Variables:
+    Gender: 100x1 cell string
+        Description:  Male or Female
+    Age: 100x1 double
+        Units:  Yrs
+        Values:
+            min       25   
+            median    39   
+            max       50   
+    Smoker: 100x1 logical
+        Description:  true or false
+        Values:
+            true     34      
+            false    66      
+\end{verbatim}
+% https://uk.mathworks.com/help/matlab/matlab_prog/advantages-of-using-tables.html
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Structure Array VS Tables}\centering
+\begin{exampleblock}{Example: Reduce redundancy}
+\def\file{dou}
+\begin{center}\hspace{0mm}\includegraphics[width=9.0cm]{\compPhd structarraytable/\file}\end{center}
+\pause
+\def\file{structarraytable/str}
+\begin{center}\hspace{0mm}\includegraphics[width=9.0cm]{\compPhd \file}\end{center}
+\end{exampleblock}
+If your table contains a lot of redundancy, using categories can be very time- and memory-efficient. 
+Requires care.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Structure Array VS Tables}
+\begin{block}{Take-home message}
+If you need to create a lot of complex data (Data Wrangling), think of the simplest table you can make to contain it. 
+The redundancy this entails can often be  dealt with by using categories.
+\end{block}
+\begin{exampleblock}{Example}
+\ccr\,~\verb+myData(5).meta(19).metaMeta(4).damnThisIsACell{4} = 1;+\\
+\cg\, \verb+myTable.ThisIsACell(4) = 1;+\\[3mm]
+\end{exampleblock}
+\url{https://uk.mathworks.com/help/matlab/ref/table.html}
+\end{frame}
+
+
+\subsection{Data Exploration}
+\begin{frame}[fragile]
+\frametitle{Data Exploration}
+\begin{block}{Run in Matlab Command Window}
+\vspace{-3.5mm}
+\begin{verbatim}mystruct.data = [linspace(0,20,100)', rand(100,1)];
+mystruct.description = 'Description';
+open mystruct\end{verbatim}
+\end{block}
+%
+\begin{block}{Click on `data' field}
+\end{block}
+%
+\begin{block}{Click on PLOTS > pie}
+\end{block}
+%
+\begin{block}{Repeat on a column of `data'}
+\end{block}
+\end{frame}
+
+
+\subsection{Loading \& Saving Data}
+\begin{frame}{Loading \& Saving Data}\centering
+Three options for saving: 
+\begin{itemize}
+\item Save Matlab variables in a .mat file to reuse them later \\
+	\cg\, Simplest\\\ccr\, Matlab only
+\item Save in a text file\\
+	\cg\, Readable output (universal interface)\\
+	\cg\, Can be used by all programming languages \\
+	\cg\, Can use Bash utilities \\
+	\ccr\, Requires some planning ahead: appropriate format?
+\item Save in a binary file\\
+	\cg\, Minimal size\\
+	\ccr\, Takes more programming time\\
+	\ccr\, Requires a lot of planning ahead: optimised format?\\
+	\ccr\, Non-readable output, hence much harder to debug
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Loading \& Saving Data}
+Loading data: 
+\begin{itemize}
+\item Matlab variables: \verb+load+
+\item Audio: \verb+audioread+
+\item Images: \verb+imread+
+\item Binary file: \verb+fscanf, fgetl, fgets, fread+ 
+%https://uk.mathworks.com/help/matlab/import_export/import-text-data-files-with-low-level-io.html
+\item Text: \verb+textscan, csvread, dlmread, readtable+
+\end{itemize}
+The import tool (Home >  Variable > Import Data) and \verb+importdata+ are quite general, but less robust. 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Loading \& Saving Data}
+\begin{exampleblock}{Use Importdata to import myfile.txt into a structure}
+\vspace{-5mm}\begin{verbatim}>> type('myfile.txt')
+Day1  Day2  Day3  Day4  
+95.01 76.21 61.54 40.57  
+23.11 45.65 79.19 93.55 
+60.68  1.85 92.18 91.69 
+48.60 82.14 73.82 41.03  
+89.13 44.47 17.63 89.36 
+>> M = importdata('myfile.txt', ' ', 1);
+>> disp(M);
+M = 
+
+          data: [5x4 double]
+      textdata: {'Day1'  'Day2'  'Day3'  'Day4'}
+    colheaders: {'Day1'  'Day2'  'Day3'  'Day4'}
+    \end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Saving Plots}
+\begin{frame}[fragile]
+\frametitle{Saving Plots}\centering
+\begin{block}{Automate saving}
+Plots are quite important; \\
+Freezing how they were made is underrated,\\
+Keep .fig to avoid having to recreate it when changing the format.
+\end{block}
+\begin{exampleblock}{Example}\vspace{-5mm}
+\begin{verbatim}set(gcf, 'PaperSize', [12 4], 'PaperPosition', [0 0 12 4]);
+soundPlots = sprintf('/Users/exp1058/%s',func2str(func)); 
+saveas(gcf, [soundPlots '.pdf']);
+saveas(gcf, [soundPlots '.fig']);
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Profiling}
+\begin{frame}[fragile]
+\frametitle{Profiling}\centering
+Profiling to increase performance comes last:\\
+\textit{Make it work. Make it right. Make it fast.}\\[8mm]
+\pause
+\begin{block}{Main Tools}
+\begin{itemize}
+\item \verb+tic, toc+
+\item \verb+profile on, profile viewer, profile off+,
+\item Home > Code > Run and Time.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Profiling}\centering
+\def\file{tictoc}
+\includegraphics[width=7.0cm]{\compPhd profiling/\file}
+\end{frame}
+
+
+\begin{frame}{Profiling}\centering
+\def\file{profileviewer}
+\begin{minipage}{4cm}
+\includegraphics[height=2.0cm]{\compPhd profiling/profviewer1}\\
+or from tictocs.m\\[4mm]
+\includegraphics[height=2.0cm]{\compPhd profiling/profviewer2}
+\end{minipage}%
+\pause\begin{minipage}{6cm}
+\includegraphics[height=7.0cm, trim=0cm 0cm 0cm 5.7cm, clip=true]{\compPhd profiling/\file}
+\end{minipage}
+\end{frame}
+
+
+\subsection{Regular expressions}
+\begin{frame}[fragile]
+\frametitle{Regular expressions}
+Versatile way to search and replace text using patterns.
+\begin{itemize}
+\item Horrible to master but tremendously powerful,
+\item Understand them before the day you need them,
+\item Bash has more tools (cat, grep, awk, sed, tr\dots),
+\item Matlab has a few functions: \verb+strfind, regexp, regexprep+.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Conditions}\centering
+\begin{block}{if... elseif... else... end}
+Use if you have conditions that are apparently not related.
+\end{block}
+\begin{block}{switch... case ... otherwise... end}
+Use for matching among some values (strings or numerical).
+\end{block}
+\begin{exampleblock}{Example switch}\vspace{-5mm}
+\begin{verbatim}swich class(f)
+   case 'cell', disp('This is a cell');
+   case 'double', disp('This is an array');
+   case {'you', 'yourmom'}, disp('is so fat');
+   otherwise, error('Not cool, man');
+end
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Loops}\centering
+\begin{block}{for... end}
+Use when you have an index that you control. \\
+Always allocate memory by defining variables before the loop.
+\end{block}
+\begin{block}{while... end}
+When \verb+for+ is not an option.
+\end{block}
+\begin{block}{break}
+To terminate execution of a loop.
+\end{block}
+\begin{block}{continue}
+To pass control to next iteration in a loop.
+\end{block}
+\begin{block}{return}
+To exit a function when its job is done.
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Regular expressions}\centering
+\begin{exampleblock}{Example in Matlab}
+\begin{verbatim}
+labtext = importdata(labTXT);
+
+labtext1 = strrep(labtext{1}, '.', ''); 
+
+labtext2 = regexprep(labtext1, '\d\s*', ''); 
+
+splitted = regexp(labtext2,'\s+', 'split');
+
+upsplt = upper(sprintf('%s\n',splitted{:}));
+
+upsped = regexprep(upsplt,'[0-9]|?|,|\.|!|,|;|-|:', '');
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Regular expressions}\centering
+\begin{exampleblock}{Example in Matlab}
+\begin{verbatim}
+labtext = importdata(labTXT);
+% Get rid of dots, for consistency.
+labtext1 = strrep(labtext{1}, '.', ''); 
+% Get rid of initial numbers
+labtext2 = regexprep(labtext1, '\d\s*', ''); 
+% To write label in words.mlf; one word per line
+splitted = regexp(labtext2,'\s+', 'split');
+% uppercase
+upsplt = upper(sprintf('%s\n',splitted{:}));
+% Keep only letters
+upsped = regexprep(upsplt,'[0-9]|?|,|\.|!|,|;|-|:', '');
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Regular expressions}\centering
+\begin{exampleblock}{Example in Bash}
+\begin{verbatim}
+#
+pdftotext Thesis.pdf - | grep -o "\[?" | wc -l
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Regular expressions}\centering
+\begin{exampleblock}{Example in Bash}
+\begin{verbatim}
+# Approx. count number of missing citations in Thesis.pdf
+pdftotext Thesis.pdf - | grep -o "\[?" | wc -l
+\end{verbatim}
+\end{exampleblock}
+\end{frame}
+
+
+\subsection{Interfacing with Matlab}
+\begin{frame}{Interfacing with Matlab}
+``Controlling complexity is the essence of computer programming'' \\
+\hfill Brian Kernighan\\[5mm]
+\pause
+$\to$ If you can stick with one language only, do it!\\[5mm]
+\pause
+Reasons to use other languages within Matlab:
+\pause
+\begin{itemize}[<+(0)->]
+\item Reduce runtime \\(`Oh, this loop would be much faster in C...')
+\item Use existing packages \\(`Oh, if only there was a way to use this .jar?')
+\item Reduce development time \\(`Oh, I know how to do this in Bash!')
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Interfacing with Matlab: C with mex-files}
+\begin{itemize}
+\item Very hard to debug (Matlab will crash often),
+\item Requires specific commands, 
+\item Might boost your code,
+\item Takes significant development time.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Interfacing with Matlab: C with mex-files}
+\def\file{interfacing/C_mex}
+\noindent\hspace{-7mm}\includegraphics[height=7.7cm, trim=0cm 0cm 0cm 2mm, clip=true]{\compPhd \file}
+\end{frame}
+
+
+\begin{frame}{Interfacing with Matlab: Java with jar-files}
+\begin{minipage}{6cm}
+\def\file{interfacing/java}
+\begin{center}\includegraphics[height=7.7cm, trim=0cm 0cm 0cm 2mm, clip=true]{\compPhd \file}\end{center}
+\end{minipage}%
+\begin{minipage}{6cm}
+\begin{itemize}
+\item Need to know exactly what methods/classes you need,
+\item Hard to debug, 
+\item Juggling between Java and Matlab objects,
+\item Will develop your insight of Matlab's inner working.
+\end{itemize}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Interfacing with Matlab: Bash with !}
+On a Linux machine, you can execute bash commands using `!'\\
+Ideal for some quick-n-dirty tricks
+\def\file{interfacing/bash}
+\begin{center}\includegraphics[height=7.5cm, trim=0cm 0cm 0cm 2mm, clip=true]{\compPhd \file}\end{center}
+\end{frame}
+
+
+\begin{frame}{Interfacing with Matlab: \LaTeX with fprintf...}
+\def\file{interfacing/latex}
+\begin{center}\includegraphics[width=11cm, trim=0cm 0cm 18cm 0mm, clip=true]{\compPhd \file}\end{center}
+\end{frame}
+
+
+\subsection{Programming Paradigms}
+\begin{frame}{Programming Paradigms (Wikipedia)}\centering
+\def\file{progparadigm/1179px-Programming_paradigms.svg}
+\includegraphics[height=8.0cm]{\compPhd \file}
+\end{frame}
+
+
+\begin{frame}{Programming Paradigms in Matlab}
+Matlab is (weakly) multi-paradigm:
+\begin{itemize}
+\item \textbf{Imperative Programming}: 
+	Change program's state with commands describing how.
+\item \textbf{Procedural programming}: 
+	Procedures, also known as routines, subroutines, or functions contain a series of computational steps to be carried out.
+\item \textbf{Object-Oriented Programming}: 
+	Based on \textit{objects} and their \textit{methods and attributes} that interact with each other.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Programming Paradigms in Matlab}
+Complex matter:\\
+\noindent[...] 
+Matlab pretends to be multi-paradigm. It is optimized for imperative and procedural strongly typed operations. 
+It supports OO, and extends to C/Cpp and Java. Contrary to popular opinion, Matlab is not strictly an interpreted language and 
+does not always use JIT compilation. It uses an opaque optimization scheme 
+[...]
+\url{https://www.quora.com/What-programming-paradigm-does-MATLAB-follow}
+\end{frame}
+
+\begin{frame}{Object-Oriented Programming in Matlab}
+Great if you work on big projects/with other people!\\
+\url{https://uk.mathworks.com/company/newsletters/articles/introduction-to-object-oriented-programming-in-matlab.html}
+\end{frame}
+
+
+\subsection{Add-On Exploration}
+\begin{frame}{Add-On Exploration}
+\begin{block}{Add-Ons > Get Add-Ons}
+Search and install `Megan Simulator'
+\end{block}
+\pause
+\begin{block}{Simpler and faster than doing through your browser:}
+\begin{itemize}
+\item[\cg] Installed in the right place,
+\item[\cg] Easy to manage, 
+\item[\cg] Directly added to your path,
+\item[\cg] All gathered in one place,
+\item[\cg] You can write your own.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+%\subsection{Commenting}
+%\begin{frame}{Commenting}
+%\end{frame}
+
+
+\subsection{Speeding-up}
+\begin{frame}{Boosting Matlab Performance}
+Parallelisation instead of  for loops\\
+Logical operator\\
+Preallocation\\
+Master COW (Copy On Write)\\
+Parallel processing toolbox\\
+Removing bottlenecks after profiling\\
+\dots\\
+\url{https://uk.mathworks.com/help/matlab/matlab_prog/techniques-for-improving-performance.html}
+\end{frame}
+
+
+\subsection{Testing}
+\begin{frame}{Testing}
+If performance is a constraint/limitation, use a proper Testing framework.\\
+Matlab offers a series of functions/classes/scripts to measure the performance of your program\\[3mm]
+Special cases should become test cases.\\
+{\tiny{\url{http://uk.mathworks.com/help/matlab/performance-testing-framework.html}}}
+\end{frame}
+
+
+\begin{frame}{Testing}\centering
+\def\file{testing/runperf}
+\vspace{-5mm}\hspace{-7mm}\includegraphics[height=7.5cm, trim=0cm 0cm 0cm 2mm, clip=true]{\compPhd \file}
+\end{frame}
+
+
+%\subsection{Version Control}
+%\begin{frame}{Version Control}\centering
+%\end{frame}
+
+
+\subsection{Literate Computing}
+\begin{frame}{Literate Computing}\centering
+Interactive document that combines MATLAB code with embedded output, 
+formatted text, equations, and images in a single environment called the Live Editor.\\[2mm]
+\tiny{\url{https://uk.mathworks.com/help/matlab/matlab_prog/what-is-a-live-script.html}}
+\end{frame}
+
+
+\subsection{Unveiling Matlab Secrets}
+\begin{frame}{Unveiling Matlab Secrets}
+Yair Altman: \\
+- Book `Accelerating MATLAB Performance'\\
+- Awesome website \url{http://undocumentedmatlab.com/}\\[3mm]
+Check help/doc of all functions you use frequently.\\[3mm]
+Look at people's code.\\[3mm]
+Google and fiddle
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\section[SE]{Software Engineering}
+%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Software Engineering}
+\pause
+`The application of a systematic, disciplined, quantifiable approach to the development, operation, \\and maintenance of software.'\\
+\hfill{\small{IEEE Standard Glossary of Software Engineering Terminology}}\\[6mm]
+\pause
+Programming: Producing code that works correctly.\\[3mm]
+Software Engineering additionally:
+\begin{itemize}
+\item Readability, Maintainability, Documentation 
+\item Unit Testing
+\item Design
+\item Code management, Task automation
+\end{itemize}
+\end{frame}
+
+
+\subsection{Readability}
+\begin{frame}{Readability}\centering
+\textcolor{blue}{Write programs for people, not computers.}\\[3mm]
+\begin{itemize}
+\item Case sensitive names (weight1 rather than param1),
+\item  Comment (whenever code is not obvious),
+\item Give MWE (Minimal Working Example),
+\item Do not recode (use available software),
+\item Do not recode (small functions rather than copy-paste),
+\item Write short functions that do one thing.
+\end{itemize}
+\end{frame}
+
+
+\subsection{Automation}
+\begin{frame}[fragile]\frametitle{Automation}\centering
+\begin{itemize}
+\item Use scripts (Matlab or bash) to execute code,
+\item Keep logs 
+\end{itemize}
+\begin{exampleblock}{Example: Bash $\to$ Matlab $\to$ log}
+\verb+matlab -nodisplay -nosplash < myscript.m > mylog.txt+
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}\frametitle{Automation}\centering
+\def\file{xkcd/automation}
+\includegraphics[height=6cm]{\compPhd \file}
+\end{frame}
+
+
+\subsection{Agile}
+\begin{frame}{Agile Development}\centering
+\begin{itemize}
+\item Work in small increments,
+\item Use version control where you save everything,
+\item Measure your progress, 
+\item Use it to rethink how you can improve your own efficiency.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Agile Development}\centering
+\def\file{xkcd/the_general_problem}
+\includegraphics[height=4cm]{\compPhd \file}\\[3mm]
+\pause
+\textit{Make it work. Make it right. Make it fast.}
+\end{frame}
+
+
+\subsection{Open}
+\begin{frame}{Open: Source, Code, Data}
+\textbf{Share your code}, for ex. on GitHub; choose your \textbf{licenses}.\\[3mm]
+Increasingly important: we start to be evaluated by our programming/SE skills.\\[3mm]
+Institutions (universities and governements) are being pushed to share their code and data.\\[3mm]
+\pause
+\begin{center}\textcolor{blue}{A code you can't share is a code that is wrong.}\end{center}
+\pause \hfill Alban, 12th of October 2016, 2:18am
+\end{frame}
+
+
+\subsection{Summary of Best Practices}
+\begin{frame}{Summary of Best Practices}\centering
+\begin{tabular}{c c}
+Readability & Automation\\
+Agile Programming & DRY Principle\\
+Correctness & Optimisation \\
+Documentation & Collaboration
+\end{tabular}
+\end{frame} 
+
+
+\subsection{Tools within Notts}
+\begin{frame}[fragile]\frametitle{Resources specific to PhDs Nottingham}
+High-Performance Computing facility (HPC),\\
+Maths servers (Shrek, Pegasus,...), \\
+Nottingham  PhD students,\\
+Organise you own seminar :)
+\end{frame}
+
+
+\subsection{Software Engineering Resources}
+\begin{frame}{Software Engineering Resources}
+Greg Wilson\\
+\small{\url{http://software-carpentry.org/lessons/}}\\[2mm]
+Best Practices for Scientific Computing, PLoS Biology 2014. \\
+\small{\url{http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745}}\\[2mm]
+Get some apps for your daily learning\\
+{\tiny{\url{https://medium.com/the-mission/9-places-to-learn-how-to-code-in-15-minutes-or-less-a-day-7eb730e4fc82\#.7gxej497p}}}
+\end{frame}
+
+
+\subsection{Bash One-Liner}
+\begin{frame}[fragile]\frametitle{Favourite Bash One-Liner from this PhD}
+To connect as \verb+pmxlol+ to the \verb+pegasus+ server, \\
+ reach the existing and detached \verb+screen+ session \verb+myscreen+,\\
+ launch Matlab within it, \\
+ execute the script \verb+myscript.m+, \\
+ save output in a log called \verb+mylog.txt+:\\
+\pause
+\begin{verbatim}ssh pmxlol@pegasus.maths.nottingham.ac.uk \
+ "screen -S myscreen -X stuff \
+ \"matlab -nodisplay -nosplash < myscript.m > mylog.txt \
+ $(echo -ne '\r')\""\end{verbatim}
+ \pause
+{\tiny{Links to explain the different bits:\\
+\url{https://code.tutsplus.com/tutorials/ssh-what-and-how--net-25138}\\
+\url{https://www.gnu.org/software/screen/manual/screen.html}\\
+\url{http://unix.stackexchange.com/questions/13953/sending-text-input-to-a-detached-screen}\\
+\url{http://stackoverflow.com/questions/33187141/how-to-call-matlab-script-from-command-line}\\[-2.25mm]
+\url{http://www.tldp.org/ldp/abs/html/io-redirection.html}}} 
+\end{frame}
+
+
+\begin{frame}
+\textbf{Master Foo and the Recruiter}\\[4mm]
+\footnotesize{
+A technical recruiter, having discovered that that the ways of Unix hackers were strange to him, 
+sought an audience with Master Foo to learn more about the Way. Master Foo met the recruiter in the HR offices of a large firm.\\[2mm]
+The recruiter said, "I have observed that Unix hackers scowl or become annoyed when I 
+ask them how many years of experience they have in a new programming language. Why is this so?"\\[2mm]
+Master Foo stood, and began to pace across the office floor. The recruiter was puzzled, and 
+asked "What are you doing?"\\[2mm]
+"I am learning to walk," replied Master Foo.\\[2mm]
+"I saw you walk through that door" the recruiter exclaimed, "and you are not stumbling over your 
+own feet. Obviously you already know how to walk."\\[2mm]
+"Yes, but this floor is new to me." replied Master Foo.\\[2mm]
+Upon hearing this, the recruiter was enlightened.
+}
+\end{frame}
+
+
+\subsection{References}
+\begin{frame}{References}
+Randall Munroe's \\\url{https://xkcd.com/}\\[2mm]
+Eric Steven Raymond's \\\url{http://catb.org/esr/writings/unix-koans/index.html}\\[2mm]
+Unix Philosophy \\\url{http://www.catb.org/esr/writings/taoup/html/index.html}\\[2mm]
+Mario Mulansky's `Programming for Scientists'\\[2mm]
+Best Practices for Scientific Computing, PLoS Biology 2014. 
+\url{http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%
+\section[T]{}
+%%%%%%%%%%%%%%%%%
+
+\subsection{Thanks}
+\begin{frame}{Thanks for your attention!}\centering
+Merci pour votre attention !
+\end{frame}
+
+
+\begin{frame}{To meditate on...}\centering
+\includegraphics[width=14.5cm, trim=0cm 3.5cm 0cm 0cm, clip=true]{\compPhdGeneral UnixPhilosophy2.png}
+\end{frame}
+
+
+\begin{frame}
+\textbf{Master Foo and the Ten Thousand Lines}\\[4mm]
+\tiny{
+Master Foo once said to a visiting programmer: "There is more Unix-nature in one l
+ine of shell script than there is in ten thousand lines of C."\\[2mm]
+The programmer, who was very proud of his mastery of C, said: "How can this be? 
+C is the language in which the very kernel of Unix is implemented!"\\[2mm]
+Master Foo replied: "That is so. Nevertheless, there is more Unix-nature in one 
+line of shell script than there is in ten thousand lines of C."\\[2mm]
+The programmer grew distressed. "But through the C language we experience the 
+enlightenment of the Patriarch Ritchie! We become as one with the operating 
+system and the machine, reaping matchless performance!"\\[2mm]
+Master Foo replied: "All that you say is true. But there is still more Unix-nature 
+in one line of shell script than there is in ten thousand lines of C."\\[2mm]
+The programmer scoffed at Master Foo and rose to depart. But Master Foo 
+nodded to his student Nubi, who wrote a line of shell script on a nearby whiteboard, 
+and said: "Master programmer, consider this pipeline. Implemented in pure C, would it not span ten thousand lines?"\\[2mm]
+The programmer muttered through his beard, contemplating what Nubi had written. Finally he agreed that it was so.\\[2mm]
+"And how many hours would you require to implement and debug that C program?" asked Nubi.\\[2mm]
+"Many," admitted the visiting programmer. "But only a fool would spend the time to do 
+that when so many more worthy tasks await him."\\[2mm]
+"And who better understands the Unix-nature?" Master Foo asked. "Is it he who writes 
+the ten thousand lines, or he who, perceiving the emptiness of the task, gains merit by not coding?"\\[2mm]
+Upon hearing this, the programmer was enlightened.
+}
+\end{frame}
+
+\end{document}
