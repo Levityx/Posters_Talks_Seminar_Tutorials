@@ -1,0 +1,1699 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>OOP in Matlab</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-10-28"><meta name="DC.source" content="MatlabOOPrun.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>OOP in Matlab</h1><!--introduction--><p>Alban, <a href="mailto:pmxal9@nottingham.ac.uk">pmxal9@nottingham.ac.uk</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Foreword</a></li><li><a href="#2">Prepare workspace</a></li><li><a href="#3">Preintroduction</a></li><li><a href="#15">Questions</a></li><li><a href="#22">Introduction: OOP &amp; MATLAB&reg;</a></li><li><a href="#23">(What) OOP: Main concepts</a></li><li><a href="#24">Everything has a class</a></li><li><a href="#35">Dynamic referencing</a></li><li><a href="#36">(Why) Good Programming</a></li><li><a href="#37">(How) Write classes in MATLAB&reg;</a></li><li><a href="#40">Commenting in classes</a></li><li><a href="#41">Blocks: classdef, properties, methods, events, enumeration</a></li><li><a href="#45">Practical example</a></li><li><a href="#46">Superclasses and subclasses</a></li><li><a href="#53">About superclass 'handle'</a></li><li><a href="#57">Class folders</a></li><li><a href="#65">Packages</a></li><li><a href="#72">Class attributes</a></li><li><a href="#73">Properties attributes</a></li><li><a href="#74">Example of private access</a></li><li><a href="#80">Methods attributes</a></li><li><a href="#86">Advanced MATLAB&reg;: Events and listeners</a></li><li><a href="#87">Polymorphism</a></li><li><a href="#91">MATLAB&reg; in excruciating depth</a></li><li><a href="#93">(When) When to use classes</a></li><li><a href="#94">Overload MATLAB&reg; functions and MATLAB&reg; operators</a></li><li><a href="#96">A few more things with OOP</a></li><li><a href="#98">Enumeration class</a></li><li><a href="#104">Example from my own work</a></li><li><a href="#105">OOP Drawbacks</a></li><li><a href="#106">Thought experiment</a></li><li><a href="#107">Take home messages</a></li><li><a href="#108">References</a></li></ul></div><h2>Foreword<a name="1"></a></h2><p>Scientists would gain to learn software development practices.</p><p>Best Practices for Scientific Computing, PLoS Biology 2014. <a href="http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745">http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745</a></p><p><i>Scientists typically develop their own software for these purposes because doing so requires substantial domain-specific knowledge. As a result, recent studies have found that scientists typically spend 30% or more of their time developing software. However, 90% or more of them are primarily self-taught, and therefore lack exposure to basic software development practices such as writing maintainable code, using version control and issue trackers, code reviews, unit testing, and task automation.</i></p><p>[...]</p><p><i>A large body of research has shown that code reviews are the most cost-effective way of finding bugs in code. They are also a good way to spread knowledge and good practices around a team. In projects with shifting membership, such as most academic labs, code reviews help ensure that critical knowledge isn't lost when a student or postdoc leaves the lab.</i></p><div><ul><li>Look at some best practice tips,</li><li>Show your code (fellow PhDs, supervisor, random guy, student).</li></ul></div><h2>Prepare workspace<a name="2"></a></h2><p>This code is just preparing my workspace.</p><pre class="codeinput">clear;          <span class="comment">% Clear workspace</span>
+cPath = fullfile(<span class="string">'/Users'</span>,<span class="string">'pmaal'</span>,<span class="string">'Dropbox'</span>,<span class="string">'Nottingham'</span>,<span class="string">'repos'</span>,<span class="string">'phd'</span>,<span class="string">'Seminars'</span>,<span class="string">'MatlabOOP'</span>);
+cd(cPath);      <span class="comment">% Change directory</span>
+</pre><h2>Preintroduction<a name="3"></a></h2><p><b>Structures in MATLAB&reg;</b></p><p>A structure array is a data type that groups related data using data containers called fields. Each field can contain any type of data. Access data in a structure using dot notation of the form structName.fieldName.</p><p>Ex: To capture all infos regarding my classes this term, I'll use struct:</p><pre class="codeinput">thisTerm.nbCoursesIDemonstrate = 2;
+thisTerm.listOfCourses = <span class="string">'G11MAN G59ZZZ'</span>;
+disp( thisTerm );
+</pre><pre class="codeoutput">    nbCoursesIDemonstrate: 2
+            listOfCourses: 'G11MAN G59ZZZ'
+
+</pre><pre class="codeinput">sameInfo = struct(<span class="string">'nbCoursesIDemonstrate'</span>, 2,<span class="string">'listOfCourses'</span>, <span class="string">'G11AAA G59ZZ'</span>);
+disp( sameInfo );
+</pre><pre class="codeoutput">    nbCoursesIDemonstrate: 2
+            listOfCourses: 'G11AAA G59ZZ'
+
+</pre><p>Ex: If I need a list of structures with the same fields: structure array.</p><pre class="codeinput">housemate(1).name = <span class="string">'Giannis'</span>;
+housemate(1).age = 23;
+housemate(1).coolitude = 10;
+housemate(2).name = <span class="string">'Laura'</span>;
+housemate(2).age = 46;
+housemate(2).coolitude = 8.5;
+housemate(3).name = <span class="string">'Xiaofei'</span>;
+housemate(3).age = 12;
+housemate(3).coolitude = 10.1;
+</pre><p><img vspace="5" hspace="5" src="/Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP/Housemates.png" alt=""> </p><p>Average coolness of my housemates:</p><pre class="codeinput">mean([housemate.coolitude])
+</pre><pre class="codeoutput">
+ans =
+
+    9.5333
+
+</pre><p>As easily: nested structures</p><pre class="codeinput">C.M.A = ones(3);
+C.M.M.A = zeros(4,1);
+C.M.M.B = eye(4);
+C.M.C = magic(5);
+</pre><p>What is the value of <a href="matlab:disp(C.M.M.B(6))">C.M.M.B(6)</a>?</p><p>Be wary of using 'struct':</p><pre class="codeinput">thisTerm.nbCoursesIDemonstrate = 2;
+thisTerm.listOfCourses = {<span class="string">'G11AAA'</span>,<span class="string">'G59ZZ'</span>};
+disp( thisTerm );
+</pre><pre class="codeoutput">    nbCoursesIDemonstrate: 2
+            listOfCourses: {'G11AAA'  'G59ZZ'}
+
+</pre><pre class="codeinput">notSameInfo = struct(<span class="string">'nbCoursesIDemonstrate'</span>, 2,<span class="string">'listOfCourses'</span>, {<span class="string">'G11AAA'</span>,<span class="string">'G59ZZ'</span>});
+disp( notSameInfo );
+</pre><pre class="codeoutput">1x2 struct array with fields:
+
+    nbCoursesIDemonstrate
+    listOfCourses
+
+</pre><p>Also possible to initialise a structure array:</p><pre class="codeinput">structArray(15).name = <span class="string">'NoName'</span>;
+structArray(16).age = <span class="string">'noAge'</span>;
+</pre><p><a href="matlab:run('html/lengthStructArray')">What is length(structArray)?</a></p><p><a href="matlab:open('structArray')">Open structArray</a></p><p><b>Workspaces in MATLAB&reg;</b></p><p>The <b>base workspace</b> stores variables that you create at the command line. This includes any variables that scripts create, assuming that you run the script from the command line or from the Editor. Variables in the base workspace exist until you clear them or end your MATLAB&reg; session.</p><p>Functions do not use the base workspace. Every function has its own <b>function workspace</b>. Each function workspace is separate from the base workspace and all other workspaces to protect the integrity of the data. Even local functions in a common file have their own workspaces. Variables specific to a function workspace are called local variables. Typically, local variables do not remain in memory from one function call to the next.</p><h2>Questions<a name="15"></a></h2><pre class="codeinput">aud = audience(<span class="string">'University of Nottingham'</span>);
+aud.nbPeople = 300;
+</pre><p>Who already knew what a structure was?</p><pre class="codeinput">aud.nbPplKnowStructures = 85;
+</pre><p>Who knows what an object is? (in OOP sense)</p><pre class="codeinput">aud.nbPplKnowObjects = 25;
+</pre><p>Who knows what inheritance is?</p><pre class="codeinput">aud.nbPplKnowInheritance = 20;
+</pre><p>Who has used OOP in MATLAB?</p><pre class="codeinput">aud.nbPplUsedOOP = 1;
+</pre><p>Who has written classes in MATLAB?</p><pre class="codeinput">aud.nbPplWrittenClasses = 1;
+disp( aud );
+</pre><pre class="codeoutput">  audience with properties:
+
+                    time: '28-Oct-2015 21:47:47'
+                nbPeople: 300
+                  isnice: 1
+                   venue: 'University of Nottingham'
+        nbPplKnowObjects: 25
+     nbPplKnowStructures: 85
+    nbPplKnowInheritance: 20
+            nbPplUsedOOP: 1
+     nbPplWrittenClasses: 1
+
+</pre><p>So far, aud looks like a structure. What would the following do?</p><p><a href="matlab:eval('aud.time=42;')">aud.time = 42;</a></p><h2>Introduction: OOP &amp; MATLAB&reg;<a name="22"></a></h2><p>Mathworks introduced in 2008a an entirely new OO framework and syntax, bringing it more in line with Java, python, C++, etc.</p><p>Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which are data structures that contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods. The first OOP languages come from the 60's.</p><p>MATLAB&reg; is a multi-paradigm programming language: Interactive command line, scripts and functions, object-oriented programming.</p><h2>(What) OOP: Main concepts<a name="23"></a></h2><p>At a first approximation, objects in Matlab are just structs. Here are some important differences:</p><div><ul><li>Both structs and objects store data in named fields, (called properties   in objects) but objects also encapsulate the operations you can perform   on them, (called methods).</li><li>Structs can be created with whatever fields you like but all objects   of the same class have the same properties. The values for these properties will differ.</li><li>Structs are created with the struct() function, objects use constructors.</li></ul></div><h2>Everything has a class<a name="24"></a></h2><p>In MATLAB&reg;, every value is assigned to a class (predefined or user-defined).</p><pre class="codeinput">a = 7;
+b = <span class="string">'some text'</span>;
+st.Name = <span class="string">'Nancy'</span>;
+st.Age = 64;
+whos
+</pre><pre class="codeoutput">  Name             Size            Bytes  Class       Attributes
+
+  C                1x1              1488  struct                
+  a                1x1                 8  double                
+  ans              1x1                 8  double                
+  aud              1x1               112  audience              
+  b                1x9                18  char                  
+  cPath            1x60              120  char                  
+  housemate        1x3              1286  struct                
+  notSameInfo      1x2               614  struct                
+  sameInfo         1x1               384  struct                
+  st               1x1               370  struct                
+  structArray      1x16              614  struct                
+  thisTerm         1x1               606  struct                
+
+</pre><p>Let's look at a class that has something more</p><pre class="codeinput">c = nottinghamClass();  <span class="comment">% nottinghamClass is a class,</span>
+disp( c );              <span class="comment">% c is an instance of this class.</span>
+</pre><pre class="codeoutput">  nottinghamClass with properties:
+
+         time: '28-Oct-2015 21:47:47'
+    path2logo: './notts.jpg'
+         logo: []
+
+</pre><p>We can as easily create an array of this class.</p><pre class="codeinput">doubleArray(6) = 10;             <span class="comment">% Creates double array filled with default values (0) and a 10.</span>
+structArray(6).myfield = <span class="string">'a'</span>;    <span class="comment">% Creates structure array, default value '', and a 'a'.</span>
+classArray(6) = audience();      <span class="comment">% Creates audience array</span>
+arrayfun( @(ind)classArray(ind).setNbPeople(ind^2), 1:6 ) <span class="comment">% No output</span>
+</pre><p><a href="matlab:open('structArray')">Open structArray</a>, <a href="matlab:open('classArray')">Open classArray</a>. Note the difference in visualisation in the variables' viewer.</p><pre class="codeinput">disp( structArray );
+disp( classArray );
+</pre><pre class="codeoutput">1x16 struct array with fields:
+
+    name
+    age
+    myfield
+
+  1x6 audience array with properties:
+
+    time
+    nbPeople
+    isnice
+    venue
+    nbPplKnowObjects
+    nbPplKnowStructures
+    nbPplKnowInheritance
+    nbPplUsedOOP
+    nbPplWrittenClasses
+
+</pre><p>Check we can get all values from a given field like with structures:</p><pre class="codeinput">disp({structArray.myfield})
+</pre><pre class="codeoutput">  Columns 1 through 13
+
+    []    []    []    []    []    'a'    []    []    []    []    []    []    []
+
+  Columns 14 through 16
+
+    []    []    []
+
+</pre><pre class="codeinput">disp({classArray.time})
+</pre><pre class="codeoutput">  Columns 1 through 3
+
+    '28-Oct-2015 21:4...'    '28-Oct-2015 21:4...'    '28-Oct-2015 21:4...'
+
+  Columns 4 through 6
+
+    '28-Oct-2015 21:4...'    '28-Oct-2015 21:4...'    '28-Oct-2015 21:4...'
+
+</pre><pre class="codeinput">disp([classArray.nbPeople])
+</pre><pre class="codeoutput">     1     4     9    16    25    36
+
+</pre><p>Look at the (non-hidden) methods of our nottinghamClass object</p><pre class="codeinput">methods( c )
+</pre><pre class="codeoutput">
+Methods for class nottinghamClass:
+
+nottinghamClass  saveasjpg        todaysLogo       
+
+Call "methods('handle')" for methods of nottinghamClass inherited from handle.
+
+</pre><p>and let's look at the image it contains. Calling 'c.todaysLogo' is the same as calling 'todaysLogo( c )'</p><pre class="codeinput">c.todaysLogo;
+</pre><img vspace="5" hspace="5" src="MatlabOOPrun_01.png" alt=""> <p>Check we can change the time</p><pre class="codeinput">c.time = datestr( now + 0.0003 );
+c.todaysLogo;
+c.saveasjpg;
+</pre><img vspace="5" hspace="5" src="MatlabOOPrun_02.png" alt=""> <pre class="codeinput">close( c.logo );
+</pre><h2>Dynamic referencing<a name="35"></a></h2><p>Just like with structures, we can use the syntax myClass.(varContainingFieldName) to access the values from a field.</p><pre class="codeinput">propName = <span class="string">'time'</span>;
+myStruct.(propName) = datestr( now );
+fprintf(<span class="string">'myStruct.%s contains ''%s''\n'</span> ,propName,myStruct.(propName));
+fprintf(<span class="string">'c.%s contains ''%s''\n'</span>        ,propName,c.(propName));
+</pre><pre class="codeoutput">myStruct.time contains '28-Oct-2015 21:47:49'
+c.time contains '28-Oct-2015 21:48:14'
+</pre><h2>(Why) Good Programming<a name="36"></a></h2><p>Good practice with classes:</p><div><ul><li>MATLAB is increasingly using OOP.</li><li>Always use case sensitive method names in your MATLAB&reg; code (always).</li><li>Choose the attributes that fit your use (ex: private to simplify what you can do in a script).</li><li>Think about your hierarchy of classes before starting to code (will diminish coding errors and reduce restructuring).</li><li>Choose the level of asbtraction you want to work in (ex: c2d rather than c2d_char in example to come).</li><li>Resulting code easily extendable and reusable.</li><li>Replace spaghetti code by more robust and maintainable code.</li><li>Documentation provides a simple test to evaluate how clear your comments are.</li></ul></div><h2>(How) Write classes in MATLAB&reg;<a name="37"></a></h2><p>In file myClassSyntax.m, accessible to MATLAB's path:</p><pre class="language-matlab">
+<span class="keyword">classdef</span> myClassSyntax &lt; superClass1 &amp; superClass2
+    <span class="keyword">properties</span> ( Attribute1 = value1, Attribute2 = value2 )
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span> ( Attribute1 = value1, Attribute2 = value2 )
+        <span class="keyword">function</span> obj = myClassSyntax( arg1,arg2, arg3 ) 
+             <span class="comment">% Constructor method</span>
+             <span class="comment">% The constructor can take any number of arguments specifying </span>
+             <span class="comment">% initial values for the properties for instance, and must return </span>
+             <span class="comment">% one argument, the constructed object. </span>
+        <span class="keyword">end</span>
+        
+        <span class="keyword">function</span> out = funcName( obj, arg1 ) 
+            <span class="comment">% A method called funcName</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">events</span> (Attribute1 = value1, Attribute2 = value2 )
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre><p>Let's look at a working examples: nottinghamClass.m</p><p>nottinghamClass.m:</p><pre class="language-matlab">
+<span class="keyword">classdef</span> nottinghamClass &lt; handle
+    <span class="comment">% Subclass of handle made for today's seminar</span>
+    
+    <span class="comment">% Properties (optional: with their default values)</span>
+    <span class="keyword">properties</span> 
+        <span class="comment">% Time of creation (first word disappeared in doc because property name!)</span>
+        time = datestr( now )
+        
+        <span class="comment">% Local path to logo</span>
+        path2logo = fullfile(<span class="string">'.'</span>,<span class="string">'notts.jpg'</span>)
+        
+        <span class="comment">% A figure with the logo</span>
+        logo = []
+    <span class="keyword">end</span>
+    
+    <span class="comment">% One method block for each unique set of attribute specifications.</span>
+    <span class="comment">% Unlike in Java or C++, you must pass an object of the class</span>
+    <span class="comment">%   explicitly to the method.</span>
+    
+    <span class="comment">% Classes can define a special method to create objects, called a constructor. </span>
+    <span class="comment">% Constructor methods enable you to validate and assign property values.</span>
+    <span class="comment">% Here is a constructor for the nottinghamClass class:</span>
+    <span class="keyword">methods</span> 
+        <span class="keyword">function</span> obj = nottinghamClass( varargin )
+            <span class="comment">% Constructor method checking number of inputs</span>
+            <span class="keyword">if</span> nargin == 2 || nargin &gt; 3
+                error(<span class="string">'Dude, no more than one input.'</span>);
+            <span class="keyword">elseif</span> nargin == 3
+                disp(<span class="string">'Secret: 3 arguments is actually fine. It contains:'</span>);
+                disp( varargin{3} );
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span> ( Sealed=true )
+        <span class="comment">% Sealed because I do not plan to change those methods in subclasses</span>
+        
+        <span class="keyword">function</span> todaysLogo( obj )
+            <span class="comment">% Add time to Notts' logo</span>
+            A = imread( obj.path2logo );
+            <span class="keyword">if</span> isempty( obj.logo )
+                obj.logo = figure;
+            <span class="keyword">end</span>
+            image( A );
+            axis <span class="string">equal</span>
+            axis <span class="string">off</span>
+            hold <span class="string">on</span>
+            text(1000,590,obj.time,<span class="string">'FontSize'</span>,15);
+        <span class="keyword">end</span>
+        
+        <span class="keyword">function</span> saveasjpg( obj )
+            <span class="comment">% Save it in current directory</span>
+            <span class="keyword">if</span> isempty( obj.logo )
+                error(<span class="string">'Run obj.todaysLogo before calling saveasjpg.'</span>);
+            <span class="keyword">end</span> 
+            saveas( obj.logo, sprintf(<span class="string">'notts_%s.jpg'</span>, obj.time) );
+        <span class="keyword">end</span>
+
+    <span class="keyword">end</span>
+    
+<span class="keyword">end</span>
+
+</pre><p>we can look at its <a href="matlab:doc('nottinghamClass')">doc</a>.</p><h2>Commenting in classes<a name="40"></a></h2><p>Best practice is to document interfaces and reasons, not implementations, and in classes, all properties (what do they contain/what are they for) and methods (inputs/outputs, what they do, examples of I/O). MATLAB&reg;'s doc will do the rest.</p><p>For example: <a href="matlab:doc('nottinghamSubclass.m')">doc nottinghamSubclass</a> is not perfect. Let's look at <a href="matlab:doc('nottinghamClass.m')">doc nottinghamClass</a> (note property 'time')</p><h2>Blocks: classdef, properties, methods, events, enumeration<a name="41"></a></h2><pre class="codeinput">properties( c )
+</pre><pre class="codeoutput">
+Properties for class nottinghamClass:
+
+    time
+    path2logo
+    logo
+
+</pre><pre class="codeinput">methods( c )
+</pre><pre class="codeoutput">
+Methods for class nottinghamClass:
+
+nottinghamClass  saveasjpg        todaysLogo       
+
+Call "methods('handle')" for methods of nottinghamClass inherited from handle.
+
+</pre><pre class="codeinput">properties( aud )
+</pre><pre class="codeoutput">
+Properties for class audience:
+
+    time
+    nbPeople
+    isnice
+    venue
+    nbPplKnowObjects
+    nbPplKnowStructures
+    nbPplKnowInheritance
+    nbPplUsedOOP
+    nbPplWrittenClasses
+
+</pre><pre class="codeinput">methods( aud )
+</pre><pre class="codeoutput">
+Methods for class audience:
+
+audience     plus         setNbPeople  
+
+Call "methods('handle')" for methods of audience inherited from handle.
+
+</pre><h2>Practical example<a name="45"></a></h2><p>that shows the flexibility in working with classes: <a href="matlab:open('./myClasses.pdf')">example use of class: myClass.m</a></p><pre class="codeinput">methods(myClass(<span class="string">'1'</span>))
+</pre><pre class="codeoutput">
+Methods for class myClass:
+
+a2b          b2c          c2d          myClass      one2another  
+
+Call "methods('handle')" for methods of myClass inherited from handle.
+
+</pre><h2>Superclasses and subclasses<a name="46"></a></h2><p>MATLAB&reg; supports multiple inheritance, i.e. subclasses with multiple superclasses. Care must be taken that naming conflicts do not occur.</p><pre class="language-matlab">
+<span class="keyword">classdef</span> nottinghamSubclass &lt; nottinghamClass &amp; matlab.System &amp; myAbstractClass
+    <span class="comment">% nottinghamSubclass is a subclass of nottinghamClass and of </span>
+    <span class="comment">% matlab.System, so it inherits all properties and methods from </span>
+    <span class="comment">% nottinghamClass and matlab.System</span>
+    
+    
+    <span class="keyword">properties</span> ( SetAccess = private )
+        <span class="comment">% Those properties are read-only for the user: </span>
+        <span class="comment">% only changeable via methods able to (ex: setNewProp)</span>
+        myNewProperty@char          = <span class="string">'initialValue'</span>
+        <span class="comment">% This property can't be changed</span>
+        myImmutableProp@char        = datestr( now )
+        myNewPropertyRestr@char     = <span class="string">'initialValue'</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">properties</span> ( GetAccess = private )
+        privateGetAccess = <span class="string">'privateGetAccess contains: You can''t see me unless you call getPrivAcc.'</span>;
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span>
+        <span class="keyword">function</span> set( obj, propName, value )
+            <span class="comment">% Overwrite set (defined in superclass)</span>
+            <span class="keyword">switch</span> propName
+                <span class="keyword">case</span> <span class="string">'myImmutableProp'</span>
+                    error(<span class="string">'Don''t even try to change myImmutableProp'</span>);
+                <span class="keyword">case</span> <span class="string">'myNewProperty'</span>
+                    obj.setNewProp(value);
+            <span class="keyword">end</span> 
+        <span class="keyword">end</span>
+        
+        <span class="keyword">function</span> setNewProp( obj, value )
+            <span class="comment">% Only way to change property myNewProperty</span>
+            obj.myNewProperty = value;
+        <span class="keyword">end</span>
+        
+        <span class="keyword">function</span> getPrivAcc( obj )
+            disp( obj.privateGetAccess );
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="comment">% To demonstrate that private methods can be called by public ones</span>
+    <span class="keyword">methods</span> ( Access=<span class="string">'public'</span> )
+        <span class="keyword">function</span> callPrivateMethod( obj, varargin )
+            obj.myPrivateMethod(<span class="string">'fromCallPrivateMethod'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span> ( Access=<span class="string">'private'</span> )
+        <span class="keyword">function</span> myPrivateMethod( ~, str )
+            fprintf(1, <span class="string">'myPrivateMethod(obj, %s)\n'</span>, str );
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span> <span class="comment">% Implement the abstract method from myAbstractClass.m</span>
+        <span class="keyword">function</span> [a,b] = myAbstractMethod( obj, arg )
+            a = arg;
+            b = obj.myNewProperty;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">methods</span> (Static)
+        <span class="keyword">function</span> myNewMethod 
+            fprintf(1,<span class="string">'I''m the new method, only available to objects of class nottinghamSubclass.\n'</span>);
+            fprintf(1,<span class="string">'As a static method, I''m callable from the class itself: nottinghamSubclass.myNewMethod();\n'</span>);
+            fprintf(1,<span class="string">'I can be useful: Time is %s.\n'</span>, datestr( now ));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre><p>Visual represenstation of class hierarchy: !open html/PMTK2-class-diag-models-may09.png</p><p>For example, an instance of class nottinghamSubclass looks like this:</p><pre class="codeinput">n = nottinghamSubclass;
+disp(n);
+</pre><pre class="codeoutput">  System: nottinghamSubclass 
+
+  Properties:
+         myNewProperty: 'initialValue'        
+       myImmutableProp: '28-Oct-2015 21:47:49'
+    myNewPropertyRestr: 'initialValue'        
+                  time: '28-Oct-2015 21:47:47'
+             path2logo: './notts.jpg'         
+                  logo: []                    
+                                              
+</pre><p>What is the difference between <a href="matlab:run('html/openTwoClasses')">those two classes</a>?</p><p>Exercise: Guess final value of wH.d and noH.d:</p><pre class="codeinput">wH = myClass(<span class="string">'initialValue'</span>);
+wH.a2b;
+wH.b2c;
+wH.c2d;
+noH = myClassNoHandle( <span class="string">'initialValue'</span> );
+noH.a = <span class="string">'initialValue'</span> ;
+noH.a2b;
+noH.b2c;
+noH.c2d;
+</pre><p><a href="matlab:eval('wH.d')">wH.d</a>,  <a href="matlab:eval('noH.d')">noH.d</a></p><h2>About superclass 'handle'<a name="53"></a></h2><p>Two Copy Behaviors There are two fundamental kinds of MATLAB&reg;? classes?handles and values.</p><div><ul><li><b>Value classes</b> create objects that behave like ordinary MATLAB variables with respect to copy operations. Copies are independent values. Operations that you perform on one object do not affect copies of that object.</li><li><b>Handle classes</b> create objects that behave as references. A handle, and all copies of this handle, refer to the same object. When you create a handle object, you copy the handle, but not the data referenced by the object's properties. Any operations you perform on a handle object are visible from all handles that reference that object.</li></ul></div><p>Equivalent in C: Call by reference / Call by value</p><p>The handle class is the superclass for all classes that follow handle semantics. A handle is a reference to an object. If you copy an object's handle variable, MATLAB? copies only the handle. Both the original and copy refer to the same object. For example, if a function modifies a handle object passed as an input argument, the modification affects the original input object. In contrast, nonhandle objects (that is, value objects) are not references. Functions must return modified value objects to change the object outside of the function's workspace.</p><p>See MATLAB's documentation:</p><p><a href="matlab:web('http://fr.mathworks.com/help/matlab/matlab_oop/comparing-handle-and-value-classes.html')">Comparing handle and value classes</a> -- <a href="matlab:web('http://fr.mathworks.com/help/matlab/matlab_oop/which-kind-of-class-to-use.html')">Which kind of class to use</a></p><p><b>Handles are everywhere in MATLAB&reg;</b></p><p>We use 'f' as the number 1 (it's the only reference we, as users, need) but f contains much more information:</p><pre class="codeinput">f = figure(1);
+get(f);
+close(f)
+</pre><pre class="codeoutput">                 Alphamap: [1x64 double]
+             BeingDeleted: 'off'
+               BusyAction: 'queue'
+            ButtonDownFcn: ''
+                 Children: []
+                 Clipping: 'on'
+          CloseRequestFcn: 'closereq'
+                    Color: [0.9400 0.9400 0.9400]
+                 Colormap: [64x3 double]
+                CreateFcn: ''
+              CurrentAxes: []
+         CurrentCharacter: ''
+            CurrentObject: []
+             CurrentPoint: [0 0]
+                DeleteFcn: ''
+             DockControls: 'on'
+                 FileName: ''
+        GraphicsSmoothing: 'on'
+         HandleVisibility: 'on'
+            IntegerHandle: 'on'
+            Interruptible: 'on'
+           InvertHardcopy: 'on'
+              KeyPressFcn: ''
+            KeyReleaseFcn: ''
+                  MenuBar: 'figure'
+                     Name: ''
+                 NextPlot: 'add'
+                   Number: 1
+              NumberTitle: 'on'
+         PaperOrientation: 'portrait'
+            PaperPosition: [0.2500 2.5000 8 6]
+        PaperPositionMode: 'manual'
+                PaperSize: [8.5000 11]
+                PaperType: 'usletter'
+               PaperUnits: 'inches'
+                   Parent: [1x1 Root]
+                  Pointer: 'arrow'
+        PointerShapeCData: [16x16 double]
+      PointerShapeHotSpot: [1 1]
+                 Position: [560 528 560 420]
+                 Renderer: 'opengl'
+             RendererMode: 'auto'
+                   Resize: 'on'
+            SelectionType: 'normal'
+           SizeChangedFcn: ''
+                      Tag: ''
+                  ToolBar: 'auto'
+                     Type: 'figure'
+            UIContextMenu: []
+                    Units: 'pixels'
+                 UserData: []
+                  Visible: 'on'
+      WindowButtonDownFcn: ''
+    WindowButtonMotionFcn: ''
+        WindowButtonUpFcn: ''
+        WindowKeyPressFcn: ''
+      WindowKeyReleaseFcn: ''
+     WindowScrollWheelFcn: ''
+              WindowStyle: 'normal'
+                 XDisplay: 'Quartz'
+
+</pre><p>Cf <a href="matlab:doc('figure')">doc figure</a>; figure(h) does one of the following:</p><div><ul><li>If h is the handle or the Number property value of an existing figure,     then figure(h) makes that existing figure the current figure, makes it     visible, and moves it on top of all other figures on the screen. The     current figure is the target for graphics output.</li><li>If h is not the handle and is not the Number property value of an existing     figure, but is an integer, then figure(h) creates a figure object and     assigns its Number property the value h.</li><li>If h is not the handle to a figure and is not a positive integer, then     MATLAB&reg; returns an error.</li></ul></div><pre class="codeinput"><span class="keyword">try</span>
+    <span class="comment">% Suspense...</span>
+    figure(0);
+<span class="keyword">catch</span> ME
+    disp(ME);
+    disp(ME.message);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">  MException with properties:
+
+    identifier: 'MATLAB:hgbuiltins:figure:InputMustBeAFigureHandle'
+       message: 'Single input must be an existing figure handle or a scala...'
+         cause: {0x1 cell}
+         stack: [5x1 struct]
+
+Single input must be an existing figure handle or a scalar integer from 1 to 2147483646
+</pre><p>For fun: a Mathworks tool to explore the graph of some objects' (graphics) properties: <a href="matlab:web('http://fr.mathworks.com/help/releases/R2012a/techdoc/infotool/hgprop/rootobject_frame.html')">Handle Graphics Object Properties</a></p><h2>Class folders<a name="57"></a></h2><p>There's another way to write classes, using class folders. Here is what is contained in the file haveYouSeenThisMethod.m:</p><pre class="language-matlab">
+<span class="keyword">classdef</span> haveYouSeenThisMethod &lt; handle
+    <span class="keyword">properties</span> 
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre><pre class="codeinput">hsm = haveYouSeenThisMethod();
+methods(hsm)
+</pre><pre class="codeoutput">
+Methods for class haveYouSeenThisMethod:
+
+haveYouSeenThisMethod  methodCcallingB        
+methodA                
+
+Call "methods('handle')" for methods of haveYouSeenThisMethod inherited from handle.
+
+</pre><pre class="codeinput">hsm.methodA
+</pre><pre class="codeoutput">
+ans =
+
+from MethodA.m
+
+</pre><p>Calling 'hsm.privMethodB' would give an error message: 'Cannot Acces...'.</p><p>But we can call this private method from a public method</p><pre class="codeinput">hsm.methodCcallingB
+</pre><pre class="codeoutput">
+ans =
+
+Obtained from methodCcallingB.m: from privMethodB.m
+
+</pre><p>There are two ways to specify classes with respect to files and folders:</p><div><ul><li>Create a single, self-contained class definition file in a path folder or a class folder</li><li>Define a class in multiple files, which requires you to use a class folder (@classname) inside a path folder</li></ul></div><p><a href="matlab:run('html/openOrganisationPics')">Ways to organise your folder</a></p><p>methodA, privMethodB and methodCcallingB are contained in separate files. The other attributes we've seen (Hidden, Transient, ...) can't be attributed to these methods! Let's look at the three files:</p><pre class="language-matlab">
+<span class="keyword">function</span> out = methodA( obj )
+    out = <span class="string">'from MethodA.m'</span>;
+<span class="keyword">end</span>
+
+</pre><pre class="language-matlab">
+<span class="keyword">function</span> out = privMethodB( obj )
+    out = <span class="string">'from privMethodB.m'</span>;
+<span class="keyword">end</span>
+
+</pre><pre class="language-matlab">
+<span class="keyword">function</span> out = methodCcallingB( obj )
+    out = sprintf(<span class="string">'Obtained from methodCcallingB.m: %s'</span>,obj.privMethodB);
+<span class="keyword">end</span>
+
+</pre><p>Useful if your method is getting too big or if it's easier to work on separate files (version control, testing,...) When defining a class in a class folders, you can't specify the attributes of methods having their own file. If you want a method to be Hidden, this method will have to be implemented in the classdef file.</p><h2>Packages<a name="65"></a></h2><p>It is also possible to group classes using packages. If you need to work with files located in folders at various locations in your computer, instead of using 'cd' 'addpath' or even copy files, consider managing them with packages. Let's look into +myPackage:</p><pre class="codeinput">what <span class="string">myPackage</span>;
+</pre><pre class="codeoutput">
+MATLAB Code files in folder /Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP/+myPackage
+
+functionFromPackage  
+
+Classes in folder /Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP/+myPackage
+
+classFromPackage  
+
+
+</pre><p>Calling a class from the package won't work because this is only visible from within the package</p><pre class="codeinput">classFromPackage;
+</pre><p>Parent folder of +myPackage/ has to be on the MATLAB&reg; path so that you can call the package and use the functions and classes within</p><pre class="codeinput">a = myPackage.classFromPackage;
+methods( a );
+</pre><pre class="codeoutput">
+Methods for class myPackage.classFromPackage:
+
+classFromPackage  methodA           methodB           
+
+Call "methods('handle')" for methods of myPackage.classFromPackage inherited from handle.
+
+</pre><pre class="codeinput">a.methodA
+myPackage.functionFromPackage(<span class="string">'Just a test'</span>);
+</pre><pre class="codeoutput">Just a test
+</pre><p>If there are packages within packages, the parent of the top-level package folder must be on the MATLAB&reg; path!!!</p><p>Just like in python, we can now import packages and use classes defined within directly:</p><div><ul><li>import only one class from packag or</li><li>import all classes using syntax pkg.*</li></ul></div><pre class="codeinput">import <span class="string">myPackage.classFromPackage</span>;
+import <span class="string">myPackage.*</span>;
+a = classFromPackage;
+functionFromPackage(<span class="string">'Just another test'</span>);
+</pre><pre class="codeoutput">Just another test
+</pre><p>Clear base workspace from all imported packages</p><pre class="codeinput">clear <span class="string">import</span>;
+</pre><p>To see what is in current folder: code files (functions, scripts or classes), class folders, packages, mat-files:</p><pre class="codeinput">what;
+</pre><pre class="codeoutput">
+MATLAB Code files in the current folder /Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP
+
+MatlabOOPrun        myClassNoHandle     polymA              
+SyntaxColors        myClassSyntax       polymB              
+audience            myCreditor          showHousemates      
+myAbstractClass     myTest              students            
+myClass             nottinghamClass     
+myClassEvent        nottinghamSubclass  
+myClassExample      polym               
+
+Classes in the current folder /Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP
+
+haveYouSeenThisMethod  
+
+Packages in the current folder /Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP
+
+myPackage  
+
+
+</pre><h2>Class attributes<a name="72"></a></h2><p>All classes support the attributes listed in the following. Attributes enable you to modify the behavior of class. Attribute values apply to the class defined within the classdef block.</p><pre class="language-matlab">
+<span class="keyword">classdef</span> (Attribute1 = value1, Attribute2 = value2 ) ClassName
+   <span class="keyword">...</span>
+<span class="keyword">end</span>
+
+</pre><div><ul><li><b>Abstract</b> (default = false) If specified as true, this class is an abstract class (cannot be instantiated).</li><li><b>ConstructOnLoad</b> (default = false) If true, MATLAB? calls the class   constructor when loading an object from a MAT-file. Therefore, you must   implement the constructor so it can be called with no arguments without producing an error.</li><li><b>HandleCompatible</b> default = false) If specified as true, this class   can be used as a superclass for handle classes. All handle classes are   HandleCompatible by definition.</li><li><b>Hidden</b> (default = false) If true, this class does not appear in the output of the superclasses or help functions.</li><li><b>Sealed</b> (default = false) If true, this class can not be subclassed.</li><li><b>AllowedSubclasses</b> List classes that can subclass this class.</li><li><b>InferiorClasses</b> Use this attribute to establish a precedence relationship among classes.</li></ul></div><p>Class attributes are not inherited, so superclass attributes do not affect subclasses.</p><p>For attributes values that are logical true or false, class definitions can specify attribute values using expressions.</p><h2>Properties attributes<a name="73"></a></h2><p>Here is a partial list of the properties attributes. See documentation for complete descriptions.</p><pre class="language-matlab">
+<span class="keyword">classdef</span> (<span class="keyword">...</span>
+        <span class="keyword">properties</span> (Attrib1=value1, Attrib2=value2, Attrib3=val3)
+        <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+</pre><div><ul><li><b>AbortSet</b> If true, MATLAB? does not set the property value if the new   value is the same as the current value. MATLAB does not call the property set method, if one exists.</li><li><b>Abstract</b> If true, the property has no implementation, but a concrete   subclass must redefine this property without Abstract being set to true.</li><li><b>Access</b> public - unrestricted access; protected - access from class or   subclasses; private - access by class members only (not subclasses).</li><li><b>Constant</b> Set to true if you want only one value for this property in   all instances of the class.</li><li><b>GetAccess</b> Same values as 'Access'.</li><li><b>GetObservable</b> If true, and it is a handle class property,   then you can create listeners for access to this property.</li><li><b>Hidden</b> Determines if the property should be shown in a property list   (e.g., Property Inspector, call to set or get, etc.).</li><li><b>NonCopyable</b> Indicate if property value should be copied when object is copied.</li><li><b>SetAccess</b> Has additional 'immutable' - property can be set only in the constructor.</li><li><b>SetObservable</b> If true, and it is a handle class property, then you can create listeners for access to this property.</li><li><b>Transient</b> If true, property value is not saved when object is saved to a file.</li></ul></div><p>There are also some hidden and undocumented properties attributes such as Description or DetailedDescription. They are read as errors in your code but are perfectly usable (as of 2015a) and the error code disappears if you end to property definition by %#ok&lt;ATUNK&gt;</p><h2>Example of private access<a name="74"></a></h2><p>n.myImmutableProp can't be changed. Let's try.</p><pre class="codeinput"><span class="keyword">try</span>
+    n.privateGetAccess;
+<span class="keyword">catch</span> ME
+    disp(ME);
+    n.getPrivAcc;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">  MException with properties:
+
+    identifier: 'MATLAB:class:GetProhibited'
+       message: 'You cannot get the 'privateGetAccess' property of 'nottin...'
+         cause: {}
+         stack: [5x1 struct]
+
+privateGetAccess contains: You can't see me unless you call getPrivAcc.
+</pre><p>Handle: any change on m will change n.</p><pre class="codeinput">m = n;
+<span class="keyword">try</span>
+    m.time = <span class="string">'We can easily change property "time" because it''s public (Access=public)'</span>;
+    fprintf(1,<span class="string">'n.time now contains: %s\n'</span>, n.time);
+<span class="keyword">catch</span> ME,  disp(ME);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">n.time now contains: We can easily change property "time" because it's public (Access=public)
+</pre><pre class="codeinput"><span class="keyword">try</span>
+    m.myNewProperty = <span class="string">'but not as easily myNewProperty because it''s read-only (SetAccess=private)'</span>;
+<span class="keyword">catch</span> ME,  disp(ME);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">  MException with properties:
+
+    identifier: 'MATLAB:class:SetProhibited'
+       message: 'You cannot set the read-only property 'myNewProperty' of ...'
+         cause: {}
+         stack: [5x1 struct]
+
+</pre><pre class="codeinput"><span class="keyword">try</span>
+    m.set(<span class="string">'myNewProperty'</span>, <span class="string">'The method "set" is defined, and can normally change the private properties'</span>);
+<span class="keyword">catch</span> ME,  disp(ME);
+<span class="keyword">end</span>
+fprintf(1,<span class="string">'%s\n'</span>,m.myNewProperty);
+</pre><pre class="codeoutput">The method "set" is defined, and can normally change the private properties
+</pre><pre class="codeinput"><span class="keyword">try</span>
+    m.set(<span class="string">'myImmutableProp'</span>, <span class="string">'But I can''t use it on myImmutableProp!!!'</span>);
+<span class="keyword">catch</span> ME,  disp(ME);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">  MException with properties:
+
+    identifier: ''
+       message: 'Don't even try to change myImmutableProp'
+         cause: {0x1 cell}
+         stack: [6x1 struct]
+
+</pre><pre class="codeinput"><span class="keyword">try</span>
+    m.myImmutableProp = <span class="string">'So, m.myImmutableProp is not changeable, whatever you do.'</span>;
+<span class="keyword">catch</span> ME,  disp(ME);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">  MException with properties:
+
+    identifier: 'MATLAB:class:SetProhibited'
+       message: 'You cannot set the read-only property 'myImmutableProp' o...'
+         cause: {}
+         stack: [5x1 struct]
+
+</pre><h2>Methods attributes<a name="80"></a></h2><p><b>Method Attribute: Abstract</b> If (Abstract=true), the method has to be implementated in subclasses.</p><p>myAbstractMethod has to be implemented in nottinghamSubclass, otherwise it inherits the abstract class and can't be instanciated.</p><p>Abstract methods must be implemented by subclasses and as such their inclusion in a superclass acts as a kind of contract, enforcing interface consistency</p><pre class="codeinput">[n1, n2] = n.myAbstractMethod(<span class="string">'arg'</span>);
+</pre><p><b>Method Attribute: Access, GetAccess, SetAccess</b> Determines what code can call this method. 4 options:</p><div><ul><li>Access='public'                   Unrestricted Access</li><li>Access='protected'                Access from methods in class or subclasses</li><li>Access='private'                  Access by class methods only</li><li>Access={?class1,?class2,...})     Access by specified classes</li></ul></div><p>GetAccess and SetAccess do the same for get and set methods, repectively.</p><pre class="codeinput"><span class="keyword">try</span>
+    n.myPrivateMethod(<span class="string">'Trying to use private method directly: fails.\n'</span>);
+<span class="keyword">catch</span>
+    n.callPrivateMethod(<span class="string">'Calling the private method through public one: works.\n'</span>);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">myPrivateMethod(obj, fromCallPrivateMethod)
+</pre><p><b>Method Attribute: Hidden</b> If set to true, the methods's names not included in methods(classInstance) and ismethod returns false for this method name. <a href="matlab:open('myClass.m')">Ex: Open myClass</a></p><pre class="codeinput">mc = myClass( 1 );
+methods( mc )  <span class="comment">% c2d_* not meant to be seen by user</span>
+</pre><pre class="codeoutput">
+Methods for class myClass:
+
+a2b          b2c          c2d          myClass      one2another  
+
+Call "methods('handle')" for methods of myClass inherited from handle.
+
+</pre><p><b>Method Attribute: Sealed</b> If true, the method cannot be redefined in a subclass.</p><p>Attempting to define a method with the same name in a subclass causes an error. <a href="matlab:open('nottinghamClass.m')">Ex: Open nottinghamClass</a></p><p><b>Method Attribute: Static</b> Static methods are methods that are associated with a class as opposed to instances of that class.</p><p>Static methods are useful when you have methods are are thematically related to the class but which do not use any information particular to specific instances of that class.</p><pre class="codeinput">n.myNewMethod;
+</pre><pre class="codeoutput">I'm the new method, only available to objects of class nottinghamSubclass.
+As a static method, I'm callable from the class itself: nottinghamSubclass.myNewMethod();
+I can be useful: Time is 28-Oct-2015 21:47:50.
+</pre><pre class="codeinput">nottinghamSubclass.myNewMethod();
+</pre><pre class="codeoutput">I'm the new method, only available to objects of class nottinghamSubclass.
+As a static method, I'm callable from the class itself: nottinghamSubclass.myNewMethod();
+I can be useful: Time is 28-Oct-2015 21:47:50.
+</pre><h2>Advanced MATLAB&reg;: Events and listeners<a name="86"></a></h2><p>Events are notices that objects broadcast in response to something that happens, such as a property value changing or a user interaction with an application program. Listeners execute functions when notified that the event of interest occurs. Use events to communicate things that happen to objects, and respond to these events by executing the listener's callback function.</p><p>The syntax is as we would guess:</p><pre class="language-matlab">
+<span class="keyword">classdef</span> ClassName &lt; handle
+   <span class="keyword">...</span>
+   <span class="keyword">events</span>
+      EventName
+   <span class="keyword">end</span>
+   <span class="keyword">...</span>
+<span class="keyword">end</span>
+
+</pre><p>Let's try the following. First, <a href="matlab:open('myClassEvent.m')">openopen myClassEvent</a></p><pre>  myself = myClassEvent( 'Alban', 100 );
+  myself.receivedMoney(10);
+  myCreditor1 = myCreditor('Steve',myself,1100);
+  myself.spendMoney(1100);
+  myCreditor2 = myCreditor('Chris',myself,25);
+  myself.spendMoney(36);
+  myself.spendMoney(200);</pre><p>When using events and listeners:</p><div><ul><li>Only handle classes can define events and listeners.</li><li>Call the handle notify method to trigger the event. The event notification broadcasts   the named event to all listeners registered for this event.</li><li>Use the handle addlistener method to associate a listener with an object that will   be the source of the event.</li><li>When adding a listener, pass a  function handle for the listener callback function using   a syntax such as the following:</li></ul></div><pre>     addlistener(eventObject,'EventName',@functionName) % for an ordinary function.
+     addlistener(eventObject,'EventName',@Obj.methodName) % for a method of Obj.
+     addlistener(eventObject,'EventName',@ClassName.methodName) % for a static method of the class ClassName.
+     addlistener(eventObject,'EventName',@PackageName.functionName) % for a function in package: PackageName.functionName</pre><div><ul><li>Listener callback functions must define at least two input arguments ? the event   source object handle and the event data.</li><li>You can modify the data passed to each listener callback by subclassing the   event.EventData class.</li></ul></div><p>Define and Trigger Events ('notify' method) To define an event, declare a name for the event in an events block. Trigger the event using the handle class notify method. Only classes derived from the handle class can define events.</p><p>Listen for Events ('addlistener' method) Any number of objects can listen to the StateChange event. When notify executes, MATLAB&reg; calls all registered listener callbacks. MATLAB&reg; passes the handle of the object generating the event and event data to the callback functions. To create a listener, use the addlistener method of the handle class.</p><h2>Polymorphism<a name="87"></a></h2><p>Polymorphism is the ability to treat all the children of a common parent as if they were all instances of that parent. It has two important aspects, as follows:</p><div><ol><li>All objects that are children of a parent class must be treated collectively as if they were all instances of the parent,</li><li>Individually, the system must reach the specific child methods when called for.</li></ol></div><p>In MATLAB&reg;, we will use the superclass matlab.mixin.Heterogeneous</p><pre class="codeinput">p = [polymA, polymB, polymA, polymA];
+disp(p);                    <span class="comment">% Collectively treated as instances of the parent</span>
+</pre><pre class="codeoutput">  1x4 heterogeneous polym (polymA, polymB) array with properties:
+
+    propPolym
+
+</pre><p>Use method from class polym (no polymorphism)</p><pre class="codeinput">arrayfun(@(ind)ind.sealMeth, p)
+</pre><pre class="codeoutput">
+ans =
+
+     0     0     0     0
+
+</pre><p>Use method from class polymA or B (polymorphism)</p><pre class="codeinput">arrayfun(@(ind)ind.meth, p) <span class="comment">% Individually treated as instances of the child</span>
+</pre><pre class="codeoutput">
+ans =
+
+     1     2     1     1
+
+</pre><pre class="codeinput">arrayfun(@(ind)ind.a, p)
+</pre><pre class="codeoutput">
+ans =
+
+    10    20    10    10
+
+</pre><h2>MATLAB&reg; in excruciating depth<a name="91"></a></h2><p>Let's count the number of m-files, packages... in MATLAB&reg; internals. A lot of classes, a lot of packages, a lot of weird files (such as .ver, .vcxproj, .traineddata, .policy,...)</p><pre>  Number of folders:       11503
+  Number of packages:      2108
+  Number of class folders: 5912
+  Number of private files: 7343
+  Number of .m:            28418
+  Number of .mat:          1671
+  Number of weird files:   30082</pre><p>Let's change the desktop's title: <a href="matlab:run('html/setTitleEd')">Change the editor's title by running html/setTitleEd.</a></p><h2>(When) When to use classes<a name="93"></a></h2><div><ol><li>When, fundamentally, you are developping a specific object (model,...)</li><li>When you need some constraints (some properties being char, ...)</li><li>When you do this kind of things a2b, b2c, c2d... successively.</li><li>When you want to call many small functions but don't want as many files.</li><li>When you are working with what feels like levels of abstraction (inheritance)   in particular if you need to hsm.methodCcallingBadd methods (newClass &lt;   class1 &amp; class2).</li><li>More generally, when you feel your code should be simple than what it is currently.   Feeling also refered to as the KISS principle (<i>Keep it Simple, Silly</i>).</li><li>When you need to keep track of an event (addlistener).</li><li>Think about polymorphism when you need to apply different things   without specifying in your script the level of abstraction (ex: in writeScript).</li></ol></div><h2>Overload MATLAB&reg; functions and MATLAB&reg; operators<a name="94"></a></h2><p>Classes can implement existing functionality, such as addition, by defining a method with the same name as the existing MATLAB&reg; function. For example, suppose you want to add two audience objects. It makes sense to add the values of the nbPplKnowObjects, nbPplKnowStructures, ... properties of each object. Works because user-defined classes have a higher precedence than built-in classes.</p><p><a href="matlab:open('audience.m')">Open audience.m</a></p><pre class="codeinput">a_tomorrow = audience(<span class="string">'Paris'</span>);
+a_tomorrow.nbPplKnowObjects     = 14;
+disp( aud + a_tomorrow );  <span class="comment">% same as plus(aud, a_tomorrow);</span>
+</pre><pre class="codeoutput">  audience with properties:
+
+                    time: '28-Oct-2015 21:47:47'
+                nbPeople: 300
+                  isnice: 1
+                   venue: 'University of Nottingham_Paris'
+        nbPplKnowObjects: 39
+     nbPplKnowStructures: 85
+    nbPplKnowInheritance: 20
+            nbPplUsedOOP: 1
+     nbPplWrittenClasses: 1
+
+</pre><p>Question: would you overload some operators in your work?</p><h2>A few more things with OOP<a name="96"></a></h2><p><b>Seeing all the information you want</b></p><p>Simply overload the function 'disp' to output exactly what you want to see.</p><p>The trick to use the built-in function 'disp' within your overloaded 'disp' is to call builtin('disp', ~).</p><p>Ex: I have an object called writeScript that contains a handle of an object HTKCodeGenerator. When displaying, writeScript, the built-in disp is applied on both:</p><p><a href="matlab:open('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/writeScript.m')">Open writeScript.</a></p><p><b>Nested functions</b></p><p>You can use nested function in a class' method as you're used to.</p><p><b>Using all variables types</b></p><p>Within your methods, you can use the 3 types of variables: local, persistent, global. In most cases, using properties or attributes is more natural when working within an object.</p><p><b>Find memory allocation for objects</b></p><p>Trick to get size of the objects: A handle typically takes 112 Bytes. To see how much memory it really takes, a trick is to convert into struct:</p><pre class="codeinput">warning <span class="string">off</span> <span class="string">'MATLAB:structOnObject'</span> <span class="comment">% To get rid of warning message.</span>
+c_struct = struct( c );
+warning <span class="string">on</span> <span class="string">'MATLAB:structOnObject'</span>  <span class="comment">% Error message back on.</span>
+disp( c );
+whos( <span class="string">'c'</span>,<span class="string">'c_struct'</span> );
+</pre><pre class="codeoutput">  nottinghamClass with properties:
+
+         time: '28-Oct-2015 21:48:14'
+    path2logo: './notts.jpg'
+         logo: [1x1 Figure]
+
+  Name          Size            Bytes  Class              Attributes
+
+  c             1x1               112  nottinghamClass              
+  c_struct      1x1               694  struct                       
+
+</pre><p><b>Tab completion</b></p><p>Tab complemention works for classes, properties and methods. Try it.</p><h2>Enumeration class<a name="98"></a></h2><p>Enumeration classes are limited to a list of given values. Each statement in an enumeration block is the name of an enumeration member, optionally followed by an argument list. If the enumeration class defines a constructor, MATLAB calls the constructor to create the enumerated instances.</p><p>MATLAB provides a default constructor for all enumeration classes that do not explicitly define a constructor. The default constructor creates an instance of the enumeration class: * Using no input arguments, if the enumeration member defines no input arguments. * Using the input arguments defined in the enumeration class for that member.</p><pre class="codeinput">enumeration <span class="string">students</span>
+</pre><pre class="codeoutput">
+Enumeration members for class 'students':
+
+    Alban
+    Toby
+    Dave
+    Oscar
+    Joel
+    Steaders
+
+</pre><pre class="codeinput">a = students.Toby;
+disp(a.isgoodstudent);
+</pre><pre class="codeoutput">He's the best!
+</pre><pre class="codeinput">enumeration <span class="string">SyntaxColors</span>
+</pre><pre class="codeoutput">
+Enumeration members for class 'SyntaxColors':
+
+    Error
+    Comment
+    Keyword
+    String
+
+</pre><pre class="codeinput">b = SyntaxColors.Comment;
+disp(b);
+</pre><pre class="codeoutput">    Comment
+
+</pre><pre class="codeinput">disp(b.RGB);
+</pre><pre class="codeoutput">     0     1     0
+
+</pre><p><b>A few constraints on enumeration classes</b></p><div><ul><li>Enumeration classes are implicitly Sealed.</li><li>Only MATLAB&reg; can call enumeration class constructors to create the fixed set of members.</li><li>The properties of value-based enumeration classes are immutable.</li></ul></div><h2>Example from my own work<a name="104"></a></h2><p>Live presentation of my work. <a href="matlab:cd('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/')">Cd to MAP_/</a>    <a href="matlab:open('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/@HTKCodeGenerator/HTKCodeGenerator.m')">Open HTKCodeGenerator.</a></p><h2>OOP Drawbacks<a name="105"></a></h2><div><ul><li>Verbosity. Can be a good thing too.</li><li>Harder to learn than doing script with functions.</li><li>Not widely spread.</li></ul></div><h2>Thought experiment<a name="106"></a></h2><p>For the next 1 minute, please think about how you can transform the code you are currently working on to adapt it with your own classes.</p><p>Questions?</p><h2>Take home messages<a name="107"></a></h2><div><ul><li>Think first about the object you work on rather than the operations you want to do on it (ie: create and use the appropriate class).</li><li>Think of your work as building a package (+) using appropriate levels of abstraction (@).</li><li>Complexity is your ennemy: if it makes your code easier to read/change/share/..., then make those 3 more methods.</li><li>Matlab offers a lot of possiblities: Once you use OOP, it becomes a proper programming language with good computational abilities.</li></ul></div><h2>References<a name="108"></a></h2><p>Mathworks documentation and webinars, Yair's book Accelerating Matlab Performance (2014) and website undocumentedmatlab.com, and a few others:</p><div><ul><li><a href="http://www.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf">http://www.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf</a></li><li><a href="http://fr.mathworks.com/videos/programming-with-matlab-86354.html?form_seq=conf1092&amp;elqsid=1445531855668&amp;potential_use=Education&amp;country_code=GB">http://fr.mathworks.com/videos/programming-with-matlab-86354.html?form_seq=conf1092&amp;elqsid=1445531855668&amp;potential_use=Education&amp;country_code=GB</a></li><li><a href="http://fr.mathworks.com/help/matlab/matlab_prog/copying-objects.html">http://fr.mathworks.com/help/matlab/matlab_prog/copying-objects.html</a></li><li><a href="http://fr.mathworks.com/help/matlab/matlab_oop/method-attributes.html">http://fr.mathworks.com/help/matlab/matlab_oop/method-attributes.html</a></li><li><a href="http://fr.mathworks.com/help/matlab/ref/handle-class.html">http://fr.mathworks.com/help/matlab/ref/handle-class.html</a></li><li>https://yagtom.googlecode.com/svn/trunk/html/objectoriented.html</li><li><a href="http://undocumentedmatlab.com/">http://undocumentedmatlab.com/</a></li><li><a href="http://www.dms489.com/Concepts_book/onlinechapters/Chapter18.pdf">http://www.dms489.com/Concepts_book/onlinechapters/Chapter18.pdf</a></li><li>https://en.wikipedia.org/wiki/Object-oriented_programming</li><li>Best Practices for Scientific Computing, PLoS Biology <a href="http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745">http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745</a></li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% OOP in Matlab
+% Alban, pmxal9@nottingham.ac.uk
+%% Foreword
+% Scientists would gain to learn software development practices.
+% 
+% Best Practices for Scientific Computing, PLoS Biology 2014.
+% <http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745>
+%
+% _Scientists typically develop their own software for these purposes because 
+% doing so requires substantial domain-specific knowledge. As a result, recent 
+% studies have found that scientists typically spend 30% or more of their time 
+% developing software. However, 90% or more of them are primarily 
+% self-taught, and therefore lack exposure to basic software development
+% practices such as writing maintainable code, using version control and issue 
+% trackers, code reviews, unit testing, and task automation._
+% 
+% [...]
+% 
+% _A large body of research has shown that code reviews are the most
+% cost-effective way of finding bugs in code. They are also a good way to 
+% spread knowledge and good practices around a team. In projects with 
+% shifting membership, such as most academic labs, code reviews help ensure  
+% that critical knowledge isn't lost when a student or postdoc leaves the
+% lab._
+%
+% * Look at some best practice tips,
+% * Show your code (fellow PhDs, supervisor, random guy, student).
+% 
+%% Prepare workspace    
+% This code is just preparing my workspace.
+clear;          % Clear workspace
+cPath = fullfile('/Users','pmaal','Dropbox','Nottingham','repos','phd','Seminars','MatlabOOP');
+cd(cPath);      % Change directory
+
+%% Preintroduction
+% *Structures in MATLAB(R)*
+%
+% A structure array is a data type that groups related data using data 
+% containers called fields. Each field can contain any type of data. 
+% Access data in a structure using dot notation of the form structName.fieldName.
+%
+% Ex: To capture all infos regarding my classes this term, I'll use struct:
+thisTerm.nbCoursesIDemonstrate = 2;
+thisTerm.listOfCourses = 'G11MAN G59ZZZ';
+disp( thisTerm );
+%%
+sameInfo = struct('nbCoursesIDemonstrate', 2,'listOfCourses', 'G11AAA G59ZZ');
+disp( sameInfo );
+
+%%
+% Ex: If I need a list of structures with the same fields: structure array.
+housemate(1).name = 'Giannis';
+housemate(1).age = 23;
+housemate(1).coolitude = 10;
+housemate(2).name = 'Laura';
+housemate(2).age = 46;
+housemate(2).coolitude = 8.5;
+housemate(3).name = 'Xiaofei';
+housemate(3).age = 12;
+housemate(3).coolitude = 10.1;
+%%
+%
+% <</Users/pmaal/Dropbox/Nottingham/repos/phd/Seminars/MatlabOOP/Housemates.png>>
+%
+%%
+% Average coolness of my housemates:
+mean([housemate.coolitude])
+
+%%
+% As easily: nested structures
+C.M.A = ones(3);
+C.M.M.A = zeros(4,1);
+C.M.M.B = eye(4);
+C.M.C = magic(5);
+%%
+% What is the value of 
+% <matlab:disp(C.M.M.B(6)) C.M.M.B(6)>?
+
+%%
+% Be wary of using 'struct':
+thisTerm.nbCoursesIDemonstrate = 2;
+thisTerm.listOfCourses = {'G11AAA','G59ZZ'};
+disp( thisTerm );
+%%
+notSameInfo = struct('nbCoursesIDemonstrate', 2,'listOfCourses', {'G11AAA','G59ZZ'});
+disp( notSameInfo );
+
+%%
+% Also possible to initialise a structure array:
+structArray(15).name = 'NoName';
+structArray(16).age = 'noAge';
+
+%%
+% 
+% <matlab:run('html/lengthStructArray') What is length(structArray)?>
+%
+% <matlab:open('structArray') Open structArray>
+
+%%
+% *Workspaces in MATLAB(R)*
+% 
+% The *base workspace* stores variables that you create at the command line. 
+% This includes any variables that scripts create, assuming that you run 
+% the script from the command line or from the Editor. Variables in the base
+% workspace exist until you clear them or end your MATLAB(R) session.
+%
+% Functions do not use the base workspace. Every function has its own 
+% *function workspace*. Each function workspace is separate from the base workspace and 
+% all other workspaces to protect the integrity of the data. Even local functions
+% in a common file have their own workspaces. Variables specific to a function 
+% workspace are called local variables. Typically, local variables do not 
+% remain in memory from one function call to the next.
+
+%% Questions
+
+aud = audience('University of Nottingham');
+aud.nbPeople = 300;
+%%
+% Who already knew what a structure was?
+aud.nbPplKnowStructures = 85;
+%%
+% Who knows what an object is? (in OOP sense)
+aud.nbPplKnowObjects = 25;
+%%
+% Who knows what inheritance is?
+aud.nbPplKnowInheritance = 20;
+%%
+% Who has used OOP in MATLAB?
+aud.nbPplUsedOOP = 1;
+%%
+% Who has written classes in MATLAB?
+aud.nbPplWrittenClasses = 1;
+disp( aud );
+%%
+% So far, aud looks like a structure. What would the following do?
+%
+% <matlab:eval('aud.time=42;') aud.time = 42;>
+
+
+%% Introduction: OOP & MATLAB(R)
+%
+% Mathworks introduced in 2008a an entirely new OO framework 
+% and syntax, bringing it more in line with Java, python, C++, etc. 
+%
+% Object-oriented programming (OOP) is a programming paradigm based on the 
+% concept of "objects", which are data structures that contain data, in the 
+% form of fields, often known as attributes; and code, in the form of procedures,
+% often known as methods. 
+% The first OOP languages come from the 60's.
+%
+% MATLAB(R) is a multi-paradigm programming language: 
+% Interactive command line, scripts and functions, object-oriented
+% programming.
+
+%% (What) OOP: Main concepts
+% At a first approximation, objects in Matlab are just structs.
+% Here are some important differences:
+% 
+% * Both structs and objects store data in named fields, (called properties 
+%   in objects) but objects also encapsulate the operations you can perform 
+%   on them, (called methods).
+% * Structs can be created with whatever fields you like but all objects 
+%   of the same class have the same properties. The values for these properties will differ.
+% * Structs are created with the struct() function, objects use constructors. 
+%   
+
+%% Everything has a class
+% In MATLAB(R), every value is assigned to a class (predefined or user-defined).
+a = 7;
+b = 'some text';
+st.Name = 'Nancy';
+st.Age = 64;
+whos
+
+%%
+% Let's look at a class that has something more
+c = nottinghamClass();  % nottinghamClass is a class,
+disp( c );              % c is an instance of this class.
+
+%%
+% We can as easily create an array of this class. 
+doubleArray(6) = 10;             % Creates double array filled with default values (0) and a 10.
+structArray(6).myfield = 'a';    % Creates structure array, default value '', and a 'a'.
+classArray(6) = audience();      % Creates audience array
+arrayfun( @(ind)classArray(ind).setNbPeople(ind^2), 1:6 ) % No output
+%%
+% <matlab:open('structArray') Open structArray>, <matlab:open('classArray') Open classArray>.
+% Note the difference in visualisation in the variables' viewer. 
+disp( structArray ); 
+disp( classArray );                 
+
+%%
+% Check we can get all values from a given field like with structures:
+disp({structArray.myfield})
+%%
+disp({classArray.time})
+%%
+disp([classArray.nbPeople])
+
+%% 
+% Look at the (non-hidden) methods of our nottinghamClass object
+methods( c )
+%%
+% and let's look at the image it contains. Calling 'c.todaysLogo' is the
+% same as calling 'todaysLogo( c )'
+c.todaysLogo;
+%% 
+% Check we can change the time
+c.time = datestr( now + 0.0003 );
+c.todaysLogo;
+c.saveasjpg;
+%%
+close( c.logo );
+
+%% Dynamic referencing
+% Just like with structures, we can use the syntax 
+% myClass.(varContainingFieldName) to access the values from a field.
+propName = 'time';
+myStruct.(propName) = datestr( now );
+fprintf('myStruct.%s contains ''%s''\n' ,propName,myStruct.(propName));
+fprintf('c.%s contains ''%s''\n'        ,propName,c.(propName));
+
+
+%% (Why) Good Programming
+% Good practice with classes:
+% 
+% * MATLAB is increasingly using OOP.
+% * Always use case sensitive method names in your MATLAB(R) code (always).
+% * Choose the attributes that fit your use (ex: private to simplify what you can do in a script).
+% * Think about your hierarchy of classes before starting to code (will diminish coding errors and reduce restructuring).
+% * Choose the level of asbtraction you want to work in (ex: c2d rather than c2d_char in example to come).
+% * Resulting code easily extendable and reusable.
+% * Replace spaghetti code by more robust and maintainable code.
+% * Documentation provides a simple test to evaluate how clear your comments are.
+
+
+%% (How) Write classes in MATLAB(R)
+% In file myClassSyntax.m, accessible to MATLAB's path:
+% 
+% <include>myClassSyntax.m</include>
+%
+%%
+% Let's look at a working examples: nottinghamClass.m 
+%
+% nottinghamClass.m:
+% 
+% <include>nottinghamClass.m</include>
+%
+%%
+% we can look at its <matlab:doc('nottinghamClass') doc>.
+%
+
+%% Commenting in classes
+% Best practice is to document interfaces and reasons, not implementations, 
+% and in classes, all properties (what do they contain/what are they for)
+% and methods (inputs/outputs, what they do, examples of I/O).
+% MATLAB(R)'s doc will do the rest.
+%
+% For example: <matlab:doc('nottinghamSubclass.m') doc nottinghamSubclass>
+% is not perfect. Let's look at 
+% <matlab:doc('nottinghamClass.m') doc nottinghamClass>
+% (note property 'time')
+
+%% Blocks: classdef, properties, methods, events, enumeration
+properties( c )
+%%
+methods( c )
+%%
+properties( aud )
+%%
+methods( aud )
+
+%% Practical example 
+% that shows the flexibility in working with classes:
+% <matlab:open('./myClasses.pdf') example use of class: myClass.m>
+methods(myClass('1')) 
+
+%% Superclasses and subclasses
+% MATLAB(R) supports multiple inheritance, i.e. subclasses with multiple 
+% superclasses. Care must be taken that naming conflicts do not occur.
+%%
+%
+% <include>nottinghamSubclass.m</include>
+%
+%%
+% Visual represenstation of class hierarchy:
+% !open html/PMTK2-class-diag-models-may09.png
+%
+%%
+% For example, an instance of class nottinghamSubclass looks like this:
+n = nottinghamSubclass;     
+disp(n);
+
+
+%%
+% What is the difference between <matlab:run('html/openTwoClasses') those two classes>? 
+%
+
+%%
+% Exercise: Guess final value of wH.d and noH.d:
+wH = myClass('initialValue');
+wH.a2b;
+wH.b2c;
+wH.c2d;
+noH = myClassNoHandle( 'initialValue' ); 
+noH.a = 'initialValue' ;
+noH.a2b;
+noH.b2c;
+noH.c2d;
+
+%%
+%
+% <matlab:eval('wH.d') wH.d>,  <matlab:eval('noH.d') noH.d>
+%
+
+%% About superclass 'handle'
+%
+% Two Copy Behaviors
+% There are two fundamental kinds of MATLAB(R)? classes?handles and values.
+% 
+% * *Value classes* create objects that behave like ordinary MATLAB variables with 
+% respect to copy operations. Copies are independent values. Operations that 
+% you perform on one object do not affect copies of that object.
+% * *Handle classes* create objects that behave as references. A handle, and all 
+% copies of this handle, refer to the same object. When you create a handle 
+% object, you copy the handle, but not the data referenced by the object's 
+% properties. Any operations you perform on a handle object are visible from 
+% all handles that reference that object.
+%
+% Equivalent in C: Call by reference / Call by value
+%
+% The handle class is the superclass for all classes that follow handle 
+% semantics. A handle is a reference to an object. If you copy an object's 
+% handle variable, MATLAB? copies only the handle. Both the original and 
+% copy refer to the same object. For example, if a function modifies a handle 
+% object passed as an input argument, the modification affects the original input object.
+% In contrast, nonhandle objects (that is, value objects) are not references. 
+% Functions must return modified value objects to change the object outside of the function's workspace.
+%
+% 
+% See MATLAB's documentation:
+%
+% <matlab:web('http://fr.mathworks.com/help/matlab/matlab_oop/comparing-handle-and-value-classes.html') Comparing handle and value classes>
+% REPLACE_WITH_DASH_DASH
+% <matlab:web('http://fr.mathworks.com/help/matlab/matlab_oop/which-kind-of-class-to-use.html') Which kind of class to use>
+
+%% 
+% *Handles are everywhere in MATLAB(R)* 
+% 
+% We use 'f' as the number 1 (it's the only reference we, as users, need)
+% but f contains much more information:
+f = figure(1);
+get(f);
+close(f)
+
+%%
+% Cf <matlab:doc('figure') doc figure>; figure(h) does one of the following:
+%
+% * If h is the handle or the Number property value of an existing figure, 
+%     then figure(h) makes that existing figure the current figure, makes it 
+%     visible, and moves it on top of all other figures on the screen. The 
+%     current figure is the target for graphics output.
+% * If h is not the handle and is not the Number property value of an existing 
+%     figure, but is an integer, then figure(h) creates a figure object and 
+%     assigns its Number property the value h.
+% * If h is not the handle to a figure and is not a positive integer, then 
+%     MATLAB(R) returns an error.
+try 
+    % Suspense...
+    figure(0); 
+catch ME
+    disp(ME);
+    disp(ME.message);
+end
+
+
+%%
+% For fun: a Mathworks tool to explore the graph of some objects' (graphics) properties:
+% <matlab:web('http://fr.mathworks.com/help/releases/R2012a/techdoc/infotool/hgprop/rootobject_frame.html') Handle Graphics Object Properties>
+
+
+
+%% Class folders
+% There's another way to write classes, using class folders. 
+% Here is what is contained in the file haveYouSeenThisMethod.m:
+%
+% <include>haveYouSeenThisMethod.m</include>
+%
+%%
+hsm = haveYouSeenThisMethod();
+methods(hsm)
+%%
+hsm.methodA
+%%
+% Calling 'hsm.privMethodB' would give an error message: 'Cannot Acces...'.
+%%
+% But we can call this private method from a public method
+hsm.methodCcallingB
+%% 
+% There are two ways to specify classes with respect to files and folders:
+%
+% * Create a single, self-contained class definition file in a path folder or a class folder
+% * Define a class in multiple files, which requires you to use a class folder (@classname) inside a path folder
+%
+% <matlab:run('html/openOrganisationPics') Ways to organise your folder>
+
+%%
+% methodA, privMethodB and methodCcallingB are contained in separate files.
+% The other attributes we've seen (Hidden, Transient, ...) can't be
+% attributed to these methods! Let's look at the three files:
+%%
+%
+% <include>methodA.m</include>
+%
+% <include>privMethodB.m</include>
+%
+% <include>methodCcallingB.m</include>
+%
+%
+% Useful if your method is getting too big or if it's easier to work on
+% separate files (version control, testing,...)
+% When defining a class in a class folders, you can't specify the
+% attributes of methods having their own file. If you want a method to be
+% Hidden, this method will have to be implemented in the classdef file.
+
+%% Packages
+% It is also possible to group classes using packages. If you need to work
+% with files located in folders at various locations in your computer,
+% instead of using 'cd' 'addpath' or even copy files, consider managing
+% them with packages. 
+% Let's look into +myPackage:
+what myPackage;                 
+%%
+% Calling a class from the package won't work because this is only visible
+% from within the package
+classFromPackage;               
+%%
+% Parent folder of +myPackage/ has to be on the MATLAB(R) path so that you
+% can call the package and use the functions and classes within
+a = myPackage.classFromPackage; 
+methods( a );
+%%
+a.methodA
+myPackage.functionFromPackage('Just a test');
+
+%%
+% If there are packages within packages, 
+% the parent of the top-level package folder must be on the MATLAB(R) path!!!
+%
+% Just like in python, we can now import packages and use classes defined within directly:
+%
+% * import only one class from packag or
+% * import all classes using syntax pkg.*
+import myPackage.classFromPackage;  
+import myPackage.*;                 
+a = classFromPackage;
+functionFromPackage('Just another test');
+%%
+% Clear base workspace from all imported packages
+clear import;
+
+%%
+% To see what is in current folder: code files (functions, scripts or
+% classes), class folders, packages, mat-files:
+what;
+
+%% Class attributes
+% All classes support the attributes listed in the following. 
+% Attributes enable you to modify the behavior of class. Attribute values 
+% apply to the class defined within the classdef block.
+% 
+% <include>html/ClassName.m</include>
+%
+% * *Abstract* (default = false) If specified as true, this class is an abstract class (cannot be instantiated).
+% * *ConstructOnLoad* (default = false) If true, MATLAB? calls the class 
+%   constructor when loading an object from a MAT-file. Therefore, you must 
+%   implement the constructor so it can be called with no arguments without producing an error.
+% * *HandleCompatible* default = false) If specified as true, this class 
+%   can be used as a superclass for handle classes. All handle classes are 
+%   HandleCompatible by definition. 
+% * *Hidden* (default = false) If true, this class does not appear in the output of the superclasses or help functions.
+% * *Sealed* (default = false) If true, this class can not be subclassed.
+% * *AllowedSubclasses* List classes that can subclass this class. 
+% * *InferiorClasses* Use this attribute to establish a precedence relationship among classes.
+% 
+% Class attributes are not inherited, so superclass attributes do not affect subclasses.
+% 
+% For attributes values that are logical true or false, class definitions can specify attribute values using expressions. 
+
+%% Properties attributes
+% Here is a partial list of the properties attributes. See documentation
+% for complete descriptions.
+%
+% <include>html/propAttributes.m</include>
+% 
+% * *AbortSet* If true, MATLAB? does not set the property value if the new 
+%   value is the same as the current value. MATLAB does not call the property set method, if one exists.
+% * *Abstract* If true, the property has no implementation, but a concrete 
+%   subclass must redefine this property without Abstract being set to true.
+% * *Access* public - unrestricted access; protected - access from class or
+%   subclasses; private - access by class members only (not subclasses).
+% * *Constant* Set to true if you want only one value for this property in
+%   all instances of the class.
+% * *GetAccess* Same values as 'Access'.
+% * *GetObservable* If true, and it is a handle class property, 
+%   then you can create listeners for access to this property.
+% * *Hidden* Determines if the property should be shown in a property list 
+%   (e.g., Property Inspector, call to set or get, etc.).
+% * *NonCopyable* Indicate if property value should be copied when object is copied.
+% * *SetAccess* Has additional 'immutable' - property can be set only in the constructor.
+% * *SetObservable* If true, and it is a handle class property, then you can create listeners for access to this property. 
+% * *Transient* If true, property value is not saved when object is saved to a file. 
+%
+% There are also some hidden and undocumented properties attributes
+% such as Description or DetailedDescription. They are read as errors in your
+% code but are perfectly usable (as of 2015a) and the error code disappears
+% if you end to property definition by %#ok<ATUNK>
+
+%% Example of private access
+% n.myImmutableProp can't be changed. Let's try.
+try
+    n.privateGetAccess;
+catch ME
+    disp(ME);
+    n.getPrivAcc;
+end
+%% 
+% Handle: any change on m will change n.
+m = n;             
+try
+    m.time = 'We can easily change property "time" because it''s public (Access=public)';
+    fprintf(1,'n.time now contains: %s\n', n.time);
+catch ME,  disp(ME);
+end
+%%
+try
+    m.myNewProperty = 'but not as easily myNewProperty because it''s read-only (SetAccess=private)';
+catch ME,  disp(ME);
+end
+%%
+try
+    m.set('myNewProperty', 'The method "set" is defined, and can normally change the private properties');
+catch ME,  disp(ME);
+end
+fprintf(1,'%s\n',m.myNewProperty);
+%%
+try
+    m.set('myImmutableProp', 'But I can''t use it on myImmutableProp!!!');
+catch ME,  disp(ME);
+end
+%%
+try
+    m.myImmutableProp = 'So, m.myImmutableProp is not changeable, whatever you do.';
+catch ME,  disp(ME);
+end
+
+%% Methods attributes
+% *Method Attribute: Abstract*
+% If (Abstract=true), the method has to be implementated in subclasses.
+%
+% myAbstractMethod has to be implemented in nottinghamSubclass, otherwise 
+% it inherits the abstract class and can't be instanciated.
+%
+% Abstract methods must be implemented by subclasses and as such their 
+% inclusion in a superclass acts as a kind of contract, enforcing interface consistency
+[n1, n2] = n.myAbstractMethod('arg');  
+
+
+%% 
+% *Method Attribute: Access, GetAccess, SetAccess*
+% Determines what code can call this method. 4 options:
+%
+% * Access='public'                   Unrestricted Access
+% * Access='protected'                Access from methods in class or subclasses
+% * Access='private'                  Access by class methods only
+% * Access={?class1,?class2,...})     Access by specified classes  
+% 
+% GetAccess and SetAccess do the same for get and set methods, repectively.
+try
+    n.myPrivateMethod('Trying to use private method directly: fails.\n');
+catch 
+    n.callPrivateMethod('Calling the private method through public one: works.\n');
+end
+
+%% 
+% *Method Attribute: Hidden*     
+% If set to true, the methods's names not included in
+% methods(classInstance) and ismethod returns false for this method name.
+% <matlab:open('myClass.m') Ex: Open myClass>
+mc = myClass( 1 );
+methods( mc )  % c2d_* not meant to be seen by user
+
+
+%% 
+% *Method Attribute: Sealed*
+% If true, the method cannot be redefined in a subclass. 
+% 
+% Attempting to define a method with the same name in a subclass causes an error.
+% <matlab:open('nottinghamClass.m') Ex: Open nottinghamClass>
+
+
+%% 
+% *Method Attribute: Static*
+% Static methods are methods that are associated with a class as opposed to 
+% instances of that class.
+% 
+% Static methods are useful when you have methods are are thematically 
+% related to the class but which do not use any information particular 
+% to specific instances of that class.
+n.myNewMethod;
+%%
+nottinghamSubclass.myNewMethod();
+
+
+%% Advanced MATLAB(R): Events and listeners
+%
+% Events are notices that objects broadcast in response to something that happens,
+% such as a property value changing or a user interaction with an application program.
+% Listeners execute functions when notified that the event of interest occurs. Use events to
+% communicate things that happen to objects, and respond to these events by executing the
+% listener's callback function.
+%
+%
+% The syntax is as we would guess:
+%
+% <include>html/syntaxEvents.m</include>
+%
+% Let's try the following. First, <matlab:open('myClassEvent.m') openopen myClassEvent>
+%
+%    myself = myClassEvent( 'Alban', 100 );
+%    myself.receivedMoney(10);
+%    myCreditor1 = myCreditor('Steve',myself,1100);
+%    myself.spendMoney(1100);
+%    myCreditor2 = myCreditor('Chris',myself,25);
+%    myself.spendMoney(36);
+%    myself.spendMoney(200);
+%
+%
+% When using events and listeners:
+% 
+% * Only handle classes can define events and listeners.
+% * Call the handle notify method to trigger the event. The event notification broadcasts
+%   the named event to all listeners registered for this event.
+% * Use the handle addlistener method to associate a listener with an object that will
+%   be the source of the event.
+% * When adding a listener, pass a  function handle for the listener callback function using
+%   a syntax such as the following:
+%
+%       addlistener(eventObject,'EventName',@functionName) % for an ordinary function.
+%       addlistener(eventObject,'EventName',@Obj.methodName) % for a method of Obj.
+%       addlistener(eventObject,'EventName',@ClassName.methodName) % for a static method of the class ClassName.
+%       addlistener(eventObject,'EventName',@PackageName.functionName) % for a function in package: PackageName.functionName
+%
+% * Listener callback functions must define at least two input arguments ? the event
+%   source object handle and the event data.
+% * You can modify the data passed to each listener callback by subclassing the
+%   event.EventData class.
+%
+%
+% Define and Trigger Events ('notify' method)
+% To define an event, declare a name for the event in an events block. Trigger the event
+% using the handle class notify method. Only classes derived from the handle class can
+% define events.
+%
+%
+% Listen for Events ('addlistener' method)
+% Any number of objects can listen to the StateChange event. When notify executes,
+% MATLAB(R) calls all registered listener callbacks. MATLAB(R) passes the handle of the object
+% generating the event and event data to the callback functions. To create a listener, use
+% the addlistener method of the handle class.
+
+
+%% Polymorphism 
+% Polymorphism is the ability to treat all the children of a common
+% parent as if they were all instances of that parent. It has two
+% important aspects, as follows:
+% 
+% # All objects that are children of a parent class must be treated
+% collectively as if they were all instances of the parent,
+% # Individually, the system must reach the specific child methods
+% when called for.
+%
+% In MATLAB(R), we will use the superclass matlab.mixin.Heterogeneous
+
+p = [polymA, polymB, polymA, polymA];
+disp(p);                    % Collectively treated as instances of the parent
+%%
+% Use method from class polym (no polymorphism)
+arrayfun(@(ind)ind.sealMeth, p)     
+%%
+ % Use method from class polymA or B (polymorphism)
+arrayfun(@(ind)ind.meth, p) % Individually treated as instances of the child  
+%%
+arrayfun(@(ind)ind.a, p) 
+
+
+%% MATLAB(R) in excruciating depth
+% Let's count the number of m-files, packages... in MATLAB(R) internals. A
+% lot of classes, a lot of packages, a lot of weird files (such as .ver,
+% .vcxproj, .traineddata, .policy,...)
+% 
+%    Number of folders:       11503
+%    Number of packages:      2108
+%    Number of class folders: 5912
+%    Number of private files: 7343
+%    Number of .m:            28418
+%    Number of .mat:          1671
+%    Number of weird files:   30082
+
+%% 
+% Let's change the desktop's title: <matlab:run('html/setTitleEd') Change the editor's title by running html/setTitleEd.>
+%
+
+%% (When) When to use classes
+%
+% # When, fundamentally, you are developping a specific object (model,...)
+% # When you need some constraints (some properties being char, ...)
+% # When you do this kind of things a2b, b2c, c2d... successively.
+% # When you want to call many small functions but don't want as many files. 
+% # When you are working with what feels like levels of abstraction (inheritance)
+%   in particular if you need to hsm.methodCcallingBadd methods (newClass <
+%   class1 & class2).  
+% # More generally, when you feel your code should be simple than what it is currently. 
+%   Feeling also refered to as the KISS principle (_Keep it Simple, Silly_).
+% # When you need to keep track of an event (addlistener).
+% # Think about polymorphism when you need to apply different things
+%   without specifying in your script the level of abstraction (ex: in writeScript).
+
+
+
+%% Overload MATLAB(R) functions and MATLAB(R) operators
+% Classes can implement existing functionality, such as addition, by defining a method
+% with the same name as the existing MATLAB(R) function. For example, suppose you want
+% to add two audience objects. It makes sense to add the values of the nbPplKnowObjects,
+% nbPplKnowStructures, ... properties of each object.
+% Works because user-defined classes have a higher precedence than built-in classes. 
+%
+% <matlab:open('audience.m') Open audience.m>
+a_tomorrow = audience('Paris');
+a_tomorrow.nbPplKnowObjects     = 14;
+disp( aud + a_tomorrow );  % same as plus(aud, a_tomorrow);
+
+%%
+% Question: would you overload some operators in your work?
+
+%% A few more things with OOP
+% *Seeing all the information you want*
+% 
+% Simply overload the function 'disp' to output exactly what you want to see.
+%
+% The trick to use the built-in function 'disp' within your overloaded
+% 'disp' is to call builtin('disp', ~).
+% 
+% Ex: I have an object called writeScript that contains a handle of an object
+% HTKCodeGenerator. When displaying, writeScript, the built-in disp is
+% applied on both:
+% 
+% <matlab:open('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/writeScript.m') Open writeScript.>
+%
+% *Nested functions*
+%
+% You can use nested function in a class' method as you're used to.
+%
+% *Using all variables types*
+%
+% Within your methods, you can use the 3 types of variables: local, persistent, global.
+% In most cases, using properties or attributes is more natural when working 
+% within an object.
+%
+% *Find memory allocation for objects*
+%
+% Trick to get size of the objects:
+% A handle typically takes 112 Bytes.
+% To see how much memory it really takes, a trick is to convert into struct:
+warning off 'MATLAB:structOnObject' % To get rid of warning message.
+c_struct = struct( c );
+warning on 'MATLAB:structOnObject'  % Error message back on.
+disp( c );
+whos( 'c','c_struct' );
+
+%% 
+% *Tab completion*
+% 
+% Tab complemention works for classes, properties and methods. Try it.
+
+
+%% Enumeration class
+% Enumeration classes are limited to a list of given values. 
+% Each statement in an enumeration block is the name of an enumeration member, 
+% optionally followed by an argument list. If the enumeration class defines 
+% a constructor, MATLAB calls the constructor to create the enumerated instances.
+% 
+% MATLAB provides a default constructor for all enumeration classes that do
+% not explicitly define a constructor. The default constructor creates an 
+% instance of the enumeration class:
+% * Using no input arguments, if the enumeration member defines no input arguments.
+% * Using the input arguments defined in the enumeration class for that member.
+enumeration students
+%%
+a = students.Toby;
+disp(a.isgoodstudent);
+%%
+enumeration SyntaxColors
+%%
+b = SyntaxColors.Comment;
+disp(b);
+%%
+disp(b.RGB);
+%%
+% *A few constraints on enumeration classes*
+% 
+% * Enumeration classes are implicitly Sealed.
+% * Only MATLAB(R) can call enumeration class constructors to create the fixed set of members.
+% * The properties of value-based enumeration classes are immutable. 
+ 
+%% Example from my own work
+% Live presentation of my work.  
+% <matlab:cd('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/') Cd to MAP_/>   
+%    <matlab:open('/Users/pmaal/Dropbox/Nottingham/repos/phd/MAP_Steadman/@HTKCodeGenerator/HTKCodeGenerator.m') Open HTKCodeGenerator.>
+
+
+%% OOP Drawbacks
+% 
+% * Verbosity. Can be a good thing too.
+% * Harder to learn than doing script with functions.
+% * Not widely spread.
+
+
+%% Thought experiment
+% For the next 1 minute, please think about how you can transform the code
+% you are currently working on to adapt it with your own classes.
+% 
+% Questions?
+
+%% Take home messages
+%
+% * Think first about the object you work on rather than the operations you
+% want to do on it (ie: create and use the appropriate class).
+% * Think of your work as building a package (+) using appropriate levels of
+% abstraction (@).
+% * Complexity is your ennemy: if it makes your code easier to read/change/share/...,
+% then make those 3 more methods.
+% * Matlab offers a lot of possiblities: Once you use OOP, it becomes a
+% proper programming language with good computational abilities.
+
+
+%% References
+%
+% Mathworks documentation and webinars, Yair's book 
+% Accelerating Matlab Performance (2014) and website undocumentedmatlab.com,
+% and a few others:
+% 
+% * http://www.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf
+% * http://fr.mathworks.com/videos/programming-with-matlab-86354.html?form_seq=conf1092&elqsid=1445531855668&potential_use=Education&country_code=GB
+% * http://fr.mathworks.com/help/matlab/matlab_prog/copying-objects.html
+% * http://fr.mathworks.com/help/matlab/matlab_oop/method-attributes.html
+% * http://fr.mathworks.com/help/matlab/ref/handle-class.html
+% * https://yagtom.googlecode.com/svn/trunk/html/objectoriented.html 
+% * http://undocumentedmatlab.com/
+% * http://www.dms489.com/Concepts_book/onlinechapters/Chapter18.pdf
+% * https://en.wikipedia.org/wiki/Object-oriented_programming
+% * Best Practices for Scientific Computing, PLoS Biology
+% http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745
+% 
+
+
+
+##### SOURCE END #####
+--></body></html>

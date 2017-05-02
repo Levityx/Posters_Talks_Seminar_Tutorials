@@ -1,0 +1,1 @@
+arrayfun(@(ind)eval(sprintf('!open %s',fullfile(cPath,'+myPackage',['classFiles' num2str(ind) '.png']))), 3:-1:1);

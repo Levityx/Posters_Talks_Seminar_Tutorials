@@ -1,0 +1,3 @@
+classdef (Attribute1 = value1, Attribute2 = value2 ) ClassName
+   ...
+end

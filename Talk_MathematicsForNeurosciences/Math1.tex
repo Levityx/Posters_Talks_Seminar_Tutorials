@@ -1,0 +1,181 @@
+
+\def\FunctionF(#1){(#1)^3- 3*(#1)}%
+\def\FunctionFPrime(#1){3*(#1)^2- 3}%
+
+\begin{frame}
+\begin{center}
+	$\mathcal{OUTILS\,\,\, MATHEMATIQUES}$
+\end{center}
+\end{frame}
+
+\subsection{Dérivation}
+\begin{frame}
+\frametitle{Dérivation}
+\begin{tabular}{c  c}
+Graphe de la fonction & \only<2,3,4,5>{Dérivée de $f$:}\\[2mm]
+$f:
+\left\{
+	\begin{array}{ll}
+		\R \to \R\\
+		x\mapsto x^3-3x
+	\end{array}
+\right.$ & \visible<2,3,4,5>{$f':
+\left\{
+	\begin{array}{ll}
+		\R \to \R\\
+		x\mapsto\only<2,3,4>{?}\visible<5>{3x^2-3}\only<5>{\visible<4>{?}}
+	\end{array}
+\right.$}\\[4mm]
+\begin{minipage}{5cm}
+\begin{tikzpicture}[scale=0.5]
+\begin{axis}[
+        axis y line=center,
+        axis x line=middle, 
+        axis on top=true,
+        xmin=-5.5,
+        xmax=5.5,
+        ymin=-45,
+        ymax=45,
+        height=12.0cm,
+        width=12.0cm,
+        grid,
+        xtick={-5,...,5},
+        ytick={-40,-32,...,40},
+    ]
+    \addplot [domain=-5:5, samples=50, mark=none, ultra thick, blue] {\FunctionF(x)};
+    \node [left, blue] at (axis cs: 3.6,42) {$x^3-3x$};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}&%
+\begin{minipage}{5.5cm}
+\begin{center}
+\only<1,2,3,4>{
+\visible<3,4>{\textit{Définition :} pour $x\in\R,$
+$$f'(x) := \lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$}
+\visible<4>{\textit{Propriété :} soient $f$ et $g$ deux fonctions dérivables, $a, b\in\R, n\in\N^*$. Alors\\ [1mm]
+$(a f + b g)' = a f' + b g'$\\[1mm]
+$(fg)' = f'*g + f*g'$\\[1mm]
+$(f^n)' = n(f')f^{n-1}$}
+}
+\only<5>{{
+\begin{tikzpicture}[scale=0.5]
+\begin{axis}[
+        axis y line=center,
+        axis x line=middle, 
+        axis on top=true,
+        xmin=-5.5,
+        xmax=5.5,
+        ymin=-45,
+        ymax=45,
+        height=12.0cm,
+        width=12.0cm,
+        grid,
+        xtick={-5,...,5},
+        ytick={-40,-32,...,40},
+    ]
+    \addplot [domain=-5:5, samples=50, mark=none, ultra thick, red] {\FunctionFPrime(x)};
+    \node [left, red] at (axis cs: 3.6,42) {$3x^2-3$};
+\end{axis}
+\end{tikzpicture}}}
+\end{center}
+\end{minipage}
+\end{tabular}
+\end{frame}
+
+\subsection{Equations différentielles}
+\begin{frame}
+\frametitle{Equations différentielles}
+\begin{center}
+\'Equation dont l'inconnue est une fonction $f$,  entre $f$ et ses dérivées.\\
+\visible<2,3,4>{Exemples :}
+\visible<2>{$f'(x)=f(x)$}
+\visible<3>{$f' = f^2-3f+2$}
+\visible<4>{$f'(x) +f''(x) = \frac{f^2(x) + 1}{1+x^2} $}
+\visible<5,6,7,8>{Existence et unicité d'une solution ?}\\
+\visible<6,7,8>{Préciser des conditions aux limites.}\\
+\visible<7,8>{Trouver le domaine.}\\[6mm]
+\visible<8>{De nombreux théorèmes (Lipshitz), de nombreuses conjectures.}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Equations différentielles}
+\visible<1>{Comment tracer les solutions ?}\\[3mm]
+\visible<2,3,4>{Résolution \underline{graphique} de 
+$\left\{
+	\begin{array}{ll}
+		f' = f \\
+		f(0) = 1.
+	\end{array}
+\right.$}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\begin{axis}[
+        axis y line=center,
+        axis x line=middle, 
+        axis on top=true,
+        xmin=-5,
+        xmax=5,
+        ymin=-1,
+        ymax=10,
+        height=12.0cm,
+        width=12.0cm,
+        grid,
+        xtick={-5,...,5},
+        ytick={-1,0,...,10},
+    ]
+
+\only<3>{\addplot[ samples=41, mark=*, blue]{exp(x)};}
+\only<4>{\addplot[ samples=61, mark=none, blue]{exp(x)};}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}	
+\frametitle{Equations différentielles}
+\begin{center}
+\includegraphics[width=11cm]{EquaDiff.jpg}
+\end{center}
+\end{frame}
+
+\subsection{Aléatoire}
+\begin{frame}
+\frametitle{Mouvement brownien}
+\begin{center}
+\begin{tabular}{c c c}
+ 1827&1905&1921\\[1mm]
+ \hline\\ [-1.8ex]
+ \visible<2,3,4>{Biologie}&\visible<3,4>{Physique}&\visible<4>{Mathématiques}\\[1mm]
+ \hline \\ [-1.5ex]
+ \begin{minipage}{3.0cm}
+  \visible<2,3,4>{\footnotesize{\textbf{Robert Brown} remarque au microscope que le mouvement de grains de pollen sur l'eau ne suit pas de logique évidente.}}
+ \end{minipage}
+ &
+  \begin{minipage}{3.0cm}
+  \visible<3,4>{\footnotesize{\textbf{Albert Einstein} publie une théorie quantitative du mouvement brownien.}}\end{minipage}
+  &
+   \begin{minipage}{3.1cm}
+ \visible<4>{  \footnotesize{\textbf{Norbert Wiener} propose un cadre formel au mouvement brownien\,: le processus de Wiener.}}\end{minipage}
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mouvement brownien}
+\begin{center}
+\includegraphics[width=11cm]{MvtBr.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mouvement brownien}
+Permet une théorie du calcul stochastique \\(des équations différentielles qui contiennent de l'aléa)\\
+\visible<1,2,3,4>{$$f'(t) = -f(t) \,\textcolor{gray}{\to}\, \visible<2,3,4>{\frac{\text{d}f}{\dt}(t) = -f(t)}\,\textcolor{gray}{\to}\,  {\footnotesize\visible<3,4>{\frac{\text{d}f}{\dt} = -f} \,\textcolor{gray}{\to}\, \visible<4>{\text{d}f = -f\, \dt}} $$}
+\visible<5,6>{
+\begin{tabular}{l l}
+Calcul classique : &$\text{d}f = -f\, \dt$\\
+\visible<6>{Calcul stochastique : }&\visible<6>{$\text{d}f = -f\, \dt+\text{d}B_t$}
+\end{tabular}
+ }
+\end{frame}

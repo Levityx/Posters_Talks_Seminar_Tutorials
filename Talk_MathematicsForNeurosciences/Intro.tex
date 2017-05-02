@@ -1,0 +1,110 @@
+
+\setbeamercovered{transparent}
+
+\subsection{Modéliser}
+
+\begin{frame} 
+\begin{itemize}
+\item Santiago Ram\'on y Cajal, fin du XIXème siècle, \\
+père des neurosciences.\\
+\pause
+\item Hodgkin-Huxley, 1952\\
+analogie entre un neurone et un système électrique,\\ 
+\pause
+\item Aujourd'hui, on essaie de déchiffrer le code neuronal.\\[5mm]
+\pause
+ \begin{center}Quels rôles ont les mathématiques là-dedans ?\hspace{3mm}\\[4mm]
+ \visible<5>{\textbf{Modéliser et analyser.}}
+\end{center}
+ \end{itemize}
+\end{frame}
+
+%Présentation biologique et fonctionnelle du cerveau, de macro à micro
+%Présentation de divers outils mathématiques
+%Modélisation, de micro à macro
+
+\begin{frame}
+\frametitle{Modéliser}
+\vspace{3mm}What I cannot create I do not understand.\\[3mm]
+\begin{center}\includegraphics[width = 8cm]{feynman.jpg}\end{center}
+\hfill Richard Feynman (1918-1988) 
+\end{frame}
+
+\subsection[échelles]{Les échelles}
+
+\begin{frame}
+\frametitle{Les échelles (scaling)}
+Exemple physique : du macroscopique au microscopique.\\
+
+\begin{tikzpicture}
+ \visible<2->{ \node (img1) {\includegraphics[width=4cm]{Intro/universe.jpg}};}
+  %\pause
+ \visible<3->{ \node (img2) at (img1.south east) [xshift=-3mm, yshift=1cm] {\includegraphics[width=5cm]{Intro/earth.jpg}};}
+  %\pause
+  \visible<4->{ \node (img3) at (img2.south east) [xshift=-3mm,yshift=0.7cm] {\includegraphics[width=4cm]{Intro/human.jpg}};}
+  %\pause
+  \visible<5->{ \node (img4) at (img3.south east) [xshift=-3mm,yshift=0.3cm] {\includegraphics[width=3.5cm]{Intro/Cell.jpg}};}
+  %\pause
+  \visible<6->{ \node (img5) at (img4.south east) [xshift=-3mm,yshift=0.9cm] {\includegraphics[width=3.5cm]{Intro/water.jpg}};}
+ 
+  \end{tikzpicture}
+
+La physique théorique cherche encore une théorie unificatrice.\\
+%http://htwins.net/scale2/\\
+%http://micro.magnet.fsu.edu/primer/java/scienceopticsu/powersof10/index.html
+\end{frame}
+
+\begin{frame}
+\frametitle{Les échelles (scaling)}
+Exemple Mathématique : un monde sans échelles.\\
+Les fractales (auto-similaires) \\[3mm]
+\only<1>{\mbox{\phantom{\includegraphics[width=3.5cm]{Droste/Sierpinski.png}}}}%
+\includegraphics<2->[width=3.5cm]{Droste/Sierpinski.png}\hspace{1mm}%
+\only<-2>{\mbox{\phantom{\includegraphics[width=3.8cm]{Droste/escher.jpg}}}}%
+\includegraphics<3->[width=3.8cm]{Droste/escher.jpg}\hspace{1mm}%
+\only<-3>{\mbox{\phantom{\includegraphics[width=3cm]{Droste/00.jpg}}}}%
+\includegraphics<4->[width=3cm]{Droste/00.jpg}\hspace{1mm}%
+\only<-4>{\mbox{\phantom{(Escher, Droste effect, Sierpinski)}}}%
+\only<5->{(Sierpinski, \hspace{1.7cm}Escher, \hspace{2.6cm}Droste effect)}
+\end{frame}
+
+\begin{frame}
+\frametitle{Les échelles (scaling)}
+Exemple Mathématique : un monde d'échelles.\\
+Les fractales (non auto-similaires)\\[3mm]
+\begin{center}
+\only<1>{\mbox{\phantom{\includegraphics[width=9.5cm]{Fractals/Mandel.jpg}}}}%
+\includegraphics<2->[width=9.cm]{Fractals/Mandel.jpg}
+\end{center}
+\only<-2>{\mbox{\phantom{http://www.htwins.net/mandyzoom/http://www.youtube.com/watch?v=tzNjmSGVs6o}}}
+\only<3->{http://www.htwins.net/mandyzoom/\\http://www.youtube.com/watch?v=tzNjmSGVs6o}
+\end{frame}
+
+\begin{frame}
+\frametitle{Les échelles (scaling)}
+Exemple Neuro : du macroscopique au microscopique.\\
+\begin{tikzpicture}
+ \visible<1->{ \node (img1) {\includegraphics[width=4.5cm]{BrainScales/1_brain.png}};}
+  \pause
+ \visible<2->{ \node (img2) at (img1.south east) [yshift=0.5cm] {\includegraphics[width=4.8cm]{BrainScales/2_brain.jpg}};}
+  \pause
+  \visible<3->{ \node (img3) at (img2.south east) [yshift=0.5cm] {\includegraphics[width=4cm]{BrainScales/3_vibrissal-cortex-rat.jpg}};}
+  \pause
+  \visible<1->{ \node (img4) at (img3.south east) [yshift=0.5cm] {\includegraphics[width=5cm]{BrainScales/4_neurons.png}};}
+  \pause
+  \visible<5->{ \node (img5) at (img4.west) [xshift=-2cm, yshift=-0.8cm] {\includegraphics[width=3cm]{BrainScales/6_Ionic.jpg}};}
+ % \pause
+   \visible<4->{\node (img6) at (img4.north) [xshift=0.4cm, yshift=1.5cm] {\includegraphics[width=3cm]{BrainScales/5_Synapse.png}};}
+  \end{tikzpicture}
+  \end{frame}
+
+\subsection{Technologie}
+
+
+\begin{frame}
+\frametitle{Découvertes et technologie}
+\begin{tabular}{ c c c }
+  Santiago Ram\'on y Cajal, 1899 && Lynne Quarmby, 2011 \\[3mm]
+  \includegraphics[height=4cm]{DecouvertesTechn/1899_PurkinjeCell.jpg} && \includegraphics[height=4cm]{DecouvertesTechn/2011_cell.jpg} \\
+\end{tabular}
+\end{frame}

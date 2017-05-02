@@ -1,0 +1,654 @@
+\documentclass[paperwidth=75cm,paperheight=116.18cm,fontscale=0.40]{baposter}
+% Written by Alban.Levy@nottingham.ac.uk
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Packages 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+% \usepackage[cmyk]{xcolor}
+\usepackage{pgfplots}
+
+
+\usepackage{enumitem} 		% to change labels in enumerate 
+\usepackage{graphicx,float} 	% to play with logos
+\usepackage{tikz}
+\usetikzlibrary{shadings}
+\usepackage{amsmath}
+%http://tex.stackexchange.com/questions/88429/color-box-with-rounded-corners-around-a-fragment-of-a-formula
+\usepackage[framemethod=TikZ]{mdframed} 
+\mdfdefinestyle{MyFrame}{%
+    linecolor=blue,
+    outerlinewidth=0.5pt,
+    roundcorner=5pt,
+    innertopmargin=7pt,%\baselineskip,
+    innerbottommargin=7pt,%\baselineskip,
+    innerrightmargin=15pt,
+    innerleftmargin=15pt,
+    backgroundcolor=white!50!white
+}
+
+
+% Packages from Baposter template
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{bm}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{fancybox}
+%\usepackage{pstricks}
+
+% Font package
+%\usepackage{fontspec}
+%\setmainfont{Calibri}
+%\setsansfont{Calibri}
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Paths 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+ % Since I work on various computers sharing Dropbox, 
+ % I've defined some paths in the file Dropbox/pathsForLaTeXFiles.tex
+ % Obv, I check which computer by verifying RxPz logo is there
+ \IfFileExists{/Users/pmxal9/Dropbox/Logos/RxPz.jpg}{
+	\def\computer{/Users/pmxal9/} 
+}{	
+	\def\computer{/Users/pmaal/} 
+}
+\edef\drop{\computer Dropbox/}
+\input{\drop pathsForLaTeXFiles.tex}
+\edef\Pics{\FYR Pics/}
+\def\SET{\drop Nottingham/SET/}
+
+% Logos
+\edef\logos{\drop LogoNoBackground/}
+\edef\logoNotts{\logos  notts.png} %UoN.png}% looks better without
+\edef\logoIHR{\logos ihr_3.png}
+\edef\logoNETT{\logos NETT.png}
+\edef\logoPerso{\logos Logo.png}
+\edef\logoRxPz{\logos RxPz.png}
+\edef\logoEC{\logos EC.png}
+\edef\logoMCA{\logos MCA.png}
+
+%%%% Paths to pictures
+\edef\cochImp{\SET Implants/Blausen_CochlearImplant_02.png} %_01 with 'Cochlear Implant' written
+\edef\brainstem{\SET /Implants/ABIHowitWorksImage_1.jpeg}
+\edef\dataRep{\SET dataRep3.png}
+\edef\cakeSpec{\SET cakeIsLieSpec.png}
+\edef\cakeReg{\SET cakeIsLieSpecReg.png}
+\edef\PicBrainstem{\SET Pic_brainstemBis.png}
+\edef\xy{\SET xy.png}
+\edef\xyM{\SET xyMean.png}
+\edef\xyMS{\SET xyMeanSplit.png}
+\edef\xyMSC{\SET xyMeanSplitCol.png}
+\edef\cochg{\SET soundPlots/ySum_cochleo.pdf}
+\edef\specg{\SET soundPlots/ySum_spectro.pdf}
+\edef\cake{\SET soundPlots/ySum_plot.pdf}
+
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Other 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+
+% Use a counter for the blocks
+\newcounter{counter}
+\setcounter{counter}{1} 
+% Function to add counter to block title and increment its value
+\newcommand\counterInc{\circled{\arabic{counter}}\addtocounter{counter}{1}}
+
+% Use a counter for references
+\newcounter{ref}
+\setcounter{ref}{1} 
+% Function to print ref counter and increment its value
+\newcommand\refInc{{\arabic{ref}}\addtocounter{ref}{1}}
+
+% Command to enumerate blocks
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}\,\,}
+
+% Add stuff to do
+\newcommand\addStuffToDo[1]{\fbox{\begin{minipage}{0.94\colwidth}{\textcolor{red}{#1}}\end{minipage}}}
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 			      Title 	Logos 		   %
+ %%%%%%%% %%%%%%%% %%%%%%   
+
+ % Function for logos
+ \newcommand\includelogo[1]{\includegraphics[height=1.1cm]{#1}}
+ \newcommand\includelogospace[1]{\includelogo{#1}\hspace{18mm}}
+ \newcommand\titlelogos{%
+%\begin{mdframed}[style=MyFrame]
+	\includelogospace{\logoNotts} 
+	\includelogospace{\logoIHR} 
+ 	\includelogospace{\logoPerso} 
+ 	\includelogospace{\logoRxPz} 
+	\includelogospace{\logoNETT}
+	\includelogospace{\logoMCA} 
+	\includelogo{\logoEC}
+%\end{mdframed}
+}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%
+ %				Document			        %
+ %%%%%%%%%%%%%%%%%%%%%%%%
+
+ \begin{document}
+ 
+% SYMBOLS to use for the adresses and authors
+\def\characA{\oplus} 		%\ast %\mizu
+\def\characB{\ominus}	%\dagger %\omega
+\def\characC{\otimes}	%\dagger %\omega
+
+% Color for title and bottom text. Put white (1,1,1) if very high background opacity 
+\definecolor{colorTitle}{rgb}{0,0,0} 
+
+% Background picture, with low opacity to make it whiter
+\background{%
+	\begin{tikzpicture}
+		[remember picture,overlay]\node[opacity=0.1] at (current page.center) {\includegraphics[height=\paperheight]{\SET background3.jpg}}; 
+	\end{tikzpicture}%
+}
+
+% Frame's headerColorTwo
+\definecolor{lightblue}{rgb}{0.145,0.6666,1}
+\definecolor{lightred}{rgb}{1,0.6666,0.145}
+
+%% Poster options
+ \begin{poster}%
+  {
+  % Show grid to help with alignment
+  grid=false,
+  % Column spacing
+  colspacing=1em,
+  % Color style
+  bgColorOne=white,
+  bgColorTwo=white,
+  borderColor=lightblue!50!white,
+  headerColorOne=blue!80!black, %blue!80!white% black
+  headerColorTwo=lightblue,
+  headerFontColor=white,
+  boxColorOne=white,
+  boxColorTwo=lightblue,
+  % Format of textbox
+  textborder=rounded, %roundedleft,
+  % Format of text header
+  eyecatcher=true,
+  headerborder=closed,
+  headerheight=0.1\textheight,
+  %textfont=\sc, An example of changing the text font
+  headershape=rounded, %roundedright
+  headershade=shadelr,
+  headerfont=\Large\bf\textsc, %Sans Serif
+  textfont={\setlength{\parindent}{1em}},
+  boxshade=plain,
+  %background=shade-tb,
+  background=user,
+  linewidth=2pt
+  }%
+{}%
+{%
+\bf\textsc{\Huge \textcolor{colorTitle}{Cracking\; the\; Neural\; Code}}
+}%
+ % AUTHORS
+{%
+\textcolor{colorTitle}{
+	\Large \textsc{Alban Levy}${}^{\characA\characB}$  \;\;
+	Christian Sumner${}^\characB$ \;\;
+	Stephen Coombes${}^\characA$ \;\;
+	Aristodemos Pnevmatikakis${}^\characC$
+}
+%University of Nottingham: %\hspace{4mm}% \large
+%	Institute of Hearing Research${}^\characB$ %\hspace{4mm}%
+%	School of Mathematical Sciences${}^\characA$%\hspace{4mm}%
+%	Athens Information Technology${}^\characC$%[0.5cm]
+	\\[6mm]\titlelogos
+}{}  
+
+
+% Bullet style
+\newcommand\bul{\noindent$\bullet$\hspace{1mm}}
+
+% Command to enumerate blocks
+\newcommand*\circld[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}\,\,}
+        
+% Use a counter for the blocks
+\newcounter{counterBlock}
+\setcounter{counterBlock}{1} 
+% Function to add counter to block title and increment its value
+\newcommand\counterIncrem{\raisebox{0.15em}{\small\circld{\arabic{counterBlock}}\addtocounter{counterBlock}{1}}}
+
+% Circling block value
+\newcommand\ccircled[1]{\small{\circled{#1}}}
+
+% Block lengths
+\newlength\blocLeft
+\setlength\blocLeft{27.0cm}
+\newlength\spaceItem
+\setlength\spaceItem{-4.6mm}
+
+\newlength\cwidth
+\newlength\cheight
+\setlength\cwidth{9.0cm} 
+\setlength\cheight{5cm} 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+\begin{posterbox}[name=auditoryNeuro,column=1, span=2,row=0,headerColorOne=red!40!black,headerColorTwo=red!75!white,borderColor=red!50!white, textborder=roundedsmall]{ Auditory Neurosciences: \small{Hearing, Implants \&  Neurosciences in a Nutshell}} 
+	\noindent\begin{minipage}{10.6cm}
+		\vspace*{-1mm}
+		\begin{tcolorbox}[colback=red!0!white,colframe=red!90!white,title=\LARGE{\textsc{Our ultimate goal is to}}] 
+			\hspace{-4.0mm}
+			\begin{minipage}{10.2cm}
+			\large
+			 {Understand how our brains are able to \textbf{segregate and group elements of sound}  
+			to form perceptual objects.}
+			\end{minipage}
+		\end{tcolorbox} 
+		%\begin{tcolorbox}[coltitle=black,colback=blue!0!white,colframe=red!15!white,title=Poster Roadmap: Auditory Neuroscience in a Nutshell]
+		%Poster Roadmap \\
+		%\noindent\hspace{-2mm}\textcolor{red!70!white}{Block\#}
+		%\vspace*{-1.3mm}\noindent\hspace{-3.5mm}{\ovalbox{\textcolor{red!70!white}{Block}\raisebox{0.5mm}{\#}}}\\[-4.8mm]
+		\vspace*{-1.42mm}\noindent\begin{itemize}%[leftmargin=7pt, rightmargin=0pt] %\itemsep1pt \parskip0pt \parsep2pt
+			\item[\ccircled{1}] We hear mixtures of \textbf{sounds} from individual objects. 
+						Still, we can understand speech even when several people are speaking at the same time. %Somehow
+				\\[\spaceItem]
+			\item[\ccircled{2}] The cochlea \textbf{transduces} vibrations in the air into electrical impulses, \textbf{spikes}, along the hearing nerve fibres. 
+			    	\\[\spaceItem]
+			\item[\ccircled{3}]  A \textbf{cochlear implant} can be used to excite an impaired cochlea.
+				\\[\spaceItem].
+			\item[\ccircled{4}]  The spikes from the auditory nerve pass into the brain where they are \textbf{processed} in a number of discrete brain nuclei.
+				 \\[\spaceItem] 
+			\item[\ccircled{5}] Neurons use spikes in some secret Morse code Biology decided long ago: the\,
+						\textbf{neural code},\,inherently\,containing\,\textbf{randomness}. 
+						Since neurons transmitting sounds also process it, by building \textbf{computational models}  %or computer model?
+						that simulate this processing we can test and develop our understanding of how the code is made.
+				 \\[\spaceItem] 
+			\item[\ccircled{6}]  A main goal of Neuroscience is to  \textbf{decipher} this code. This requires heavy Maths and \textbf{statistics} machinery.\\
+		\end{itemize}
+		%\end{tcolorbox} 
+	\end{minipage}%
+	\begin{minipage}{0.2cm}
+		\hspace{0.2cm}
+	\end{minipage}%
+	\begin{minipage}{7.90cm}
+		\begin{tcolorbox}[coltitle=black,colback=blue!0!white,colframe=red!15!white,title=\raisebox{-0.5mm}{\textsc{Why we care:  it affects many people}}]
+			\begin{centering}
+			\noindent \vspace*{0.5mm}In ageing populations, hearing impairment is a problem affecting the quality of life \small{[2]}.\\[2.7mm]
+			%\footnotesize{Hearing Impairment statistics VS age, UK~{[2]}.}\\[1.95mm] %1989
+			\hspace{4mm}\includegraphics[width=4.0cm, height=5.10cm, trim=11cm 0cm 0cm 0cm, clip=true]{\SET Demographics_as_per_Davis(1).jpg}\\
+			\begin{tikzpicture}[remember picture,overlay] % 
+			\foreach \y/\te in {5.05/<30,4.17/31-40,3.29/41-50,2.41/51-60,1.53/61-70,0.65/71-80}{
+				\node at (-2.0,\y) [anchor=east] {$\te$};
+			}
+			\end{tikzpicture}\\[-1mm]
+			\end{centering}
+			\noindent $\cdot$ The major problem for the hearing impaired or cochlear implantees is communicating in difficult environments.\\[2mm]
+			\noindent $\cdot$ We do not understand how the brain segregates and groups sounds, nor how to restore normal hearing. 
+		\end{tcolorbox} 	
+	\end{minipage}%
+\end{posterbox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+\begin{posterbox}[name=sound,column=0, span=1,row=0]{\counterIncrem Sound: \small{A mix of individual objects}}
+	\noindent% We hear a mixture of \textbf{sounds} from individual objects.\\
+	%\noindent\textbf{Sound}: A propagating wave over 1 second with 3 speakers.\\
+	\hspace*{-0.7mm}\textbf{Sounds}\;entering\,our\,ears\,are\,mixtures;\,it's\,not\,colour-coded!\\ 
+	\includegraphics[height=2.5cm,width=\cwidth,trim=4.2cm 1.45cm 5.2cm 1cm,clip=true]{\cake}\\
+	%\textbf{Spectrogram}: \small{Sound-energy at different frequencies over time} \\[2mm] 
+	\hspace*{-0.7mm}Different speakers often use the same range of \textbf{frequencies}. \\[4mm] 
+	\includegraphics[height=3cm,width=\cwidth,trim=4.2cm 1.0cm 2.9cm 1.0cm,clip=true]{\specg}\\
+	\noindent\begin{tikzpicture}[remember picture,overlay] % 
+	 	\coordinate (x) at (8.95,0.46); 
+		\coordinate (y) at (9.1,0.46);
+		\coordinate (z1) at (0,3.4);
+		\coordinate (z2) at (0,3.65);
+		\draw[->] (x) -- (y) node[anchor=north east,node distance=0.4cm] {\raisebox{-2mm}{\tiny{time}}};
+		\draw[->] (z1) -- (z2) node[anchor=west] {\,\tiny{freq}};
+		\node[] at (4.5,3.65) (title) {\tiny{Sound-energy at different frequencies over time}};
+		Sound-energy at different frequencies over time
+	\end{tikzpicture}\\[-3mm]%
+	\noindent \hspace*{-0.7mm}Still  we can \textbf{perceive} the different objects as being separate.\\[1mm] %0.7mm before...
+	\foreach \face/\textSaid in {
+		% Full heads
+		%Iuliz1_2_2_3.jpeg/C'\'etait pour voir si internet,img_matti5_2.jpeg/The cake is a lie,img_alban4_2_lunapic.jpeg/Quoiiiiiiiiiiiiiii}{ 
+		% Cut heads
+		Iuliz1_2_2_4.jpeg/C'\'etait pour voir si internet$\dots$,img_matti6.jpeg/The cake is a lie,img_alban5.jpeg/Quoiiiiiiiiiii$\dots$ \\[3mm](Whaaaaaa$\dots$)}{
+		%\\[3mm](It was to see if internet$\dots$)
+		\begin{minipage}{1.05cm}	
+			\edef\cimage{\SET guineaPig/\face}
+			\includegraphics[height=1.5cm]{\cimage}
+		\end{minipage}
+		\begin{minipage}{1.8cm}	
+			\tiny{\textSaid}
+		\end{minipage}%
+	}%\\[2mm]
+\end{posterbox}
+
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+\begin{posterbox}[name=ear,column=0, span=1,below=sound]{\counterIncrem Ear \& Cochlear Implant}
+	\begin{minipage}{0.8cm}
+		\hspace{0.8cm}
+	\end{minipage}
+	\begin{minipage}{9cm}
+		\includegraphics[width=7cm,trim=0cm 0cm 0cm 0.2cm, clip=true]{\cochImp}		 %8.6cm fit
+		% Add ref on image
+		\begin{tikzpicture}[remember picture,overlay] 
+			\node at (0.7,0) [anchor=south east] {[1]};
+		\end{tikzpicture}
+	\end{minipage}%
+\end{posterbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+\begin{posterbox}[name=soundToSense,column=0, below=ear]{\counterIncrem Cochlea: \small{Waveform to Activity}}
+	\noindent
+	\textbf{Cochleogram}: \small{Firing of different auditory nerves over time, carrying information about different frequencies~\small{[3]}. 
+		Around 50000 nerve fibres transmit sound information to the brain.}\\[2mm] 
+		\includegraphics[width=\cwidth,trim=4.2cm 1.0cm 2.9cm 1.0cm,clip=true]{\cochg}\\
+	\textbf{Electrode array}: Sequence of activation of a cochlear implant. 
+		With a cochlear implant, the information is a fraction ($\sim$1\%) of normal. Still, speech can be understood in quiet environment.\\[2mm]
+	\begin{minipage}{\cwidth}
+		\begin{tikzpicture}	\begin{scope}[xscale=0.60, yscale=0.60,transform shape] 
+			\input{\SET tikzElectrodes/colorsElec_V2.tex}	%\input{\coloElecSix}% \coloElecFift   colorsElec_V2_drawEllipses.tex
+		\end{scope}\end{tikzpicture}			
+		\begin{tikzpicture}[remember picture,overlay] % 
+			\definecolor{lColor}{cmyk}{0.606765,0.685752,0.000000,0.470800}
+			\node[anchor=north] at (0.48,0.37) (alpha) {\tiny{$\alpha$}};
+			\node[anchor=north] at (0.7525,0.37) (beta) {\tiny{$\beta$}};
+			\node[anchor=north] at (1.025,0.37) (gamma) {\tiny{$\gamma$}};
+			\node[] at (1.45,-1.64) (alpha2) {\tiny{$\alpha$}};
+			\node[] at (4.465,-1.64) (beta2) {\tiny{$\beta$}};
+			\node[] at (7.48,-1.64) (gamma2) {\tiny{$\gamma$}};
+			%\draw[->,color=lColor] (0.48,    0.25) -- (0.48,0.38);
+			%\draw[->,color=lColor] (0.7525,0.25) -- (0.7525,0.38);
+			%\draw[->,color=lColor] (1.025,  0.25) -- (1.025,0.38);
+		\end{tikzpicture}%
+		Every vertical electrode represents the electrical activity of the cochlear implant at a given moment, encoding input sounds:\\[2mm]
+		\noindent \hspace{-6mm}
+		\begin{tabular}{ccc}
+			  \includegraphics[width=2.59cm,trim=1.3cm 2cm 2.4cm 2.2cm,clip=true]{\SET soundPlots/electrodeCochleo_4thElec_time0060000s.pdf}
+			&\includegraphics[width=2.59cm,trim=1.3cm 2cm 2.4cm 2.2cm,clip=true]{\SET soundPlots/electrodeCochleo_6thElec_time0090000s.pdf}
+			&\includegraphics[width=2.59cm,trim=1.3cm 2cm 2.4cm 2.2cm,clip=true]{\SET soundPlots/electrodeCochleo_8thElec_time0120000s.pdf}\\[0.5mm]
+			   time = 0.06s
+			& time = 0.09s
+			& time = 0.12s
+		\end{tabular}
+	\end{minipage}
+\end{posterbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+\begin{posterbox}[name=auditoryPathway,column=0, below=soundToSense]{\counterIncrem Auditory Pathway: \small{Sound to Sense}}
+	\noindent\includegraphics[width=9.05cm, trim=26mm 15mm 33mm 05mm, clip=true]{\SET Pic_brainstem_heads_3_1.jpg}\\[1mm]
+	 Spikes from the auditory nerve pass into the brain where they are processed in a number of discrete brain nuclei. 
+	 Somehow, this pathway groups and segregates sounds~\small{[4]}.
+\end{posterbox}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+%% SECOND COLUMN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	 
+
+\def\cuavePlots{/Users/pmaal/Documents/MATLAB/InGreece/GMM-HMM/htk/CUAVE/plots/}
+\edef\soundsPlot{\SET soundPlots/}
+\edef\cochleo{\cuavePlots s01m_1_cochleo_20th57Channel.pdf}
+\edef\waveform{\SET waveformVcv_pureblue.pdf} 
+\edef\waveformBlack{\SET waveformVcv_black.pdf}
+\edef\cochleo{\soundsPlot M2ABA7M_1_cochleo_15th57Channel.pdf}	
+\edef	\probaFiring{\soundsPlot M2ABA7M_1_15th57thChannel.pdf}
+\edef\guineaPig{\SET guineaPig/GP9_light_2_3.png}
+\edef\simulatedRaster{\soundsPlot M2ABA7M_1_15th57thChannel_raster.pdf} 
+\edef\realRaster{\SET spikeTrainVcv.pdf}
+\edef\radio{\SET guineaPig/radio4_2.jpg}
+\edef\gianni{\SET guineaPig/Giannis5_3.jpg}
+\edef\ABA{\SET guineaPig/ABA2_2.png}
+\def\bP{+}%{$\oplus$\;}
+\def\bPbold{$\boldsymbol{\oplus}$}
+\def\bPbold{$\boldsymbol{+}$}
+\def\bM{-}%{$\ominus$\;}
+\def\bB{$\bullet$\;}
+\newcommand\bText[1]{$\cdot$ #1} 
+\newcommand\gianniAbaWaveform[1]{
+	\includegraphics[width=1.4cm, trim=0cm 0cm 0cm 0.8cm, clip=true]{\gianni}
+	\hspace{-4mm}\raisebox{1.2cm}{\includegraphics[width=0.9cm,angle=-45, trim=0cm 3cm 0cm 0cm, clip=true]{\ABA}}
+	\hspace{-0.25cm}\raisebox{0.35cm}{\includegraphics[width=6.5cm, trim=1.9cm 0.75cm 1.4cm 0cm, clip=true]{#1}}	
+}
+% Column width
+\newlength\cwidthRight
+\setlength\cwidthRight{15.0cm} 
+\newlength\lengCuave
+\setlength\lengCuave{8.87cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% POSTERBOX Modelling VS Experiment
+\begin{posterbox}[name=Modelling,column=1, span=2,row=0, below=auditoryNeuro]{\counterIncrem Data: \small{Modelling \& Experiment}}
+	\noindent Data can be simulated - using computational models - or obtained from experiments. 
+	Each has advantages and limitations:\\[3mm]
+	\begin{tabular}{c|c}
+		\textbf{Modelling} & 		\textbf{Experiment}\\
+		\bText{Speech as input to cochlear model}
+		& \bText{Speech played to anaesthetised animal}\\[3mm]
+		\gianniAbaWaveform{\waveform}
+		&\gianniAbaWaveform{\waveform}\\ %\waveformBlack
+		\bText{Algorithm generates neurons' spiking probabilities}
+		& \bText{Auditory system generates spikes along Auditory pathway}\\
+		\begin{minipage}{\lengCuave}
+			\includegraphics[width=\lengCuave, trim=0cm 0.51cm 0cm 0cm, clip=true]{\cochleo}\\
+			\includegraphics[width=\lengCuave, trim=0cm 0.51cm 0cm 0cm, clip=true]{\probaFiring}
+		\end{minipage}
+		& \begin{minipage}{\lengCuave}
+			\raisebox{0.0cm}{\includegraphics[width=2.7cm]{\radio}}\begin{minipage}{5cm}\hspace{5cm}\end{minipage}\\[-2cm]
+			\begin{minipage}{2cm}\hspace{2cm}\end{minipage}{\includegraphics[width=6cm]{\guineaPig}}
+		\end{minipage}\\
+		\bText{We generate spikes from firing probability}
+		& \bText{We record spiking IC activity from electrodes}\\[2mm]
+		\includegraphics[width=\lengCuave, trim=0cm 0cm 0cm 0cm, clip=true]{\simulatedRaster}
+		&	\includegraphics[width=\lengCuave, trim=0cm 0cm 0cm 0cm, clip=true]{\realRaster}
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw[ultra thick,->,red] (-1.35,7.1)  .. controls (0,8) and (1.075,1.0) .. (-0.8,1.0); 
+			\definecolor{greenelectrode}{RGB}{218,254,101} % for GP pic 9_2
+			%\definecolor{greenelectrode}{cmyk}{1, 0, 1, 0} % for GP pic 9
+			%\definecolor{greenelectrode}{RGB}{200,255,177} 
+			%\draw[ultra thick,->,color=greenelectrode] (-1.05,6.7)  .. controls (-0.2,7.5) and (0.98,1.5) .. (-0.8,1.5); % single color
+			\node[anchor=north west] at (-1.075,6.95) {\includegraphics[width=1.28cm]{\SET guineaPig/guineaPigGreenArrow.png}};
+		\end{tikzpicture}\\
+		\setlength\tabcolsep{0.075cm}
+		\begin{tabular}{cl}
+			\bP & Data can be simulated anytime\\
+			\bP & Can be computed in big quantities\\ 
+			\bP & Parameters can be varied \\
+			\bP & Intermediate steps are interpretable \\
+			\bM & Each model is based on assumptions
+		\end{tabular}
+		& 
+		\setlength\tabcolsep{0.075cm}
+		\begin{tabular}{cl}
+			\bPbold & \textbf{This} is the data we ultimately want\\
+			\bM&Limitations from legislation (3 R's) [5]\\
+			\bM&Experiments are slow and costly \\
+			\bM&Cannot predict the quality of data \\
+			\bM&Requires training and licenses
+		\end{tabular}
+	\end{tabular} \\[3.3mm]
+	\noindent \textbf{One Sentence Summary}: We develop and test computational and statistical models to improve artificial recognition 
+	of sounds in complex scenes from auditory neuronal activity, 
+	 in order to probe how the brain itself separates sound sources.\\[-1.65mm] 
+\end{posterbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% POSTERBOX Challenge: \small{Spike train classification}
+\begin{posterbox}[name=maths,column=1, span=1, below=Modelling]{\counterIncrem Challenge: \small{Spike train classification}}
+\footnotesize
+\noindent\hspace{0.35mm} We present here a theoretically sound way to compare spike trains.\\[2.55mm]
+\noindent\hspace{-8.5mm}
+\raisebox{6mm}{
+	\begin{minipage}{4.15cm}
+	We represent  a given  spike train  $T=[t_1, \dots, t_f]$ as a function from the Hilbert space $L^2(\mathbb{R})$:\\%[-1mm]
+	$$\kappa(T,t):= f\ast T (t) $$\vspace{-3mm}
+	$$= \sum_{k=1}^{f}\exp\left(-\frac{(t-t_k)^2}{\sigma^2}\right)$$\vspace{-6mm}
+	\end{minipage}
+}%
+\begin{minipage}{0.0cm}
+	\hspace{0.0cm}
+\end{minipage}%
+\begin{minipage}{4.5cm}
+\vspace{-5mm}
+% Plot convolved Gaussian with spike trains
+% Based on http://tex.stackexchange.com/questions/74574/easiest-way-to-plot-a-function-with-pgf-tikz
+\newcommand*{\A}{2}
+\pgfmathdeclarefunction{SolutionX}{1}{%
+    \pgfmathparse{\t}%
+}
+\pgfmathdeclarefunction{SolutionY}{2}{%
+    \pgfmathparse{exp(-5*(#1-\A)^2)/2+#2}%
+}
+\pgfmathdeclarefunction{verticalBar}{2}{%
+    \pgfmathparse{#1+#2}%
+}
+\pgfmathdeclarefunction{sumGaussians}{6}{%
+    \pgfmathparse{#6+exp(-5*(#1-#2)^2)/2+exp(-5*(#1-#3)^2)/2+exp(-5*(#1-#4)^2)/2+exp(-5*(#1-#5)^2)/2}%
+}
+% Define styling
+\tikzset{My Line Style/.style={smooth, ultra thick, color=red, samples=400}}
+\tikzset{My Vertical Bar/.style={smooth, ultra thick, color=black, samples=400}}
+\tikzset{My Gaussian Style/.style={smooth, color=gray, dashed, thick, samples=400}}	
+\begin{tikzpicture}[x=95cm,y=1.6cm] 
+	% Make axis same scale as tikzpicture (x= and y=)
+	\begin{axis}[ anchor=origin,axis lines=middle, xmin=0, xmax = 5, ymin=-1.25, ymax = 0.75,x=0.95cm,y=1.6cm, hide axis, xtick=\empty, ytick=\empty]
+		% Labels below spikes or top right of curve
+		\node at (axis cs:1,-0.03) [anchor=north ] {$t_1$};
+		\node at (axis cs:2,-0.03) [anchor=north ] {$t_2$};
+		\node at (axis cs:2.5,-0.03) [anchor=north] {$t_3$};
+		\node at (axis cs:4,-0.03) [anchor=north ] {$t_4$};
+		\node at (axis cs:4.5,0.56) [color=red] {$ f\ast T $};
+		% x-axis
+		\addplot[variable=\t, domain=0:5] ({\t}, {0});							
+		\addplot[variable=\t, domain=0:5] ({\t}, {-1});		
+		% Gaussians and vertical dots					
+		\foreach \ti/\ind in {1/1, 2/2, 2.5/3, 4/4}{
+			\edef\A{\ti}
+   			\addplot[My Gaussian Style,  variable=\t, domain=0:5]    ({SolutionX(\t)},{SolutionY(\t,0)});		
+			\addplot[densely dotted, variable=\t, domain=0:-1] ({\ti}, {\t});
+		}
+		% Vertical bars
+		\foreach \ti/\ind in {1/1, 2/2, 2.5/3, 4/4}{
+   			\addplot[My Vertical Bar,        variable=\t, domain=0:0.25]   ({\ti},{verticalBar(\t,0)});	
+		}
+		% Labels below spikes  or top right of curve
+		\node at (axis cs:1.1,-1.03) [anchor=north ] {$\tilde{t}_1$};
+		\node at (axis cs:1.8,-1.03) [anchor=north ] {$\tilde{t}_2$};
+		\node at (axis cs:2.6,-1.03) [anchor=north ] {$\tilde{t}_3$};
+		\node at (axis cs:3.6,-1.03) [anchor=north ] {$\tilde{t}_4$};
+		\node at (axis cs:4.5,-0.76) [color=red] {$ f\ast \tilde{T} $};
+		% Sum Gaussians
+		\addplot[My Line Style,  variable=\t, domain=0:5]    ({\t},{sumGaussians(\t,1, 2, 2.5, 4,0)});	
+		\foreach \ti in {1.1, 1.8, 2.6, 3.6}{
+			\edef\A{\ti}
+   			\addplot[My Gaussian Style,  variable=\t, domain=0:5]    ({SolutionX(\t)},{SolutionY(\t,-1)});		
+		}
+		% Vertical Bars
+		\foreach \ti in {1.1, 1.8, 2.6, 3.6}{
+   			\addplot[My Vertical Bar,        variable=\t, domain=0:0.25]   ({\ti},{verticalBar(\t,-1)});		
+		}
+		% Sum Gaussians
+		\addplot[My Line Style,  variable=\t, domain=0:5]    ({\t},{sumGaussians(\t,1.1, 1.8, 2.6, 3.6,-1)});									
+	\end{axis}
+\end{tikzpicture}
+\end{minipage}\\
+\begin{minipage}{9.0cm}
+where 
+$f(t) = \text{e}^{-t^2/\sigma^2}$
+ is the kernel we convolve spike trains with. This `\textbf{Kernel Trick}' allows one to perform signal processing on neural data, as shown in this example of classification: From two sets of spike trains \textcolor{red}{$T_1 \dots$} and \textcolor{blue}{$\tilde{T}_1\dots$ }coming from an experiment with two different setups, how can we build a model to guess the setup associated with a new spike trains?
+ \end{minipage}\\[3mm]
+\newlength\lengCla
+\setlength\lengCla{3cm}
+\hspace{-7mm}
+\begin{tabular}{cc}
+	\begin{minipage}{\lengCla}
+		\includegraphics[width=\lengCla,trim=2cm 1.5cm 1cm 1cm,clip=true]{\xy}  
+	\end{minipage}  
+&	\hspace{-16.5mm}\begin{minipage}{0.8\lengCla}
+		\foreach \i in {1,2}{%
+			{$\textcolor{red}{y_\i:=%\kappa(T_\i, \cdot) = 
+			f\ast T_\i}$}\\
+		}
+		\vspace{0mm}\hspace{5mm}\textcolor{red}{\vdots}\\
+		\noindent\foreach \i in {1,2}{%
+			{$\textcolor{blue}{x_\i:=%\kappa(\tilde{T}_\i, \cdot) = 
+			f\ast \tilde{T}_\i}$}\\
+		}
+		\vspace{0mm}\hspace{5mm}\textcolor{blue}{\vdots}
+	\end{minipage}
+	\begin{minipage}{0.3\lengCla}
+		\vspace{-0.2cm}	\textcolor{red}{$$y_{Mean} = \frac{1}{M}\sum_{j=1}^{M}y_j$$}
+		\vspace{0.0cm}		\textcolor{blue}{$$x_{Mean} = \frac{1}{N}\sum_{i=1}^{N}x_i$$ }
+	\end{minipage}\\[5mm] % up to 2
+	\begin{minipage}{\lengCla}
+		\includegraphics[width=\lengCla,trim=2cm 1.5cm 1cm 1cm,clip=true]{\xyMSC}  
+	\end{minipage}  
+&	\hspace{-3.5mm}\begin{minipage}{5.5cm}
+		\textbf{Classification}: For 
+		$z = [t_1, t_2 \cdots, t_K]$ a new spike train, we colour it depending on the sign of
+		$$ ||y_{Mean}-\kappa(z, \cdot)|| - || x_{Mean}-\kappa(z, \cdot)||$$ 
+	\end{minipage} 
+\end{tabular}
+\end{posterbox}
+
+
+
+% name=auditoryNeuro,column=1, span=2,row=0,headerColorOne=red!40!black,headerColorTwo=red!75!white,borderColor=red!50!white, textborder=roundedsmall
+%%%%%%%%%%%%%%%%%%%%%%%%%%% POSTERBOX
+\begin{posterbox}[name=Conclusion,column=2, span=1, below=Modelling,headerColorOne=red!40!black,headerColorTwo=red!75!white,borderColor=red!50!white]{Conclusion}
+\large
+\noindent Hearing is an interdisciplinary problem related to Big Data/Data Science challenges.\;%\\[2mm]
+The development of new technologies, computational models and statistical techniques 
+will be necessary to solve its mysteries and improve hearing aids. %\\
+\end{posterbox}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% POSTERBOX
+\begin{posterbox}[name=References,column=2, span=1, below=Conclusion]{References} 
+\footnotesize{%
+\noindent [1] Blausen gallery 2014, Wikiversity Journal of Medicine.\\% DOI:10.15347/wjm/2014.010. ISSN 20018762.\\
+%https://commons.wikimedia.org/wiki/File:\\Blausen\_0244\_CochlearImplant\_01.png\\%
+\noindent [2] Davis AC, International Journal of Epidemiology (1989). \\%
+\noindent [3] Sumner CJ, Lopez-Poveda EA, O'Mard LP \& Meddis R (2002).\\%
+\noindent [4] Plack C, The sense of hearing (2005).\\%
+\noindent [5] Russell WMS \& Burch RL, The Principles of Humane Experimental Technique  (1959).\\
+\noindent [BG] Fotis Bobolas, Neurons (2009).
+}
+\end{posterbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% POSTERBOX
+\begin{posterbox}[name=Acknowledgment,column=2, span=1, below=References]{Acknowledgment}
+\normalsize
+\noindent \begin{tikzpicture}[remember picture,overlay]
+	\node[] at (2.05,-2.40) {\textcolor{colorTitle}{\includegraphics[width=0.75cm]{\SET flags/UKflag_2.png}}}; 
+	\node[] at (5.05,-2.65) {\textcolor{colorTitle}{\texttt{Alban.Levy@nottingham.ac.uk}}}; 
+	\node[] at (5.05,-2.15) {\textcolor{colorTitle}{SET for Britain, $7^{\text{th}}$ March 2016}}; 
+\end{tikzpicture}%
+\footnotesize
+\noindent Support from European Commission Grant\#289146, 
+	University of Nottingham:\,%Nottingham University: 
+	MRC Institute of Hearing Research${}^\characB$ 
+	School of Mathematical Sciences${}^\characA$, 
+	Athens Information Technology${}^\characC$,
+	David Hawker, Ian Dryden,  Florian Levity, Sid Visser, the guinea-pigs.
+\end{posterbox}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% END
+
+\end{poster}
+
+\end{document}

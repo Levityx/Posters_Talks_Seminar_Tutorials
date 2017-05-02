@@ -1,0 +1,272 @@
+
+\begin{frame}
+\begin{center}
+	$\mathcal{MODELISATION}$
+\end{center}
+\end{frame}
+
+\subsection{Cas d'étude : Hodgkin-Huxley}
+\begin{frame}
+\frametitle{Hodgkin-Huxley model (HH)}
+Modéliser le voltage d'un neurone en modélisant les mécanismes biologiques qui le font varier.
+$$V'(t) = \only<1-7>{\quad ?}\visible<8>{f(n_{K^+}, n_{Na^+}, V(t))}
+ \only<8>{\visible<7>{\quad ?}}$$
+\visible<2,3,4,5,6,7,8>{Qu'est-ce qui détermine le potentiel électronique dans un neurone ?\\}
+\visible<3,4,5,6,7,8>{Les ions :}
+\begin{itemize}
+\visible<4,5,6,7,8>{\item Potassium $K^+$}
+\visible<5,6,7,8>{\item Sodium $Na^+$}
+\visible<6,7,8>{\item ...}
+\end{itemize}
+\visible<7,8>{On va donc construire notre modèle en choisissant comment nos paramètres influent sur  la variation du voltage.}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Dynamique des potentiels d'action}
+\begin{center}
+	\includegraphics[height=7.5cm]{Neurons/AP.jpg}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potentiels d'action : jeu de barycentre}
+\begin{center}
+	\includegraphics[height=6.5cm]{HHModel/AP.png}
+\end{center}
+\end{frame}
+
+
+
+\subsection{HH model}
+\begin{frame}
+\frametitle{HH model : construction}
+\only<1>{Comme ce sont les \textcolor{red}{propriétés électriques} du neurone qui créent les potentiels d'action, on va construire notre modèle par analogie avec un  \textcolor{red}{système électrique}.
+}
+
+\begin{center}
+\only<2>{\includegraphics[height=6.5cm]{HHModel/circuit0.png}\\[2mm]
+\footnotesize{En 1963, ils recevaient le prix Nobel de physiologie ou médecine pour ce travail.}
+}
+\only<3>{\includegraphics[height=3.5cm]{HHModel/circuit1.png}}
+\only<4>{\includegraphics[height=3.5cm]{HHModel/circuit2.png}}
+\only<5>{\includegraphics[height=6.5cm]{HHModel/circuit3.png}}
+\end{center}
+
+\only<6-9>{
+\footnotesize{Dans un circuit en parallèle, les courants s'ajoutent :}
+$$I_{total} = I_C + I_{K}+I_{Na}+I_{l}$$
+\only<6>{\begin{itemize}
+\item \footnotesize{$I_C$ est le courant passant à travers la bicouche lipidique,}
+\item \footnotesize{$I_K$, $I_{Na}$ sont les courants à travers les canaux ioniques $K$ et $Na$,}
+\item \footnotesize{$I_l$ est un courant de fuite (leakage current), principalement via des fluctuations en ions chlorure ($Cl^-$).}
+\end{itemize}}
+
+\visible<7-9>{\footnotesize{On peut utiliser la loi d'Ohm (R Résistance, g  Conductance) :}
+$$I_i = \frac{V_i}{R_i} = g_i V_i $$}
+\visible<8-9>{\footnotesize{Comme l'intensité due à chaque type de courant est par rapport à une valeur "de repos"}
+$$I_{K} = g_k(V-V_K)$$
+$$I_{Na} = g_{Na}(V-V_{Na})$$
+$$I_{l} = g_l(V-V_l)$$}
+\visible<9>{\footnotesize{à part le courant $I_C$ qui est régit par une autre loi}
+$$I_C = C \frac{\text{d}V}{\text{d}t}$$
+}
+}
+
+\only<10-11>{On se retrouve donc avec une formule plus intéressante 
+$$I=C\frac{\text{d}V}{\text{d}t} +  g_k(V-V_K) + g_{Na}(V-V_{Na}) +g_l(V-V_l) $$
+\visible<11>{Qu'est-ce qui est \textcolor{blue}{constant}, qu'est-ce qui est \textcolor{red}{variable} ?}
+\visible<13>{ Dans notre travail de modélisation, il nous reste à
+\begin{itemize}
+\item évaluer les constantes (les biologistes sont nos amis), 
+\item modéliser les variables $g_K, g_{Na}$.
+\end{itemize}
+}
+}
+
+\only<12-13>{
+\visible<12>{On se retrouve donc avec une formule plus intéressante }
+$$\textcolor{red}{I}=
+\textcolor{blue}{C}
+\textcolor{red}{\frac{\text{d}V}{\text{d}t} }+ 
+ \textcolor{red}{g_k}(\textcolor{red}{V}-\textcolor{blue}{V_K}) + 
+ \textcolor{red}{g_{Na}}(\textcolor{red}{V}-\textcolor{blue}{V_{Na}}) +
+ \textcolor{blue}{g_l}(\textcolor{red}{V}-\textcolor{blue}{V_l}) $$
+\visible<12>{Qu'est-ce qui est \textcolor{blue}{constant}, qu'est-ce qui est \textcolor{red}{variable} ?\\}
+\visible<13>{ Dans notre travail de modélisation, il nous reste à
+\begin{itemize}
+\item évaluer les constantes (les biologistes sont nos amis), 
+\item modéliser les variables $g_K, g_{Na}$.
+\end{itemize}
+}
+}
+
+
+\only<14-14>{Comme la conductance $g_K$ est maximale lorsque tous les canaux ioniques de potassium sont actifs (i.e. laissent passer des ions), on écrit tout d'abord
+$$g_K = \overline{g_K} \;\times\;\textcolor{red}{?}$$
+où \textcolor{red}{?} est une variable entre 0 et 1 donnant le pourcentage de canaux actifs.
+}
+
+\only<15>{\begin{center}\includegraphics[height=4.5cm]{HHModel/activation.png}
+\end{center}%\\[4mm]
+Pour qu'un canal ionique soit actif, il faut 
+\begin{itemize}
+\item qu'il ne soit pas désactivé,
+\item qu'il ne soit pas inactivé.
+\end{itemize}
+}
+
+\only<16-18>{Des données permettent l'estimation suivante des canaux ioniques : 
+\begin{itemize}
+\item $K^+$ \;\,: 4 portes pour la désactiver, 0 pour l'inactiver.
+\item  $Na^+$ : 3 portes pour la désactiver, 1 pour l'inactiver.\\[3mm]
+\end{itemize}
+
+\visible<17-18>{Ainsi, si on note $n$ la probabilité qu'une porte désactive un canal $K^+$, la probabilité que le canal soit ouvert est $n^4$ (indépendance des évènements).\\[3mm]}
+
+\visible<18>{Si on note  $m$ la probabilité qu'une porte désactive un canal $Na^+$, $h$ la probabilité qu'une porte inactive le canal, alors la probabilité que le canal soit ouvert est $m^3h$.}
+}
+\only<19-22>{Notre modèle devient donc
+$$\textcolor{red}{I}=
+\textcolor{blue}{C}
+\textcolor{red}{\frac{\text{d}V}{\text{d}t} }+ 
+ \textcolor{blue}{\overline{g_K}}\textcolor{red}{n^4}(\textcolor{red}{V}-\textcolor{blue}{V_K}) + 
+\textcolor{blue}{\overline{g_{Na}}}\textcolor{red}{m^3h}(\textcolor{red}{V}-\textcolor{blue}{V_{Na}}) +
+ \textcolor{blue}{\overline{g_l}}(\textcolor{red}{V}-\textcolor{blue}{V_l}) $$
+et il nous reste à modéliser la variation des variables $m, n, h$. \\[3mm]
+
+\visible<20-22>{Pour certaines raisons, Hodgkin et Huxley ont cherché à modéliser sous la forme suivante : \\ }
+
+\visible<21-22>{$$\begin{array}{c l}
+\dot{\textcolor{colorparam}{n}} = \textcolor{colorcoeff}{\alpha_n(V)} \,\ (1 - \textcolor{colorparam}{n}) \; - \textcolor{colorcoeff}{\beta_n(V)}\; \; \textcolor{colorparam}{n}, \\[2mm]
+\dot{\textcolor{colorparam}{m}} = \textcolor{colorcoeff}{\alpha_m(V)}\ (1 - \textcolor{colorparam}{m}) - \textcolor{colorcoeff}{\beta_m(V)}\ \textcolor{colorparam}{m}, \\[2mm]
+\dot{\textcolor{colorparam}{h}} =  \textcolor{colorcoeff}{\alpha_h(V)} \; \;  (1 - \textcolor{colorparam}{h}) \;  - \textcolor{colorcoeff}{\beta_h(V)}\; \;  \textcolor{colorparam}{h}, \\[2mm]
+\end{array}$$}
+
+\visible<22>{\begin{center}JACKPOT\end{center}}
+}
+\only<23>{\raisebox{3cm}{
+\begin{minipage}{5cm}
+Les biologistes ont des techniques pour figer les canaux ioniques, permettant d'évaluer les fonctions $  \textcolor{colorcoeff}{\alpha_i(V)}  $ et $\textcolor{colorcoeff}{\beta_i(V)} $ une par une.\\[3mm]
+Les équations de ces fonctions sont ensuites ajustées pour approcher la 'voltage-clamped' data.
+\end{minipage}\hspace{0.5cm}
+\begin{minipage}{5cm}
+{\includegraphics[height=6.0cm]{HHModel/clamp2.png}}
+\end{minipage}
+}
+}
+\only<24-25>{
+Les équations proposées en 1952 furent :\\[6mm]
+\begin{center}
+\begin{tabular}{l c l c l  c l }
+$\textcolor{colorcoeff}{\alpha_n(V)} $&=& $0.01 \ \frac{10 - \textcolor{red}{V}}{e^{\frac{10 - \textcolor{red}{V}}{10}} - 1} $& &
+$\textcolor{colorcoeff}{\beta_n(V)}$ &=& $0.125 \  e^{-\frac{\textcolor{red}{V}}{80}}$ \\[5mm]
+$\textcolor{colorcoeff}{\alpha_m(V)} $&=& $0.1 \ \frac{25 - \textcolor{red}{V}}{e^{\frac{25 - \textcolor{red}{V}}{10}} - 1}$& &
+$\textcolor{colorcoeff}{\beta_m(V)} $&=& $4 \  e^{-\frac{\textcolor{red}{V}}{18}}$ \\[5mm]
+$\textcolor{colorcoeff}{\alpha_h(V)} $&=&$ 0.07 \ e^{-\frac{\textcolor{red}{V}}{20}}$ & &
+$\textcolor{colorcoeff}{\beta_h(V)} $&=&$ \ \frac{1}{e^{\frac{30 - \textcolor{red}{V}}{10}} + 1}$\\[4mm]
+\end{tabular}\\[3mm]
+\end{center}
+\visible<25>{d'où notre modèle complet.}
+}
+\only<26>{
+\raisebox{2cm}{\includegraphics[height=6.5cm]{HHModel/HH.png}}\\
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Testons le modèle}
+On va tester deux caractéristiques des vrais neurones que notre modèle devrait avoir :\\[2mm]
+\begin{enumerate}
+\item {\normalsize Bifurcation} \visible<2-3>{\\\small{(apparition d'un spike à partir d'une certaine valeur du paramètre $I$),}}\\[2mm]
+\item {\normalsize Résonance} \visible<3>{\\\small{(ce n'est pas parce qu'on augmente la valeur du paramètre $I$ qu'il y a plus de spikes).}}
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{HH model : test 1}
+\vspace{3mm}
+ \begin{minipage}{0.3cm}
+  
+\begin{center}
+\visible<2-6>{\noindent\\[0.2cm]
+\vspace{0.2cm}$V(t)$\\[0.75cm]
+}
+\visible<6>{ 
+$g_{Na}(t)$\\[0.75cm]
+$g_K(t)$\\[0.75cm]
+$m(t)$\\[0.75cm]
+$h(t)$
+}
+\end{center} 
+
+\end{minipage}
+\begin{minipage}{2.5cm}
+  
+\begin{center}\small{ I = 2.2}\\[2mm]
+\visible<2-6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2/NeuralImpulsesTheActionPotentialInAction-source21} \\
+}
+\visible<6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2/NeuralImpulsesTheActionPotentialInAction-source22} \\ 
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2/NeuralImpulsesTheActionPotentialInAction-source23} \\ 
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2/NeuralImpulsesTheActionPotentialInAction-source25}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2/NeuralImpulsesTheActionPotentialInAction-source26} 
+}
+\end{center} 
+
+\end{minipage}
+ \begin{minipage}{2.5cm}
+
+\begin{center}  \small{I = 2.2406730\;\;\;\;}\\[2mm]
+\visible<3-6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406730/NeuralImpulsesTheActionPotentialInAction-source21}\\
+}
+\visible<6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406730/NeuralImpulsesTheActionPotentialInAction-source22}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406730/NeuralImpulsesTheActionPotentialInAction-source23}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406730/NeuralImpulsesTheActionPotentialInAction-source25}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406730/NeuralImpulsesTheActionPotentialInAction-source26} 
+}
+\end{center} 
+
+\end{minipage}
+\begin{minipage}{2.5cm}
+  
+ \begin{center} \small{ I = 2.2406731\;\;\;\;}\\[2mm]
+\visible<4-6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406731/NeuralImpulsesTheActionPotentialInAction-source21}\\}
+\visible<6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406731/NeuralImpulsesTheActionPotentialInAction-source22}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406731/NeuralImpulsesTheActionPotentialInAction-source23}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406731/NeuralImpulsesTheActionPotentialInAction-source25}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal2.2406731/NeuralImpulsesTheActionPotentialInAction-source26} 
+}
+\end{center} 
+
+\end{minipage}
+\begin{minipage}{2.5cm}
+
+\begin{center}\small{   I = 5\;\;\;\;}\\[2mm]
+\visible<5-6>{\includegraphics[width = 1.8cm]{IBifurc/Iegal5/NeuralImpulsesTheActionPotentialInAction-source21}\\}
+\visible<6>{%
+\includegraphics[width = 1.8cm]{IBifurc/Iegal5/NeuralImpulsesTheActionPotentialInAction-source22}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal5/NeuralImpulsesTheActionPotentialInAction-source23}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal5/NeuralImpulsesTheActionPotentialInAction-source25}\\
+\includegraphics[width = 1.8cm]{IBifurc/Iegal5/NeuralImpulsesTheActionPotentialInAction-source26} 
+}
+\end{center} 
+
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{HH model : test 2}
+\begin{center}
+\includegraphics[height = 1cm]{Resonator/resoForm.png} \\[5mm]
+\visible<1>{\includegraphics[height = 3.3cm]{Resonator/reso.png} }
+\end{center}
+\end{frame}
+

@@ -1,0 +1,125 @@
+\documentclass{beamer}
+\mode<presentation>
+\usepackage[french,british]{babel}
+\usepackage[T1]{fontenc}
+
+\setbeamertemplate{footline}[page number]{}  
+\setbeamertemplate{navigation symbols}{}  
+
+\title[Maths pour Neuro]{Mathématiques pour les neurosciences\\
+\small{une petite présentation}}
+\author[Levity]{
+\raisebox{0.4cm}{Al Levity}\\
+\includegraphics[height=1.1cm]{Logos/RxPz.jpg}\\[1.3cm]
+\includegraphics[height=1.0cm]{Logos/ihr2.png}\hspace{0.8cm}
+\includegraphics[height=1.5cm]{Logos/Logo.jpg}  \hspace{0.7cm}
+\includegraphics[height=1.0cm]{Logos/notts.jpg}\\
+\textcolor{gray}{allevity@ihr.mrc.ac.uk}
+}
+\date{}
+
+\usetheme{Singapore}
+
+
+
+
+%%%%
+\usepackage{animate}
+\usepackage{multimedia}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\definecolor{shadecolor}{RGB}{1., 1., 0.} 
+
+\newcommand{\Vth}{V_\text{th}}
+\newcommand{\dx}{\,\text{d}x}
+\newcommand{\dy}{\,\text{d}y}
+\newcommand{\dt}{\,\text{d}t}
+\newcommand{\ds}{\,\text{d}s}
+\newcommand{\dB}{\,\text{d}B}
+\newcommand{\Lgen}{\mathcal{L}}
+\newcommand{\Rmq}{\noindent \textbf{Remark:} }
+\newcommand{\ToDo}[1]{\noindent\textcolor{red}{\textbf{#1}}}
+\newcommand{\Thm}[2]{\noindent\textbf{Theorem #1:} \textit{#2}\\}
+\newcommand{\Thmnospace}[2]{\noindent\textbf{Theorem #1:} \textit{#2}}
+
+\definecolor{colorcoeff}{rgb}{1,0,1}
+\definecolor{colorcoeff2}{rgb}{1,0,1}
+\definecolor{colorparam}{rgb}{1,0,0}
+
+\newcommand{\demi}{\frac{1}{2}}
+\newcommand{\Demi}{\dfrac{1}{2}}
+
+\DeclareMathOperator*{\E}{\mathbb{E}}
+\DeclareMathOperator*{\R}{\mathbb{R}}
+\DeclareMathOperator*{\N}{\mathbb{N}}
+\DeclareMathOperator*{\Normal}{\mathcal{N}}
+
+\newlength\figureheight 
+\newlength\figurewidth 
+
+%%%%
+
+\begin{document}
+
+\begin{frame} \titlepage \end{frame}
+
+\section[Intro.]{Introduction}   
+ \input{Intro.tex}
+
+\section[Neur.]{Neurones}      
+ \input{Neurons.tex}
+
+\section[Math]{Outils mathématiques 1}  
+ \input{Math1.tex}
+
+\section[Modél.]{Modélisation} 
+ \input{Model.tex}
+
+\section[Data]{Data}
+ \input{Data.tex}
+
+\section[Ref\&Conc]{Références et Conclusion}
+
+\begin{frame}
+\begin{center}
+	$\mathcal{LE \;\;MOT\;\; DE\;\; LA\;\; FIN}$
+\end{center}
+\end{frame}
+
+\subsection{Ref}
+
+\begin{frame}
+\frametitle{Références}
+Wikipédia (toujours vérifier les sources)\\
+Google\\
+Twitter\\[2mm]
+
+Denis Le Billan, \textit{Le cerveau de crystal}\\
+Izhikevich, \textit{Dynamical Systems in Neuroscience: The Geometry of Excitability and Bursting}\\
+
+\end{frame}
+
+
+\subsection{Conclusion}
+
+\begin{frame}
+\frametitle{Conclusion}
+Les sciences se partagent la compréhension des phénomènes ; être scientifique implique une ouverture.\\[2mm]
+
+Et il n'est jamais trop tôt pour être chercheur : n'attendez pas que les choses arrivent.
+\end{frame}
+
+
+\begin{frame}
+\begin{center}
+Merci de votre attention\\[5mm]
+
+Et si vous avez des questions scientifiques : allevity@ihr.mrc.ac.uk
+\end{center}
+\end{frame}
+
+\end{document}

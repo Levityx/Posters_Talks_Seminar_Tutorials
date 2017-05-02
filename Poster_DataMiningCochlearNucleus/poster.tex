@@ -1,0 +1,402 @@
+\documentclass[20pt, a0paper, portrait,innermargin=10mm,
+blockverticalspace=15mm, colspace=15mm, subcolspace=8mm]{tikzposter} 
+% Author: Alban.Levy@nottingham.ac.uk
+% Poster made in September 2015, presenting work in progress
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Packages 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+ 
+
+\usepackage{enumitem} % to change labels in enumerate 
+\usepackage{graphicx,float} % to play with logos
+\usepackage{tikz}
+\usetikzlibrary{shadings}
+\usepackage{amsmath}
+
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Paths 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+ 
+ 
+ % Since I work from various computers sharing Dropbox, 
+ % I've defined some paths in  file Dropbox/pathsForLaTeXFiles.tex
+ % Obviously I check which computer by verifying RxPz logo is there
+ \IfFileExists{/Users/pmxal9/Dropbox/Logos/RxPz.jpg}{
+	\def\computer{/Users/pmxal9/} 
+}{	
+	\def\computer{/Users/pmaal/} 
+}
+\edef\drop{\computer Dropbox/}
+\input{\drop pathsForLaTeXFiles.tex}
+\edef\Pics{\FYR Pics/}
+\def\SET{\drop Nottingham/SET/}
+
+% Logos
+\edef\logoNotts{\drop Logos/notts.png}
+\edef\logoIHR{\drop Logos/ihr.png}
+\edef\logoNETT{\drop Logos/NETT.png}
+\edef\logoPerso{\drop Logos/Logo.jpg}
+\edef\logoRxPz{\drop Logos/RxPz.jpg}
+\edef\logoEC{\drop Logos/EC.jpg}
+\edef\logoMCA{\drop Logos/MCA.jpg}
+
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 				Other 			   %
+ %%%%%%%% %%%%%%%% %%%%%%
+
+ 
+% Changed answerToChris folder momentarily
+%\edef\ansChris{\ansChris ../answersToChris_until_2015Sept15th/}
+
+% Use a counter for the blocks
+\newcounter{counter}
+\setcounter{counter}{1} 
+% Function to add counter to block title and increment its value
+\newcommand*\counterInc{\circled{\arabic{counter}}\addtocounter{counter}{1}}
+
+% Use a counter for references
+\newcounter{ref}
+\setcounter{ref}{1} 
+% Function to print ref counter and increment its value
+\newcommand*\refInc{{\arabic{ref}}\addtocounter{ref}{1}}
+
+% Command to enumerate blocks
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{%
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}\,\,}
+        
+ % turn comment off
+\tikzposterlatexaffectionproofoff        
+
+% Add stuff to do
+\newcommand*\addStuffToDo[1]{\fbox{%
+	\begin{minipage}{0.94\colwidth}{\textcolor{red}{#1}}\end{minipage}}}
+
+
+ %%%%%%%% %%%%%%%% %%%%%%
+ % 			      Title 	Logos 		   %
+ %%%%%%%% %%%%%%%% %%%%%% 
+
+
+ % TITLE
+ \title{\Huge Envelope coding in the Cochlear Nucleus: a Data Mining Approach}
+
+% SYMBOLS to use for the adresses and authors
+\def\characA{\oplus} 		
+\def\characB{\ominus}	
+\def\characC{\otimes}	
+
+% AUTHORS
+ \author{\Large 
+ 	Alban Levy${}^{\characA\characB}$  
+	Stephen Coombes${}^\characA$ 
+	Christian Sumner${}^\characB$
+	Aristodemos Pnevmatikakis${}^\characC$%
+}   
+
+% INSTITUTES
+\institute{\large University of Nottingham:\hspace{4mm}%
+	School of Mathematical Sciences${}^\characA$\hspace{4mm}%
+	Institute of Hearing Research${}^\characB$ \hspace{4mm}%
+	Athens Information Technology${}^\characC$\\[0.5cm]
+	\texttt{Alban.Levy@nottingham.ac.uk}\\[-15mm]
+}  
+
+ % Function for logos
+\newcommand\includelogo[1]{\includegraphics[height=2.8cm]{#1}}
+\newcommand\includelogospace[1]{\includelogo{#1}\hspace{40mm}}
+\titlegraphic{%
+	\includelogospace{\logoNotts} 
+	\includelogospace{\logoIHR} 
+ 	\includelogospace{\logoPerso} 
+ 	\includelogospace{\logoRxPz} 
+	\includelogospace{\logoNETT}
+	\includelogospace{\logoMCA} 
+	\includelogo{\logoEC}
+}
+
+% Theme
+\usetheme{Basic}  
+\usecolorstyle{Australia}
+\colorlet{backgroundcolor}{white}
+ 
+ 
+ %%%%%%%% %%%%%%%% %%%%%%%%
+ %				Document				 %
+ %%%%%%%% %%%%%%%% %%%%%%%%
+ 
+ 
+ \begin{document}
+     \maketitle[titletotopverticalspace=0.5cm,titlegraphictotitledistance=1cm] 
+     
+     \block[titlewidthscale=0.5]{Introduction}{
+	\begin{minipage}{39.2cm}
+		The Cochlear Nucleus (CN) processes the auditory information received from the inner hair cells in the cochlea, 
+		directly via the auditory nerve.  It is well established  that the timing of spikes in the CN precisely reflect the 
+		fine structure and envelope of sounds. Conventionally it has been assumed that the relationship between 
+		the stimulus and the timing of spikes can be approximated as linear. Classically the Vector Strength (VS) 
+		has been used to evaluate the information contained in the spike trains. Such analysis leads to a 
+		particular interpretation of temporal coding in the CN. 	
+ 	\end{minipage}%
+	\begin{minipage}{2cm}
+	\hspace{2cm}
+	\end{minipage}%
+	\begin{minipage}{39.1cm}
+		Recent findings suggest that this measure is not universally appropriate as it does not 
+		accurately reflect the information contained in the spike trains. 
+		To extract as much information as we can from the spike trains recorded and with less assumptions, 
+		we developed a computational architecture to use modern tools of Data Mining as a means to extract the modulation frequency 
+		of an Amplitude-Modulated tone from the patterns of spikes produced by CN neurons, using a supervised learning framework. 
+		We present the results of these computations and conclusions we can draw about processing in the CN.
+	\end{minipage}%
+   }  
+	
+     \begin{columns}  
+         \column{0.45}  
+         \block[titlewidthscale=0.45]{\counterInc CN Spike Trains}{%
+		\begin{minipage}{12.2cm}
+			\vspace{-6mm}
+			\includegraphics[width=12.2cm, height=12.2cm,trim=0cm 0.4cm 0cm 2.5cm, clip=true]{\ansChris  Classi2_copy1.png}
+			\vspace{-17mm}
+		\end{minipage}%
+		\begin{minipage}{22.4cm}
+			\def\modLevel{M}
+			\def\fmod{f_m\,}
+			\def\fcarr{f_c\,}
+			$\bullet$
+			\textbf{Raster plot} of  300 spike trains: responses of one cochlear nucleus neuron in stationary state over 80ms. \\[-5mm]
+			
+			$\bullet$
+			For each modulation frequency $\fmod \in \{50, 150,\dots,1150\}$Hz, 
+			an \textbf{amplitude modulated tone} is played 25 times to the anaesthetised animal:
+			$$s(t) = \modLevel\left(1+\sin(2\pi \fmod t)\right)\sin(2\pi\fcarr t)$$
+			\noindent for fixed modulation level $\modLevel$ and carrier frequency $\fcarr$.\\[-5mm]
+			
+			$\bullet$
+			\textbf{463} such datasets with 300 spike trains.\\[-5mm]
+			
+			$\bullet$
+			Cats' cochlear nucleus data recorded by Rhode \& Greenberg~[\refInc].
+		\end{minipage}
+	}
+	
+	\newlength\cwidth
+	\newlength\cheight
+	\setlength\cwidth{30cm}
+	\setlength\cheight{14cm}
+
+	\block[titlewidthscale=0.45]{\counterInc Vector Strength}{
+		\hspace{-0.6cm}
+		\begin{minipage}{16.5cm}
+			\vspace{-4mm}
+			\edef\VectorStrength{\ansChris  plotVectorStrength46_AM_headLength1_HeadWidth1_7.pdf}
+			\includegraphics[width=16cm,trim=2.1cm 1.2cm 0.5cm 13.2cm, clip=true]{\VectorStrength} 
+		\end{minipage}%
+		\begin{minipage}{18.7cm}
+				Vector Strength [\refInc] computation on 3 spike trains from an Onset unit, knowing the input (grey AM tone): 
+				each spike is associated with a phase $\phi_k$ (phase-coloured). \\
+			
+				The VS  $\rho\in[0,1]$ is the length of the black arrow:
+				$$\rho = \left|\frac{1}{n}\sum_{k=1}^n \text{e}^{i\phi_k}\right|.$$
+		\end{minipage}\\[3mm]%
+		The transfer modulation transfer function (tMTF) is a trace of modulation gain as a function of modulation frequency. 
+		It characterises the range of modulation frequencies a neuron encodes.~Cf~[1]: \\
+		$\bullet$ PL units are low pass envelope encoders like the AN. \\
+		$\bullet$ Choppers show modulation tuning:  bandpass tMTF (higher VS than PLs and a peak VS).\\
+		$\bullet$ Onset units are the best at encoding periodicity. \\[3mm]
+		\begin{minipage}{18cm}
+			\fbox{\includegraphics[width=18cm,trim=0cm 0cm 0cm 0cm, clip=true]{\Thesis DataMiningCochlearNucleus/Rhode1_2.png}}\\
+			\fbox{\includegraphics[width=18cm,trim=0cm 0cm 0cm 0cm, clip=true]{\Thesis DataMiningCochlearNucleus/Rhode2_2.png}}
+		\end{minipage}
+		\begin{minipage}{16cm}
+			\fbox{\includegraphics[width=15.465cm,trim=0cm 0cm 0cm 0cm, clip=true]{\Thesis DataMiningCochlearNucleus/Rhode3_4.png}}
+		\end{minipage}
+	}
+	
+	\block[titlewidthscale=0.35]{\counterInc  Preprocessing}{
+		\vspace{-2cm}\hspace{-7mm}
+		\begin{minipage}{17.5cm}
+			{\centering \includegraphics[width=17cm,trim=4.3cm 0cm 4cm 3cm, clip=true]{\DecisionTree NewTree.pdf}}
+			\vspace{3mm}
+		\end{minipage}%
+		\begin{minipage}{17.1cm}
+		\vspace{10mm}
+			Each dataset is preprocessed in 3 different ways: features from the interspike intervals, time-binning, or using a spike metric [\refInc]. 
+			We then apply 
+			all available classification algorithms from the data mining toolbox Weka [4]. \\
+		\end{minipage}%
+		
+		\hspace{-9mm}
+		\begin{tabular}{c|c|c}\hline\vspace{-1mm}
+		\textbf{ISI Features} & \textbf{Time-Binning} & \textbf{Spike Metric}\\
+			\begin{minipage}{0.3202\colwidth}
+				Mean, variance,  coefficient of variation, skewness, number of spikes, histogram values, \dots
+			\end{minipage}&
+			\begin{minipage}{0.3202\colwidth} 
+				\vspace{-10mm}
+				\includegraphics[width=0.32\colwidth,trim=0.2cm 0cm 0cm 0cm,clip=true]{\Thesis DataMiningCochlearNucleus/TimeBinning.pdf}
+			\end{minipage}&
+			\begin{minipage}{0.3202\colwidth}
+				\vspace{-8mm}
+				\includegraphics[width=0.32\colwidth,trim=5.3cm 18.5cm 3cm 3cm,clip=true]{\Thesis DataMiningCochlearNucleus/VictorPurpura.pdf}
+			\end{minipage}
+		\end{tabular}	
+		\vspace{-8mm}
+	}
+	
+	% Get the blocks closer
+	\newlength\closeblock
+	% Difference between the two ratios of block width
+	\setlength\closeblock{0.05\colwidth} 
+	\newlength\lilspace
+	\setlength\lilspace{-8mm}
+	
+         \block[titlewidthscale=0.45]{\counterInc Supervised Learning}{
+		\begin{minipage}{0.24\colwidth}
+			\vspace{-14mm}
+			\includegraphics[width=0.25\colwidth,trim=0cm 0cm 0cm 0cm, clip=true]{\ansChris  Classi2_copy2.png}
+		\end{minipage}%
+		\begin{minipage}{0.72\colwidth}{
+			$\bullet$ Typical \textbf{confusion matrix} as output by \textbf{Weka} [\refInc].\\[\lilspace]
+
+			$\bullet$ 
+			$\#(i,j)$ = \#instances of \textbf{class $i$ {classified} as belonging to class $j$.}\\[\lilspace]
+			
+			$\bullet$
+			Algorithms evaluated by stratified 10-fold \textbf{cross-validation}.\\[\lilspace]
+	
+			$\bullet$
+			Spike trains corresponding to low $f_m$ are easily classified. \\[\lilspace]
+			
+			$\bullet$
+			At high $f_m$, the algorithm is mostly guessing.\\[\lilspace]
+			
+			$\bullet$
+			\textbf{Low-pass tMTF} in this chopper unit for AM frequency transmission. 
+		}
+		\end{minipage}\\[-7mm]
+         }
+        
+	
+	%%%%%%%%%%%% COLUMN 2
+         \column{0.55}
+
+         \block[titlewidthscale=0.75]{\counterInc Average accuracy per classifier and unit type}{%
+		\hspace{-5mm}
+			\begin{minipage}{\colwidth}
+				\edef\allMean{\ansChris forAllClassifierAllTypes_mean_pctCorrect_surf_sortedTwoSMO_8.pdf}
+				\includegraphics[width=0.97\colwidth, trim=5cm 3.5cm 3cm 1cm, clip=true]{\allMean}
+			\end{minipage}\\%
+			\begin{minipage}{0.97\colwidth}
+				$\bullet$ 
+				Mean accuracy (percentage of correct guesses, $z$-axis) of all classification algorithms ($x$-axis) 
+				and unit types ($y$-axis). \\
+				%
+				$\bullet$ 
+				Both  \textbf{algorithms} and \textbf{unit types are overall ordered}: 
+				no preference from some algorithms to specific unit types. \\
+				%
+				$\bullet$ 
+				Unit types differ in their ability to transmit AM frequencies. 
+				Overall we confirm previous findings that \textbf{regular} firing cells are good at encoding envelopes. We obtain the order 
+				$On > Ch > LowF > PLN > PBU>PL$
+				while [1] obtain the following rank order for phase-locking capability:
+				$PLN>(On=PL)>Ch>PBU$.\\
+				%
+				$\bullet$
+				Different measures of performance generally yield the same relative performance, but different absolute performance.
+			\end{minipage}
+	}
+
+	\block[titlewidthscale=0.65]{\counterInc Comparing preprocessing methods.}{
+		\begin{minipage}{0.48\colwidth}
+		\edef\histSMOParulaPdf{\ansChris SMOperParam_pctCorrect_mean_parula_fifthVerReord.pdf} 
+		\vspace{-1.58mm}
+		\includegraphics[width=0.455\colwidth,trim=1.4cm 0.5cm 1.5cm 0.5cm, clip=true]{\histSMOParulaPdf} \\[-10mm]
+		\end{minipage}%
+		\begin{minipage}{0.48\colwidth}
+			$\bullet$ 
+			Figure shows mean performance across all recordings from a given unit type for the SMO classifier, 
+			with each preprocessing method. \\
+			Left: ISI features. 
+			Centre: V\&P spike metric. Right: Time-binning.\\[-9mm]
+					
+		 	$\bullet$ 
+			Renormalised histograms of the best parameter across datasets are shown in grey in each box.\\[-9mm]
+			
+			$\bullet$  
+			SpkM and time-binning give very similar peak values, which correspond to similar time resolutions. \\[-9mm]
+			
+			$\bullet$  
+			In general both SpkM and time binning outperform summary ISI statistics. 
+		\end{minipage}
+	}
+         
+        \begin{subcolumns}
+		\subcolumn{0.5}
+		\block[titlewidthscale=0.75]{\counterInc Transfer Function}{
+			\begin{minipage}{14.5cm}
+				\edef\cPLot{\ansChris tMTF_max_ClassifForEachType.pdf}
+				\includegraphics[width=0.9\subcolwidth,trim=0cm 0cm 0cm 0cm, clip=true]{\cPLot} 
+			\end{minipage}\\[3mm]%
+			\begin{minipage}{0.92\subcolwidth}
+				Mean percentage correct classification vs modulation frequency for each unit type, 
+				using  SMO classifier and spike-metric preprocessing.\\[-7mm]
+				
+				Stars show the cut-off frequencies $$H(\omega_{co})=||H||_\infty/\sqrt{2}.$$
+				\noindent\\[-12mm]
+				Curves are low-pass for all unit types. \\[-7mm]
+				
+				Primary-Like units' slope is low.\\[-10.9mm]
+			\end{minipage}%
+		}
+		
+		\setlength\lilspace{-6.35mm}	
+		\subcolumn{0.5}
+	
+		\block[titlewidthscale=0.85]{\counterInc Optimal time-scales}{%
+			\begin{minipage}{0.9\subcolwidth}
+				\edef\optimalTS{\ansChris OptimalTimeStepVSAccuracy_hist.pdf}
+				\includegraphics[width=0.9\subcolwidth, trim=0.5cm 0.3cm 0.4cm 0.5cm, clip=true]{\optimalTS}\\[-10mm]%
+			\end{minipage}\\%
+			\hspace{-6mm}
+			\begin{minipage}{0.945\subcolwidth}
+				Figure shows, for each recording, the \textbf{optimal time bin resolution vs accuracy} for classification using~SMO.\\[\lilspace]
+				
+				\textbf{Optimal time-step is sub-millisecond.}\\[\lilspace]
+				
+				Units where spikes were putatively less well timed gave low performance.\\[\lilspace]
+				
+				Subtle differences between units: PLN preferring smallest time windows. i.e. being most precise. 
+			\end{minipage}%
+		}
+	\end{subcolumns}
+	
+	\block[titlewidthscale=0.25]{}{%
+		\newcommand{\notation}[1]{[#1]:}
+		\vspace{-15mm}
+		\begin{minipage}{21cm}
+			\begin{enumerate}[label=\notation{\arabic*}]
+			\item W. S. Rhode and S. Greenberg. Encoding of amplitude modulation in the cochlear nucleus of the cat.
+				 Journal of Neurophysiology, 
+				May 1994.\\[-1.5mm]
+			\item J. Leo van Hemmen. Vector strength after Goldberg, Brown, and von Mises: biological and mathematical perspectives. 
+				Biological Cybernetics, August 2013.
+			\end{enumerate}
+		\end{minipage}\hspace{3mm}%
+		\begin{minipage}{21cm}
+			\begin{enumerate}[label=\notation{\arabic*}]
+			\setcounter{enumi}{2} 
+			\item Jonathan D. Victor and Keith P. Purpura. Metric-space analysis of spike trains: theory, algorithms and application. 
+				Network: Computation in Neural Systems, January 1997.\\[-1.5mm]
+			\item Mark Hall, Eibe Frank, Geoffrey Holmes, Bernhard Pfahringer, Peter Reutemann, and Ian H. Witten. The WEKA Data 
+				Mining Software: An Update. SIGKDD Explor. Newsl., November 2009.
+			\end{enumerate}
+		\end{minipage}
+		\vspace{-3mm}
+	}
+	\end{columns}
+	
+\end{document}
