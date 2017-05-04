@@ -13,19 +13,17 @@
 \usepackage{tikz}
 \usetikzlibrary{shadings}
 \usepackage{amsmath}
-%http://tex.stackexchange.com/questions/88429/color-box-with-rounded-corners-around-a-fragment-of-a-formula
 \usepackage[framemethod=TikZ]{mdframed} 
 \mdfdefinestyle{MyFrame}{%
     linecolor=blue,
     outerlinewidth=0.5pt,
     roundcorner=5pt,
-    innertopmargin=7pt,%\baselineskip,
-    innerbottommargin=7pt,%\baselineskip,
+    innertopmargin=7pt,
+    innerbottommargin=7pt,
     innerrightmargin=15pt,
     innerleftmargin=15pt,
     backgroundcolor=white!50!white
 }
-
 
 % Packages from Baposter template
 \usepackage{calc}
@@ -41,12 +39,6 @@
 \usepackage{multicol}
 \usepackage{tcolorbox}
 \usepackage{fancybox}
-%\usepackage{pstricks}
-
-% Font package
-%\usepackage{fontspec}
-%\setmainfont{Calibri}
-%\setsansfont{Calibri}
 
  %%%%%%%% %%%%%%%% %%%%%%
  % 				Paths 			   %
@@ -66,7 +58,7 @@
 
 % Logos
 \edef\logos{\drop LogoNoBackground/}
-\edef\logoNotts{\logos  notts.png} %UoN.png}% looks better without
+\edef\logoNotts{\logos  notts.png} 
 \edef\logoIHR{\logos ihr_3.png}
 \edef\logoNETT{\logos NETT.png}
 \edef\logoPerso{\logos Logo.png}
@@ -121,7 +113,6 @@
  \newcommand\includelogo[1]{\includegraphics[height=1.1cm]{#1}}
  \newcommand\includelogospace[1]{\includelogo{#1}\hspace{18mm}}
  \newcommand\titlelogos{%
-%\begin{mdframed}[style=MyFrame]
 	\includelogospace{\logoNotts} 
 	\includelogospace{\logoIHR} 
  	\includelogospace{\logoPerso} 
@@ -129,7 +120,6 @@
 	\includelogospace{\logoNETT}
 	\includelogospace{\logoMCA} 
 	\includelogo{\logoEC}
-%\end{mdframed}
 }
 
  %%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,9 +129,9 @@
  \begin{document}
  
 % SYMBOLS to use for the adresses and authors
-\def\characA{\oplus} 		%\ast %\mizu
-\def\characB{\ominus}	%\dagger %\omega
-\def\characC{\otimes}	%\dagger %\omega
+\def\characA{\oplus} 		
+\def\characB{\ominus}	
+\def\characC{\otimes}	
 
 % Color for title and bottom text. Put white (1,1,1) if very high background opacity 
 \definecolor{colorTitle}{rgb}{0,0,0} 
@@ -168,21 +158,21 @@
   bgColorOne=white,
   bgColorTwo=white,
   borderColor=lightblue!50!white,
-  headerColorOne=blue!80!black, %blue!80!white% black
+  headerColorOne=blue!80!black, 
   headerColorTwo=lightblue,
   headerFontColor=white,
   boxColorOne=white,
   boxColorTwo=lightblue,
   % Format of textbox
-  textborder=rounded, %roundedleft,
+  textborder=rounded, 
   % Format of text header
   eyecatcher=true,
   headerborder=closed,
   headerheight=0.1\textheight,
   %textfont=\sc, An example of changing the text font
-  headershape=rounded, %roundedright
+  headershape=rounded, 
   headershade=shadelr,
-  headerfont=\Large\bf\textsc, %Sans Serif
+  headerfont=\Large\bf\textsc, 
   textfont={\setlength{\parindent}{1em}},
   boxshade=plain,
   %background=shade-tb,
@@ -266,7 +256,7 @@
 				 \\[\spaceItem] 
 			\item[\ccircled{5}] Neurons use spikes in some secret Morse code Biology decided long ago: the\,
 						\textbf{neural code},\,inherently\,containing\,\textbf{randomness}. 
-						Since neurons transmitting sounds also process it, by building \textbf{computational models}  %or computer model?
+						Since neurons transmitting sounds also process it, by building \textbf{computational models}  
 						that simulate this processing we can test and develop our understanding of how the code is made.
 				 \\[\spaceItem] 
 			\item[\ccircled{6}]  A main goal of Neuroscience is to  \textbf{decipher} this code. This requires heavy Maths and \textbf{statistics} machinery.\\
@@ -322,7 +312,6 @@
 		%Iuliz1_2_2_3.jpeg/C'\'etait pour voir si internet,img_matti5_2.jpeg/The cake is a lie,img_alban4_2_lunapic.jpeg/Quoiiiiiiiiiiiiiii}{ 
 		% Cut heads
 		Iuliz1_2_2_4.jpeg/C'\'etait pour voir si internet$\dots$,img_matti6.jpeg/The cake is a lie,img_alban5.jpeg/Quoiiiiiiiiiii$\dots$ \\[3mm](Whaaaaaa$\dots$)}{
-		%\\[3mm](It was to see if internet$\dots$)
 		\begin{minipage}{1.05cm}	
 			\edef\cimage{\SET guineaPig/\face}
 			\includegraphics[height=1.5cm]{\cimage}
@@ -340,7 +329,7 @@
 		\hspace{0.8cm}
 	\end{minipage}
 	\begin{minipage}{9cm}
-		\includegraphics[width=7cm,trim=0cm 0cm 0cm 0.2cm, clip=true]{\cochImp}		 %8.6cm fit
+		\includegraphics[width=7cm,trim=0cm 0cm 0cm 0.2cm, clip=true]{\cochImp}		
 		% Add ref on image
 		\begin{tikzpicture}[remember picture,overlay] 
 			\node at (0.7,0) [anchor=south east] {[1]};
@@ -359,7 +348,7 @@
 		With a cochlear implant, the information is a fraction ($\sim$1\%) of normal. Still, speech can be understood in quiet environment.\\[2mm]
 	\begin{minipage}{\cwidth}
 		\begin{tikzpicture}	\begin{scope}[xscale=0.60, yscale=0.60,transform shape] 
-			\input{\SET tikzElectrodes/colorsElec_V2.tex}	%\input{\coloElecSix}% \coloElecFift   colorsElec_V2_drawEllipses.tex
+			\input{\SET tikzElectrodes/colorsElec_V2.tex}	
 		\end{scope}\end{tikzpicture}			
 		\begin{tikzpicture}[remember picture,overlay] % 
 			\definecolor{lColor}{cmyk}{0.606765,0.685752,0.000000,0.470800}
